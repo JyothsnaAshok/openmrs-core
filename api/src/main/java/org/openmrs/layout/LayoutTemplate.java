@@ -11,7 +11,6 @@ package org.openmrs.layout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +62,7 @@ public abstract class LayoutTemplate {
 	 *            first template line
 	 */
 	public LayoutTemplate(String simpleTemplate) {
-		setLineByLineFormat(Collections.singletonList(simpleTemplate));
+		setLineByLineFormat(Arrays.asList(simpleTemplate));
 	}
 	
 	public abstract String getLayoutToken();
