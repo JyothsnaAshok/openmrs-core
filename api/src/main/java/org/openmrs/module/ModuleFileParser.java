@@ -593,16 +593,7 @@ public class ModuleFileParser {
 		log.debug("description: {}, datatypeClassname: {}", description, datatypeClassname);
 		log.debug("datatypeConfig: {}", datatypeConfig);
 
-		return createGlobalProperty(property, defaultValue, description, datatypeClassname,
-			datatypeConfig);
-	}
-
-	private String removeTabsAndTrim(String string) {
-		return string.replaceAll("	", "").trim();
-	}
-
-	private GlobalProperty createGlobalProperty(String property, String defaultValue, String description,
-		String datatypeClassname, String datatypeConfig) {
+		// name is required
 		GlobalProperty globalProperty = null;
 		if (datatypeClassname.length() > 0 && property.length() > 0) {
 			try {
@@ -624,6 +615,10 @@ public class ModuleFileParser {
 			log.warn("'property' is required for global properties. Given '" + property + "'");
 		}
 		return globalProperty;
+	}
+
+	private String removeTabsAndTrim(String string) {
+		return string.replaceAll("	", "").trim();
 	}
 
 	private List<String> getMappingFiles(Element rootNode) {
