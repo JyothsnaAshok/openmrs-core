@@ -12,7 +12,6 @@ package org.openmrs.api;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -30,9 +29,7 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.mockito.Mockito;
 import org.openmrs.GlobalProperty;
 import org.openmrs.ImplementationId;
@@ -44,7 +41,6 @@ import org.openmrs.messagesource.MutableMessageSource;
 import org.openmrs.messagesource.impl.MutableResourceBundleMessageSource;
 import org.openmrs.test.BaseContextSensitiveTest;
 import org.openmrs.util.HttpClient;
-import org.openmrs.util.LocaleUtility;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -64,9 +60,6 @@ public class AdministrationServiceTest extends BaseContextSensitiveTest {
 	private HttpClient implementationHttpClient;
 
 	private CacheManager cacheManager;
-	
-	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
 	
 	@Before
 	public void runBeforeEachTest() {
@@ -433,21 +426,6 @@ public class AdministrationServiceTest extends BaseContextSensitiveTest {
 		gp.setPropertyValue("new-even-more-correct-value");
 		adminService.saveGlobalProperty(gp);
 		assertEquals("new-even-more-correct-value", adminService.getGlobalProperty("a_valid_gp_key"));
-	}
-	
-	@Test
-	public void saveGlobalProperty_shouldFailIfGivenAllowedLocaleListDoesNotContainDefaultLocale() {
-
-		String localeList = "fr,es";
-
-		assertThat("localeList contains default locale but should not for this test case", localeList,
-			not(containsString(LocaleUtility.getDefaultLocale().toString())));
-
-		expectedException.expect(APIException.class);
-		expectedException.expectMessage("can not be removed from allowed locales list because it is the default locale");
-		
-		adminService.saveGlobalProperty(
-			new GlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, localeList));
 	}
 	
 	@Test
