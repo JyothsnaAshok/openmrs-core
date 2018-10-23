@@ -46,7 +46,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
@@ -319,7 +318,7 @@ public class OpenmrsUtil {
 			return false;
 		}
 		
-		for (File f : Objects.requireNonNull(folder.listFiles())) {
+		for (File f : folder.listFiles()) {
 			if (f.getName().equals(filename)) {
 				return true;
 			}
@@ -901,7 +900,7 @@ public class OpenmrsUtil {
 		}
 		
 		File[] fileList = dir.listFiles();
-		for (File f : Objects.requireNonNull(fileList)) {
+		for (File f : fileList) {
 			if (f.isDirectory()) {
 				deleteDirectory(f);
 			}
