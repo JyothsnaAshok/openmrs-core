@@ -86,12 +86,7 @@ public class TextHandler extends AbstractHandler implements ComplexObsHandler {
 		}
 		
 		Assert.notNull(complexData, "Complex data must not be null");
-		
-		// Get the Mime Type and set it
-		String mimeType = OpenmrsUtil.getFileMimeType(file);
-		mimeType = !(mimeType.equals("application/octet-stream")) ? mimeType : "text/plain";
-		complexData.setMimeType(mimeType);
-		
+		complexData.setMimeType("text/plain");
 		obs.setComplexData(complexData);
 		
 		return obs;

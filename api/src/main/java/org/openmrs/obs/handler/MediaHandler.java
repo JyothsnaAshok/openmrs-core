@@ -26,8 +26,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Handler for storing audio and video for complex obs to the file system. The mime type used is
- * probed from the file if possible. Media are stored in the location specified by the global
- * property: "obs.complex_obs_dir"
+ * taken from the file name. Media are stored in the location specified by the global property: "obs.complex_obs_dir"
  *
  * @see org.openmrs.util.OpenmrsConstants#GLOBAL_PROPERTY_COMPLEX_OBS_DIR
  * @since 1.12
@@ -62,9 +61,7 @@ public class MediaHandler extends AbstractHandler implements ComplexObsHandler {
 				FileInputStream mediaStream = new FileInputStream(file);
 				ComplexData complexData = new ComplexData(originalFilename, mediaStream);
 				
-				// Get the Mime Type and set it
-				String mimeType = OpenmrsUtil.getFileMimeType(file);
-				complexData.setMimeType(mimeType);
+				complexData.setMimeType(OpenmrsUtil.getFileMimeType(file));
 				
 				complexData.setLength(file.length());
 				
