@@ -51,8 +51,6 @@ public class ModuleFileParser {
 	
 	private static final Logger log = LoggerFactory.getLogger(ModuleFileParser.class);
 	
-	private static final String MODULE_CONFIG_XML_FILENAME = "config.xml";
-	
 	/**
 	 * List out all of the possible version numbers for config files that openmrs has DTDs for.
 	 * These are usually stored at http://resources.openmrs.org/doctype/config-x.x.dt
@@ -134,7 +132,8 @@ public class ModuleFileParser {
 	private Document getModuleConfigXml() {
 		Document configDoc;
 		try (JarFile jarfile = new JarFile(moduleFile)) {
-			ZipEntry config = jarfile.getEntry(MODULE_CONFIG_XML_FILENAME);
+			// look for config.xml in the root of the module
+			ZipEntry config = jarfile.getEntry("config.xml");
 			if (config == null) {
 				throw new ModuleException(Context.getMessageSourceService().getMessage("Module.error.noConfigFile"),
 				        moduleFile.getName());
@@ -171,7 +170,7 @@ public class ModuleFileParser {
 			configDoc = db.parse(configStream);
 		}
 		catch (Exception e) {
-			log.error("Error parsing " + MODULE_CONFIG_XML_FILENAME + ": " + configStream.toString(), e);
+			log.error("Error parsing config.xml: " + configStream.toString(), e);
 
 			ByteArrayOutputStream out = null;
 			String output = "";
@@ -186,7 +185,7 @@ public class ModuleFileParser {
 				output = out.toString(StandardCharsets.UTF_8.name());
 			}
 			catch (Exception e2) {
-				log.warn("Another error parsing " + MODULE_CONFIG_XML_FILENAME, e2);
+				log.warn("Another error parsing config.xml", e2);
 			}
 			finally {
 				try {
@@ -195,7 +194,7 @@ public class ModuleFileParser {
 				catch (Exception e3) {}
 			}
 
-			log.error("{} content: {}", MODULE_CONFIG_XML_FILENAME, output);
+			log.error("config.xml content: " + output);
 			throw new ModuleException(
 				Context.getMessageSourceService().getMessage("Module.error.cannotParseConfigFile"), moduleFile
 				.getName(), e);
