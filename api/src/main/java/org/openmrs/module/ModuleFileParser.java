@@ -204,9 +204,8 @@ public class ModuleFileParser {
 		return config;
 	}
 
-	private Module createModule(Document config) {
-		Module module;
-		Element rootNode = config.getDocumentElement();
+	private Module createModule(Document configDoc) {
+		Module module;Element rootNode = configDoc.getDocumentElement();
 
 		String configVersion = rootNode.getAttribute("configVersion").trim();
 
@@ -257,7 +256,7 @@ public class ModuleFileParser {
 		module.setMappingFiles(getMappingFiles(rootNode));
 		module.setPackagesWithMappedClasses(getPackagesWithMappedClasses(rootNode));
 
-		module.setConfig(config);
+		module.setConfig(configDoc);
 
 		module.setMandatory(getMandatory(rootNode, configVersion));
 
