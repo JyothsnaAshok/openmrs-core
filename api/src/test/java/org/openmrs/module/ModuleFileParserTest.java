@@ -27,9 +27,9 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 /**
- * Unit tests {@link ModuleFileParser}.
+ * Tests ModuleFileParser
  */
-public class ModuleFileParserUnitTest {
+public class ModuleFileParserTest {
 	
 	/**
 	 * @throws IOException
