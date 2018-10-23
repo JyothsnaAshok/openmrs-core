@@ -416,9 +416,8 @@ public final class Listener extends ContextLoader implements ServletContextListe
 					log.debug("Overriding file: " + absolutePath);
 					log.debug("Overriding file with: " + userOverridePath);
 					if (file.isDirectory()) {
-						File[] files = file.listFiles();
-						if (files != null) {
-							for (File f : files) {
+						if (file.listFiles() != null) {
+							for (File f : file.listFiles()) {
 								userOverridePath = f.getAbsolutePath();
 								if (!f.getName().startsWith(".")) {
 									String tmpAbsolutePath = absolutePath + "/" + f.getName();
@@ -506,9 +505,8 @@ public final class Listener extends ContextLoader implements ServletContextListe
 		}
 		
 		// loop over the modules and load the modules that we can
-		File[] files = folder.listFiles();
-		if (files != null) {
-			for (File f : files) {
+		if (folder.listFiles() != null) {
+			for (File f : folder.listFiles()) {
 				if (!f.getName().startsWith(".")) { // ignore .svn folder and the like
 					try {
 						Module mod = ModuleFactory.loadModule(f);

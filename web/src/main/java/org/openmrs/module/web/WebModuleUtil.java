@@ -684,10 +684,9 @@ public class WebModuleUtil {
 		String messagesPath = realPath + "/WEB-INF/";
 		File folder = new File(messagesPath.replace("/", File.separator));
 		
-		File[] files = folder.listFiles();
-		if (folder.exists() && files != null) {
+		if (folder.exists()) {
 			Properties emptyProperties = new Properties();
-			for (File f : files) {
+			for (File f : folder.listFiles()) {
 				if (f.getName().startsWith("module_messages")) {
 					OpenmrsUtil.storeProperties(emptyProperties, f, "");
 				}
