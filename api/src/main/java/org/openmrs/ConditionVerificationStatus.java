@@ -15,8 +15,6 @@ package org.openmrs;
  * diagnosis. The following subset of FHIR statuses are currently defined:
  * <li>{@link #PROVISIONAL}</li>
  * <li>{@link #CONFIRMED}</li>
- * 
- * @since 2.2
  */
 public enum ConditionVerificationStatus {
 	
