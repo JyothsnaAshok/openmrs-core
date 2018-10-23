@@ -195,7 +195,7 @@ public class SourceMySqldiffFile implements CustomTaskChange {
 	private Integer execCmd(File wd, String[] cmdWithArguments, StringBuilder out) throws Exception {
 		log.debug("executing command: " + Arrays.toString(cmdWithArguments));
 		
-		Integer exitValue;
+		Integer exitValue = -1;
 		
 		// Needed to add support for working directory because of a linux
 		// file system permission issue.
@@ -210,7 +210,7 @@ public class SourceMySqldiffFile implements CustomTaskChange {
 		out.append("Normal cmd output:\n");
 		Reader reader = new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8);
 		BufferedReader input = new BufferedReader(reader);
-		int readChar;
+		int readChar = 0;
 		while ((readChar = input.read()) != -1) {
 			out.append((char) readChar);
 		}
@@ -220,6 +220,7 @@ public class SourceMySqldiffFile implements CustomTaskChange {
 		out.append("ErrorStream cmd output:\n");
 		reader = new InputStreamReader(p.getErrorStream(), StandardCharsets.UTF_8);
 		input = new BufferedReader(reader);
+		readChar = 0;
 		while ((readChar = input.read()) != -1) {
 			out.append((char) readChar);
 		}

@@ -62,7 +62,7 @@ public class UpdateFileParser {
 	public void parse() throws ModuleException {
 		StringReader stringReader = null;
 		try {
-			Document updateDoc;
+			Document updateDoc = null;
 			try {
 				stringReader = new StringReader(content);
 				InputSource inputSource = new InputSource(stringReader);

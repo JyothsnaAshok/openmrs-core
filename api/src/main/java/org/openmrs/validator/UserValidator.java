@@ -105,7 +105,7 @@ public class UserValidator implements Validator {
 			}
 			
 			AdministrationService as = Context.getAdministrationService();
-			boolean emailAsUsername;
+			boolean emailAsUsername = false;
 			try {
 				Context.addProxyPrivilege(PrivilegeConstants.GET_GLOBAL_PROPERTIES);
 				emailAsUsername = Boolean.parseBoolean(as.getGlobalProperty(

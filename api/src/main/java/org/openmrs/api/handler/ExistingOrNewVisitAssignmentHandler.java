@@ -121,7 +121,7 @@ public class ExistingOrNewVisitAssignmentHandler extends ExistingVisitAssignment
 					if (targetEncounterTypeId.equals(encounterTypeIdOrUuid)
 					        || encounterType.getUuid().equals(encounterTypeIdOrUuid)) {
 						String visitTypeIdOrUuid = mapping.substring(index + 1).trim();
-						VisitType visitType;
+						VisitType visitType = null;
 						if (StringUtils.isNumeric(visitTypeIdOrUuid)) {
 							visitType = visitService.getVisitType(Integer.parseInt(visitTypeIdOrUuid));
 						} else {

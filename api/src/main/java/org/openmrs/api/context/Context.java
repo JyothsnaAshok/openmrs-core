@@ -659,7 +659,7 @@ public class Context {
 	 */
 	public static void requirePrivilege(String privilege) throws ContextAuthenticationException {
 		if (!hasPrivilege(privilege)) {
-			String errorMessage;
+			String errorMessage = null;
 			if (StringUtils.isNotBlank(privilege)) {
 				errorMessage = Context.getMessageSourceService().getMessage("error.privilegesRequired",
 				    new Object[] { privilege }, null);
@@ -1108,7 +1108,7 @@ public class Context {
 	 *      the required question/datatypes
 	 */
 	private static void checkForDatabaseUpdates(Properties props) throws DatabaseUpdateException, InputRequiredException {
-		boolean updatesRequired;
+		boolean updatesRequired = true;
 		try {
 			updatesRequired = DatabaseUpdater.updatesRequired();
 		}

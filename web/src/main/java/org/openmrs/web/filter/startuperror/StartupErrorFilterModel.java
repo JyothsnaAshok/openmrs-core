@@ -20,9 +20,9 @@ import org.openmrs.web.filter.update.UpdateFilter;
  */
 public class StartupErrorFilterModel {
 	
-	public Throwable errorAtStartup;
+	public Throwable errorAtStartup = null;
 	
-	public String stacktrace;
+	public String stacktrace = null;
 	
 	/**
 	 * Default constructor that sets up some of the properties

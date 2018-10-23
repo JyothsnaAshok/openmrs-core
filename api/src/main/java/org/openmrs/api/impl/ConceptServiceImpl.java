@@ -424,8 +424,8 @@ public class ConceptServiceImpl extends BaseOpenmrsService implements ConceptSer
 	@Override
 	@Transactional(readOnly = true)
 	public Concept getConcept(String conceptIdOrName) {
-		Concept c;
-		Integer conceptId;
+		Concept c = null;
+		Integer conceptId = null;
 		try {
 			conceptId = Integer.valueOf(conceptIdOrName);
 		}
@@ -463,7 +463,7 @@ public class ConceptServiceImpl extends BaseOpenmrsService implements ConceptSer
 	@Override
 	@Transactional(readOnly = true)
 	public Drug getDrug(String drugNameOrId) {
-		Integer drugId;
+		Integer drugId = null;
 		
 		try {
 			drugId = Integer.valueOf(drugNameOrId);

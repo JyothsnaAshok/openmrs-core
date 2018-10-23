@@ -92,7 +92,7 @@ public class PropertiesFileValidator {
 		BufferedReader bufferedReader = new BufferedReader(
 				new InputStreamReader(inputStream));
 
-		String line;
+		String line = null;
 
 		List<String> result = new ArrayList<>();
 

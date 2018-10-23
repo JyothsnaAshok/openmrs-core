@@ -126,7 +126,7 @@ public class ModuleFileParser {
 	 */
 	public Module parse() throws ModuleException {
 		
-		Module module;
+		Module module = null;
 		JarFile jarfile = null;
 		InputStream configStream = null;
 		
@@ -156,7 +156,7 @@ public class ModuleFileParser {
 			}
 			
 			// turn the config file into an xml document
-			Document configDoc;
+			Document configDoc = null;
 			try {
 				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 				DocumentBuilder db = dbf.newDocumentBuilder();

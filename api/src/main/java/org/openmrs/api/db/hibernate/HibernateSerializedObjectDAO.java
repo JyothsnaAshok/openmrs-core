@@ -215,7 +215,7 @@ public class HibernateSerializedObjectDAO implements SerializedObjectDAO {
 			serializedObject.setDateChanged(auditableObj.getDateChanged());
 		}
 		
-		String data;
+		String data = null;
 		try {
 			data = serializer.serialize(object);
 		}
@@ -304,7 +304,7 @@ public class HibernateSerializedObjectDAO implements SerializedObjectDAO {
 			return null;
 		}
 		OpenmrsSerializer serializer = getSerializer(serializedObject);
-		T obj;
+		T obj = null;
 		try {
 			Class<?> subtype = Context.loadClass(serializedObject.getSubtype());
 			obj = (T) serializer.deserialize(serializedObject.getSerializedData(), subtype);

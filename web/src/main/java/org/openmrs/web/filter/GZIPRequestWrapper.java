@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
  */
 public class GZIPRequestWrapper extends HttpServletRequestWrapper {
 	
-	protected ServletInputStream stream;
+	protected ServletInputStream stream = null;
 	
 	public GZIPRequestWrapper(HttpServletRequest request) throws IOException {
 		super(request);

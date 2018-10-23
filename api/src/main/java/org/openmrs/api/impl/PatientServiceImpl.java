@@ -1027,7 +1027,7 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 				if (obssExit.size() > 1) {
 					log.error("Multiple reasons for exit (" + obssExit.size() + ")?  Shouldn't be...");
 				} else {
-					Obs obsExit;
+					Obs obsExit = null;
 					if (obssExit.size() == 1) {
 						// already has a reason for exit - let's edit it.
 						log.debug("Already has a reason for exit, so changing it");
@@ -1149,7 +1149,7 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 				if (obssDeath.size() > 1) {
 					log.error("Multiple causes of death (" + obssDeath.size() + ")?  Shouldn't be...");
 				} else {
-					Obs obsDeath;
+					Obs obsDeath = null;
 					if (obssDeath.size() == 1) {
 						// already has a cause of death - let's edit it.
 						log.debug("Already has a cause of death, so changing it");

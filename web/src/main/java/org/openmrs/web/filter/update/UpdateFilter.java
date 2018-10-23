@@ -729,6 +729,7 @@ public class UpdateFilter extends StartupFilter {
 							
 							if (CollectionUtils.isNotEmpty(warnings)) {
 								reportWarnings(warnings);
+								warnings = null;
 							}
 						}
 						catch (InputRequiredException inputRequired) {

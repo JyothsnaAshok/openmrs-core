@@ -418,7 +418,7 @@ public class HibernateUserDAO implements UserDAO {
 		
 		Object object = query.uniqueResult();
 		
-		Integer id;
+		Integer id = null;
 		if (object instanceof Number) {
 			id = ((Number) query.uniqueResult()).intValue() + 1;
 		} else {

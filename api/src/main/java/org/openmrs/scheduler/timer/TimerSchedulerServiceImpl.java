@@ -500,6 +500,7 @@ public class TimerSchedulerServiceImpl extends BaseOpenmrsService implements Sch
 					timerMemento.addErrorTask(taskId);
 				}
 			}
+			timerMemento = null; // so the old cl can be gc'd
 		}
 	}
 	

@@ -151,7 +151,7 @@ public class DatabaseUpgradeTestUtil {
 	
 	public void executeDataset(String path) throws IOException, SQLException {
 		InputStream inputStream = getClass().getResourceAsStream(path);
-		ReplacementDataSet replacementDataSet;
+		ReplacementDataSet replacementDataSet = null;
 		try {
 			replacementDataSet = new ReplacementDataSet(new FlatXmlDataSet(new InputStreamReader(inputStream), false, true,
 			        false));

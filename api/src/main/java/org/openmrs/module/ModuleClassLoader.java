@@ -264,7 +264,7 @@ public class ModuleClassLoader extends URLClassLoader {
 			}
 			
 			// add the module jar as a url in the classpath of the classloader
-			URL moduleFileURL;
+			URL moduleFileURL = null;
 			try {
 				moduleFileURL = ModuleUtil.file2url(tmpModuleJar);
 				result.add(moduleFileURL);
@@ -769,7 +769,7 @@ public class ModuleClassLoader extends URLClassLoader {
 			return libraryCache.get(libUri);
 		}
 		
-		File result;
+		File result = null;
 		try {
 			if (cacheFolder == null) {
 				throw new IOException("can't initialize libraries cache folder");

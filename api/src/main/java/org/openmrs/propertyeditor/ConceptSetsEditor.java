@@ -28,7 +28,7 @@ public class ConceptSetsEditor extends PropertyEditorSupport {
 	
 	private static final Logger log = LoggerFactory.getLogger(ConceptSetsEditor.class);
 	
-	private Collection<ConceptSet> originalConceptSets;
+	private Collection<ConceptSet> originalConceptSets = null;
 	
 	/**
 	 * Default constructor taking in the current sets on a concept
