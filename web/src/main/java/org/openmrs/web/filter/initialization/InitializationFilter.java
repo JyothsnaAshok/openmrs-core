@@ -1174,8 +1174,10 @@ public class InitializationFilter extends StartupFilter {
 			
 			// run the sql statement
 			statement = connection.createStatement();
-
-			return statement.executeUpdate(replacedSql);
+			
+			int updateDelta = statement.executeUpdate(replacedSql);
+			statement.close();
+			return updateDelta;
 			
 		}
 		catch (SQLException sqlex) {
@@ -1190,7 +1192,7 @@ public class InitializationFilter extends StartupFilter {
 		}
 		finally {
 			try {
-				if (statement != null) {
+				if (statement != null && !statement.isClosed()) {
 					statement.close();
 				}
 			}
