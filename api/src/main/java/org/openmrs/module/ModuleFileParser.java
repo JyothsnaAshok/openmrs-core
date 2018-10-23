@@ -182,8 +182,10 @@ public class ModuleFileParser {
 		catch (Exception e) {
 			log.error("Error parsing " + MODULE_CONFIG_XML_FILENAME + ": " + configStream.toString(), e);
 
+			ByteArrayOutputStream out = null;
 			String output = "";
-			try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+			try {
+				out = new ByteArrayOutputStream();
 				// Now copy bytes from the URL to the output stream
 				byte[] buffer = new byte[4096];
 				int bytesRead;
@@ -194,6 +196,12 @@ public class ModuleFileParser {
 			}
 			catch (Exception e2) {
 				log.warn("Another error parsing " + MODULE_CONFIG_XML_FILENAME, e2);
+			}
+			finally {
+				try {
+					out.close();
+				}
+				catch (Exception e3) {}
 			}
 
 			log.error("{} content: {}", MODULE_CONFIG_XML_FILENAME, output);
