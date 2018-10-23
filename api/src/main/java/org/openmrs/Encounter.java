@@ -53,9 +53,7 @@ public class Encounter extends BaseChangeableOpenmrsData {
 	private EncounterType encounterType;
 	
 	private Set<Order> orders;
-
-	private Set<Diagnosis> diagnoses;
-
+	
 	@AllowDirectAccess
 	private Set<Obs> obs;
 	
@@ -385,26 +383,6 @@ public class Encounter extends BaseChangeableOpenmrsData {
 	 */
 	public void setPatient(Patient patient) {
 		this.patient = patient;
-	}
-
-	/**
-	 * Gets the set of diagnoses
-	 * @return diagnoses - the set of diagnoses.
-	 * 
-	 *  @since 2.2
-	 */
-	public Set<Diagnosis> getDiagnoses() {
-		return diagnoses;
-	}
-
-	/**
-	 * Sets a set of diagnoses for the current Encounter
-	 * @param diagnoses the set of Diagnosis to set.
-	 * 
-	 * @since 2.2   
-	 */
-	public void setDiagnoses(Set<Diagnosis> diagnoses) {
-		this.diagnoses = diagnoses;
 	}
 	
 	/**
