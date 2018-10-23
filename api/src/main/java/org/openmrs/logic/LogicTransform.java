@@ -99,12 +99,22 @@ public class LogicTransform {
 		if (!(obj instanceof LogicTransform)) {
 			return false;
 		}
-
+		
 		LogicTransform compTransform = (LogicTransform) obj;
-
-		return safeEquals(this.transformOperator, compTransform.getTransformOperator()) && safeEquals(numResults,
-				compTransform.getNumResults()) && safeEquals(sortColumn, compTransform.getSortColumn());
-
+		
+		if (!safeEquals(this.transformOperator, compTransform.getTransformOperator())) {
+			return false;
+		}
+		
+		if (!safeEquals(numResults, compTransform.getNumResults())) {
+			return false;
+		}
+		
+		if (!safeEquals(sortColumn, compTransform.getSortColumn())) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	private boolean safeEquals(Object a, Object b) {

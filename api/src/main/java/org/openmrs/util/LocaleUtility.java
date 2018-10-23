@@ -105,8 +105,14 @@ public class LocaleUtility implements GlobalPropertyListener {
 	 * @should confirm matching language as compatible
 	 */
 	public static boolean areCompatible(Locale lhs, Locale rhs) {
-		return lhs.equals(rhs) || (("".equals(lhs.getCountry())) || ("".equals(rhs.getCountry()))) && lhs.getLanguage()
-				.equals(rhs.getLanguage());
+		if (lhs.equals(rhs)) {
+			return true;
+		} else if ((("".equals(lhs.getCountry())) || ("".equals(rhs.getCountry())))
+		        && lhs.getLanguage().equals(rhs.getLanguage())) {
+			// no country specified, so language match is good enough
+			return true;
+		}
+		return false;
 	}
 	
 	/**

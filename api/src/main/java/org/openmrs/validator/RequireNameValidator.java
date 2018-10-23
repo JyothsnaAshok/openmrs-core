@@ -30,7 +30,13 @@ public class RequireNameValidator implements Validator {
 	public boolean supports(Class<?> c) {
 		try {
 			PropertyDescriptor pd = new PropertyDescriptor("name", c);
-			return pd.getReadMethod() != null && pd.getWriteMethod() != null;
+			if (pd.getReadMethod() == null) {
+				return false;
+			}
+			if (pd.getWriteMethod() == null) {
+				return false;
+			}
+			return true;
 		}
 		catch (Exception ex) {}
 		return false;

@@ -65,14 +65,18 @@ public class ModuleConditionalResource {
 			return false;
 		}
 		ModuleConditionalResource that = (ModuleConditionalResource) o;
-
+		
 		if (modules != null ? !modules.equals(that.modules) : that.modules != null) {
 			return false;
 		}
 		if (openmrsPlatformVersion != null ? !openmrsPlatformVersion.equals(that.openmrsPlatformVersion) : that.openmrsPlatformVersion != null) {
 			return false;
 		}
-		return path != null ? path.equals(that.path) : that.path == null;
+		if (path != null ? !path.equals(that.path) : that.path != null) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	@Override
@@ -120,11 +124,15 @@ public class ModuleConditionalResource {
 				return false;
 			}
 			ModuleAndVersion that = (ModuleAndVersion) o;
-
+			
 			if (moduleId != null ? !moduleId.equals(that.moduleId) : that.moduleId != null) {
 				return false;
 			}
-			return version != null ? version.equals(that.version) : that.version == null;
+			if (version != null ? !version.equals(that.version) : that.version != null) {
+				return false;
+			}
+			
+			return true;
 		}
 		
 		@Override

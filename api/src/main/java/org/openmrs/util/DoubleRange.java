@@ -125,9 +125,13 @@ public class DoubleRange implements Comparable<DoubleRange> {
 		if (high != null) {
 			if (closedHigh) {
 				//unreachable code as closedHigh is never set to true anywhere
-				return d <= high;
+				if (d > high) {
+					return false;
+				}
 			} else {
-				return d < high;
+				if (d >= high) {
+					return false;
+				}
 			}
 		}
 		return true;

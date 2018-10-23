@@ -269,7 +269,11 @@ public class Allergy extends BaseChangeableOpenmrsData {
 		if (!OpenmrsUtil.nullSafeEquals(getComment(), allergy.getComment())) {
 			return false;
 		}
-		return hasSameReactions(allergy);
+		if (!hasSameReactions(allergy)) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	/**
