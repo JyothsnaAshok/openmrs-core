@@ -20,15 +20,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.PersonName;
-import org.openmrs.test.BaseContextSensitiveTest;
 
-public class NameTemplateTest extends BaseContextSensitiveTest {
+public class NameTemplateTest {
 	
 	private NameSupport nameSupport;
 	
 	@Before
 	public void setup() {
-		nameSupport = NameSupport.getInstance();
+		nameSupport = new NameSupport();
 		nameSupport.setSpecialTokens(Arrays.asList("prefix", "givenName", "middleName", "familyNamePrefix",
 		    "familyNameSuffix", "familyName2", "familyName", "degree"));
 	}
