@@ -426,16 +426,14 @@ public final class Listener extends ContextLoader implements ServletContextListe
 					webAppLog.debug("Overriding file: " + absolutePath);
 					webAppLog.debug("Overriding file with: " + userOverridePath);
 					if (file.isDirectory()) {
-						if (file.listFiles() != null) {
-							for (File f : file.listFiles()) {
-								userOverridePath = f.getAbsolutePath();
-								if (!f.getName().startsWith(".")) {
-									String tmpAbsolutePath = absolutePath + "/" + f.getName();
-									if (!copyFile(userOverridePath, tmpAbsolutePath)) {
-										webAppLog.warn("Unable to copy file in folder defined by runtime property: " + prop);
-										webAppLog.warn("Your source directory (or a file in it) '" + userOverridePath
-												+ " cannot be loaded or destination '" + tmpAbsolutePath + "' cannot be found");
-									}
+						for (File f : file.listFiles()) {
+							userOverridePath = f.getAbsolutePath();
+							if (!f.getName().startsWith(".")) {
+								String tmpAbsolutePath = absolutePath + "/" + f.getName();
+								if (!copyFile(userOverridePath, tmpAbsolutePath)) {
+									webAppLog.warn("Unable to copy file in folder defined by runtime property: " + prop);
+									webAppLog.warn("Your source directory (or a file in it) '" + userOverridePath
+									        + " cannot be loaded or destination '" + tmpAbsolutePath + "' cannot be found");
 								}
 							}
 						}
@@ -519,16 +517,14 @@ public final class Listener extends ContextLoader implements ServletContextListe
 		}
 		
 		// loop over the modules and load the modules that we can
-		if (folder.listFiles() != null) {
-			for (File f : folder.listFiles()) {
-				if (!f.getName().startsWith(".")) { // ignore .svn folder and the like
-					try {
-						Module mod = ModuleFactory.loadModule(f);
-						log.debug("Loaded bundled module: " + mod + " successfully");
-					}
-					catch (Exception e) {
-						log.warn("Error while trying to load bundled module " + f.getName() + "", e);
-					}
+		for (File f : folder.listFiles()) {
+			if (!f.getName().startsWith(".")) { // ignore .svn folder and the like
+				try {
+					Module mod = ModuleFactory.loadModule(f);
+					log.debug("Loaded bundled module: " + mod + " successfully");
+				}
+				catch (Exception e) {
+					log.warn("Error while trying to load bundled module " + f.getName() + "", e);
 				}
 			}
 		}
