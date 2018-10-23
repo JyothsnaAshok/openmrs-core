@@ -78,7 +78,9 @@ public class HibernateSessionFactoryBean extends LocalSessionFactoryBean {
 	
 	public Set<String> getModuleMappingResources() {
 		for (Module mod : ModuleFactory.getStartedModules()) {
-			mappingResources.addAll(mod.getMappingFiles());
+			for (String s : mod.getMappingFiles()) {
+				mappingResources.add(s);
+			}
 		}
 		return mappingResources;
 	}
@@ -92,7 +94,9 @@ public class HibernateSessionFactoryBean extends LocalSessionFactoryBean {
 	public Set<String> getModulePackagesWithMappedClasses() {
 		Set<String> packages = new HashSet<String>();
 		for (Module module : ModuleFactory.getStartedModules()) {
-			packages.addAll(module.getPackagesWithMappedClasses());
+			for (String pack : module.getPackagesWithMappedClasses()) {
+				packages.add(pack);
+			}
 		}
 		return packages;
 	}

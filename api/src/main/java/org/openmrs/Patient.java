@@ -324,7 +324,9 @@ public class Patient extends Person {
 				}
 			}
 		}
-		ids.addAll(nonPreferred);
+		for (PatientIdentifier pi : nonPreferred) {
+			ids.add(pi);
+		}
 		return ids;
 	}
 	

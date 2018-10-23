@@ -1071,7 +1071,9 @@ public final class OpenmrsConstants {
 		
 		props
 				.add(new GlobalProperty(GP_DRUG_ORDER_DRUG_OTHER, "", "Specifies the uuid of the concept which represents drug other non coded"));
-		props.addAll(ModuleFactory.getGlobalProperties());
+		for (GlobalProperty gp : ModuleFactory.getGlobalProperties()) {
+			props.add(gp);
+		}
 		
 		return props;
 	}
