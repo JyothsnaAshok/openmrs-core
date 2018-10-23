@@ -10,7 +10,6 @@
 package org.openmrs.module;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.hasItems;
@@ -28,7 +27,6 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +50,6 @@ import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
@@ -104,7 +101,7 @@ public class ModuleFileParserTest extends BaseContextSensitiveTest {
 
 		new ModuleFileParser(new File("reporting.jar"));
 	}
-
+	
 	@Test
 	public void moduleFileParser_shouldParseValidXmlConfigCreatedFromInputStream() throws IOException {
 
@@ -131,7 +128,7 @@ public class ModuleFileParserTest extends BaseContextSensitiveTest {
 	public void moduleFileParser_shouldFailCreatingParserFromFileIfInputStreamClosed() throws IOException {
 
 		expectModuleExceptionWithTranslatedMessage("Module.error.cannotCreateFile");
-
+		
 		Document config = new ModuleConfigXmlBuilder(documentBuilder)
 			.withModuleRoot()
 			.withConfigVersion("1.6")
@@ -1052,149 +1049,6 @@ public class ModuleFileParserTest extends BaseContextSensitiveTest {
 	}
 
 	@Test
-	public void parse_shouldParseConditionalResources() throws IOException {
-
-		HashMap<String, String> modules = new HashMap<>();
-		modules.put("metadatamapping", "1.0");
-		modules.put("reporting", "2.0");
-		Document config = buildOnValidConfigXml("1.2")
-			.withConditionalResource("/lib/htmlformentry-api-1.10*", "1.10")
-			.withConditionalResource("/lib/metadatasharing-api-1.9*", "1.9", modules)
-			.build();
-
-		ModuleFileParser parser = new ModuleFileParser(writeConfigXmlToFile(config));
-
-		Module module = parser.parse();
-
-		ModuleConditionalResource htmlformentry = new ModuleConditionalResource();
-		htmlformentry.setPath("/lib/htmlformentry-api-1.10*");
-		htmlformentry.setOpenmrsPlatformVersion("1.10");
-
-		ModuleConditionalResource metadatasharing = new ModuleConditionalResource();
-		metadatasharing.setPath("/lib/metadatasharing-api-1.9*");
-		metadatasharing.setOpenmrsPlatformVersion("1.9");
-		ModuleConditionalResource.ModuleAndVersion metadatamapping = new ModuleConditionalResource.ModuleAndVersion();
-		metadatamapping.setModuleId("metadatamapping");
-		metadatamapping.setVersion("1.0");
-		ModuleConditionalResource.ModuleAndVersion reporting = new ModuleConditionalResource.ModuleAndVersion();
-		reporting.setModuleId("reporting");
-		reporting.setVersion("2.0");
-
-		metadatasharing.setModules(Arrays.asList(metadatamapping, reporting));
-
-		assertThat(module.getConditionalResources().size(), is(2));
-		assertThat(module.getConditionalResources(), contains(htmlformentry, metadatasharing));
-	}
-
-	@Test
-	public void parse_shouldParseConditionalResourcesWithWhitespace() throws IOException {
-
-		Document config = buildOnValidConfigXml("1.2")
-			.withTextNode("conditionalResources", "        	")
-			.withConditionalResource("/lib/htmlformentry-api-1.10*", "1.10")
-			.build();
-		config.getElementsByTagName("conditionalResource")
-			.item(0)
-			.appendChild(config.createTextNode("        	"));
-
-		ModuleFileParser parser = new ModuleFileParser(writeConfigXmlToFile(config));
-
-		Module module = parser.parse();
-
-		ModuleConditionalResource htmlformentry = new ModuleConditionalResource();
-		htmlformentry.setPath("/lib/htmlformentry-api-1.10*");
-		htmlformentry.setOpenmrsPlatformVersion("1.10");
-
-		assertThat(module.getConditionalResources().size(), is(1));
-		assertThat(module.getConditionalResources(), contains(htmlformentry));
-	}
-
-	@Test
-	public void parse_shouldParseConditionalResourcesEvenIfVersionIsMissing() throws IOException {
-
-		Document config = buildOnValidConfigXml("1.2")
-			.withConditionalResource("/lib/htmlformentry-api-1.10*", null)
-			.build();
-
-		ModuleFileParser parser = new ModuleFileParser(writeConfigXmlToFile(config));
-
-		Module module = parser.parse();
-
-		ModuleConditionalResource htmlformentry = new ModuleConditionalResource();
-		htmlformentry.setPath("/lib/htmlformentry-api-1.10*");
-
-		assertThat(module.getConditionalResources().size(), is(1));
-		assertThat(module.getConditionalResources(), contains(htmlformentry));
-	}
-
-	@Test
-	public void parse_shouldParseConditionalResourcesEvenIfPathIsMissing() throws IOException {
-
-		Document config = buildOnValidConfigXml("1.2")
-			.withConditionalResource(null, "1.10")
-			.build();
-
-		ModuleFileParser parser = new ModuleFileParser(writeConfigXmlToFile(config));
-
-		Module module = parser.parse();
-
-		ModuleConditionalResource conditionalResource = new ModuleConditionalResource();
-		conditionalResource.setOpenmrsPlatformVersion("1.10");
-
-		assertThat(module.getConditionalResources().size(), is(1));
-		assertThat(module.getConditionalResources(), contains(conditionalResource));
-	}
-
-	@Test
-	public void parse_shouldFailIfMultipleConditionalResourcesTagsFound() throws IOException {
-
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Found multiple conditionalResources tags.");
-
-		Document config = buildOnValidConfigXml("1.2")
-			.withTextNode("conditionalResources", "")
-			.withTextNode("conditionalResources", "")
-			.build();
-
-		ModuleFileParser parser = new ModuleFileParser(writeConfigXmlToFile(config));
-
-		parser.parse();
-	}
-
-	@Test
-	public void parse_shouldFailIfConditionalResourcesContainInvalidTags() throws IOException {
-
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("Found the invalidTag node under conditionalResources.");
-
-		Document config = buildOnValidConfigXml("1.2")
-			.withConditionalResource("/lib/reporting-api-1.9.*", "1.10")
-			.build();
-		config.getElementsByTagName("conditionalResources")
-			.item(0)
-			.appendChild(config.createElement("invalidTag"));
-
-		ModuleFileParser parser = new ModuleFileParser(writeConfigXmlToFile(config));
-
-		parser.parse();
-	}
-
-	@Test
-	public void parse_shouldFailIfConditionalResourcePathIsBlank() throws IOException {
-
-		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage("The path of a conditional resource must not be blank");
-
-		Document config = buildOnValidConfigXml("1.2")
-			.withConditionalResource("", "1.10")
-			.build();
-
-		ModuleFileParser parser = new ModuleFileParser(writeConfigXmlToFile(config));
-
-		parser.parse();
-	}
-
-	@Test
 	public void parse_shouldParseAdvice() throws IOException {
 
 		AdvicePoint a1 = new AdvicePoint("org.openmrs.api.PatientService", String.class);
@@ -1396,7 +1250,7 @@ public class ModuleFileParserTest extends BaseContextSensitiveTest {
 			if (description != null) {
 				children.put("description", description);
 			}
-			return withElementsAttachedToRoot("privilege", children);
+			return withElements("privilege", children);
 		}
 
 		public ModuleConfigXmlBuilder withExtension(String point, String className) {
@@ -1407,7 +1261,7 @@ public class ModuleFileParserTest extends BaseContextSensitiveTest {
 			if (className != null) {
 				children.put("class", className);
 			}
-			return withElementsAttachedToRoot("extension", children);
+			return withElements("extension", children);
 		}
 
 		public ModuleConfigXmlBuilder withAdvice(String point, String className) {
@@ -1418,7 +1272,7 @@ public class ModuleFileParserTest extends BaseContextSensitiveTest {
 			if (className != null) {
 				children.put("class", className);
 			}
-			return withElementsAttachedToRoot("advice", children);
+			return withElements("advice", children);
 		}
 
 		public ModuleConfigXmlBuilder withGlobalProperty(String property, String defaultValue, String description,
@@ -1439,67 +1293,18 @@ public class ModuleFileParserTest extends BaseContextSensitiveTest {
 			if (datatypeConfig != null) {
 				children.put("datatypeConfig", datatypeConfig);
 			}
-			return withElementsAttachedToRoot("globalProperty", children);
+			return withElements("globalProperty", children);
 		}
 
-		public ModuleConfigXmlBuilder withConditionalResource(String path, String openmrsVersion) {
-			return withConditionalResource(path, openmrsVersion, null);
-		}
-
-		public ModuleConfigXmlBuilder withConditionalResource(String path, String openmrsVersion,
-			Map<String, String> modules) {
-			Map<String, String> children = new HashMap<>();
-			if (path != null) {
-				children.put("path", path);
-			}
-			if (openmrsVersion != null) {
-				children.put("openmrsVersion", openmrsVersion);
-			}
-			Element conditionalResource = createElementWithChildren("conditionalResource", children);
-			attachToGroupElement("conditionalResources", conditionalResource);
-			if (modules != null) {
-				Element modulesElement = configXml.createElement("modules");
-				for (Map.Entry<String, String> entries : modules.entrySet()) {
-					Element module = configXml.createElement("module");
-					module.appendChild(createElement("moduleId", entries.getKey()));
-					module.appendChild(createElement("version", entries.getValue()));
-					modulesElement.appendChild(module);
-				}
-				conditionalResource.appendChild(modulesElement);
-			}
-			return this;
-		}
-
-		public ModuleConfigXmlBuilder withElementsAttachedToRoot(String parentElementName,
-			Map<String, String> childElements) {
-			configXml.getDocumentElement().appendChild(createElementWithChildren(parentElementName, childElements));
-			return this;
-		}
-
-		private Element createElementWithChildren(String parentElementName, Map<String, String> childElements) {
+		public ModuleConfigXmlBuilder withElements(String parentElementName, Map<String, String> childElements) {
 			Element parentElement = configXml.createElement(parentElementName);
 			for (Map.Entry<String, String> child : childElements.entrySet()) {
-				parentElement.appendChild(createElement(child.getKey(), child.getValue()));
+				Element childElement = configXml.createElement(child.getKey());
+				childElement.setTextContent(child.getValue());
+				parentElement.appendChild(childElement);
 			}
-			return parentElement;
-		}
-
-		private Element createElement(String name, String value) {
-			Element element = configXml.createElement(name);
-			element.setTextContent(value);
-			return element;
-		}
-
-		private void attachToGroupElement(String groupElementName, Element element) {
-			Element parent;
-			NodeList nodes = configXml.getElementsByTagName(groupElementName);
-			if (nodes.getLength() == 0) {
-				parent = configXml.createElement(groupElementName);
-				configXml.getDocumentElement().appendChild(parent);
-			} else {
-				parent = (Element) nodes.item(0);
-			}
-			parent.appendChild(element);
+			configXml.getDocumentElement().appendChild(parentElement);
+			return this;
 		}
 
 		public Document build() {
