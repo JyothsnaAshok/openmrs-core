@@ -60,7 +60,8 @@ public final class HasFieldErrors extends TypeSafeMatcher<Errors> {
 		} else if (code == null) {
 			return item.hasFieldErrors(field);
 		} else {
-			return item.getFieldErrors(field).stream().map(DefaultMessageSourceResolvable::getCode).anyMatch(code::equals);
+			return item.getFieldErrors(field).stream().map(DefaultMessageSourceResolvable::getCode).filter(code::equals).findFirst()
+			        .isPresent();
 		}
 	}
 	
