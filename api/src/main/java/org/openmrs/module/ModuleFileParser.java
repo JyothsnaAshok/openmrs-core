@@ -51,12 +51,8 @@ import org.xml.sax.InputSource;
 public class ModuleFileParser {
 	
 	private static final Logger log = LoggerFactory.getLogger(ModuleFileParser.class);
-
-	private static final String MODULE_CONFIG_XML_FILENAME = "config.xml";
-
-	private static final String OPENMRS_MODULE_FILE_EXTENSION_TEST = ".omod";
 	
-	private static final String OPENMRS_MODULE_FILE_EXTENSION = "omod";
+	private static final String MODULE_CONFIG_XML_FILENAME = "config.xml";
 	
 	/**
 	 * List out all of the possible version numbers for config files that openmrs has DTDs for.
@@ -85,8 +81,8 @@ public class ModuleFileParser {
 		if (moduleFile == null) {
 			throw new ModuleException(Context.getMessageSourceService().getMessage("Module.error.fileCannotBeNull"));
 		}
-
-		if (!moduleFile.getName().endsWith(OPENMRS_MODULE_FILE_EXTENSION_TEST)) {
+		
+		if (!moduleFile.getName().endsWith(".omod")) {
 			throw new ModuleException(Context.getMessageSourceService().getMessage("Module.error.invalidFileExtension"),
 			        moduleFile.getName());
 		}
@@ -101,7 +97,7 @@ public class ModuleFileParser {
 	 * @param inputStream the inputStream pointing to an omod file
 	 */
 	public ModuleFileParser(InputStream inputStream) {
-		moduleFile = createTempFile("moduleUpgrade", OPENMRS_MODULE_FILE_EXTENSION);
+		moduleFile = createTempFile("moduleUpgrade", "omod");
 		copyInputStreamToFile(inputStream, moduleFile);
 	}
 
