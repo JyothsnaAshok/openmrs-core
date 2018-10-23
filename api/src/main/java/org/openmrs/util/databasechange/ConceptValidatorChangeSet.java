@@ -450,7 +450,10 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 				conceptIds.add(rs.getInt("concept_id"));
 			}
 		}
-		catch (DatabaseException | SQLException e) {
+		catch (DatabaseException e) {
+			log.warn("Error generated", e);
+		}
+		catch (SQLException e) {
 			log.warn("Error generated", e);
 		}
 		finally {
@@ -543,7 +546,10 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 				log.warn("The global property '" + OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST + "' isn't set");
 			}
 		}
-		catch (DatabaseException | SQLException e) {
+		catch (DatabaseException e) {
+			log.warn("Error generated", e);
+		}
+		catch (SQLException e) {
 			log.warn("Error generated", e);
 		}
 		finally {
@@ -616,7 +622,10 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 				localeConceptNamesMap.get(conceptName.getLocale()).add(conceptName);
 			}
 		}
-		catch (DatabaseException | SQLException e) {
+		catch (DatabaseException e) {
+			log.warn("Error generated", e);
+		}
+		catch (SQLException e) {
 			log.warn("Error generated", e);
 		}
 		finally {
@@ -709,7 +718,10 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 				}
 			}
 		}
-		catch (SQLException | DatabaseException e) {
+		catch (SQLException e) {
+			log.warn("Error generated", e);
+		}
+		catch (DatabaseException e) {
 			log.warn("Error generated", e);
 		}
 		finally {
@@ -758,7 +770,10 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 			
 			return result;
 		}
-		catch (DatabaseException | SQLException e) {
+		catch (DatabaseException e) {
+			log.warn("Error generated", e);
+		}
+		catch (SQLException e) {
 			log.warn("Error generated", e);
 		}
 		finally {

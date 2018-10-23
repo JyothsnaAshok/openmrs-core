@@ -126,7 +126,10 @@ public class CreateDiscontinueOrders implements CustomTaskChange {
 				                .getInt("order_type_id")));
 			}
 		}
-		catch (SQLException | DatabaseException e) {
+		catch (SQLException e) {
+			throw new CustomChangeException(e);
+		}
+		catch (DatabaseException e) {
 			throw new CustomChangeException(e);
 		}
 		finally {
