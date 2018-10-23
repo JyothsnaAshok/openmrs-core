@@ -11,7 +11,6 @@ package org.openmrs.test.matchers;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.Errors;
 
 /**
@@ -60,7 +59,7 @@ public final class HasFieldErrors extends TypeSafeMatcher<Errors> {
 		} else if (code == null) {
 			return item.hasFieldErrors(field);
 		} else {
-			return item.getFieldErrors(field).stream().map(DefaultMessageSourceResolvable::getCode).filter(code::equals).findFirst()
+			return item.getFieldErrors(field).stream().map(e -> e.getCode()).filter(c -> code.equals(c)).findFirst()
 			        .isPresent();
 		}
 	}

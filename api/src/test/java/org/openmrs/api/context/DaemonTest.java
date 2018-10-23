@@ -58,8 +58,12 @@ public class DaemonTest extends BaseContextSensitiveTest {
 	@Test
 	public void runInNewDaemonThread_shouldThrowErrorIfCalledFromANonDaemonThread() {
 		try {
-			Daemon.runInNewDaemonThread(() -> {
-				// do nothing
+			Daemon.runInNewDaemonThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// do nothing
+				}
 			});
 			Assert.assertTrue("Should not hit this line, since the previous needed to throw an exception", false);
 		}
@@ -143,7 +147,13 @@ public class DaemonTest extends BaseContextSensitiveTest {
 		
 		@Override
 		public void execute() {
-			Thread another = Daemon.runInNewDaemonThread(() -> wasRun = true);
+			Thread another = Daemon.runInNewDaemonThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					wasRun = true;
+				}
+			});
 			try {
 				another.join();
 			}
