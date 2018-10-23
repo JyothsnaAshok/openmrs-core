@@ -301,13 +301,13 @@ public class ObsValidatorTest extends BaseContextSensitiveTest {
 		obs.setObsDatetime(new Date());
 		
 		// Generate 65535+ characters length text.
-		StringBuilder valueText = new StringBuilder();
+		String valueText = "";
 		for (int i = 0; i < 730; i++) {
-			valueText
-					.append("This text should not exceed 65535 characters. Below code will generate a text more than 65535");
+			valueText = valueText
+			        + "This text should not exceed 65535 characters. Below code will generate a text more than 65535";
 		}
 		
-		obs.setValueText(valueText.toString());
+		obs.setValueText(valueText);
 		
 		Errors errors = new BindException(obs, "obs");
 		obsValidator.validate(obs, errors);
@@ -497,13 +497,13 @@ public class ObsValidatorTest extends BaseContextSensitiveTest {
 		obs.setObsDatetime(new Date());
 
 		// Generate 2700+ characters length text.
-		StringBuilder valueText = new StringBuilder();
+		String valueText = "";
 		for (int i = 0; i < 30; i++) {
-			valueText
-					.append("This text should not exceed 65535 characters. Below code will generate a text Less than 65535");
+			valueText = valueText
+					+ "This text should not exceed 65535 characters. Below code will generate a text Less than 65535";
 		}
 
-		obs.setValueText(valueText.toString());
+		obs.setValueText(valueText);
 
 		Errors errors = new BindException(obs, "obs");
 		new ObsValidator().validate(obs, errors);
