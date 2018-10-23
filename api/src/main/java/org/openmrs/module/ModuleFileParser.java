@@ -210,7 +210,10 @@ public class ModuleFileParser {
 
 		String configVersion = rootNode.getAttribute("configVersion").trim();
 
-		validateModuleConfigVersion(configVersion);
+		if (!validConfigVersions.contains(configVersion)) {
+			throw new ModuleException(Context.getMessageSourceService().getMessage("Module.error.invalidConfigVersion",
+			    new Object[] { configVersion, String.join(", ", validConfigVersions) }, Context.getLocale()), moduleFile.getName());
+		}
 
 		String name = getElementTrimmed(rootNode, "name");
 		String moduleId = getElementTrimmed(rootNode, "id");
@@ -262,13 +265,6 @@ public class ModuleFileParser {
 
 		module.setConditionalResources(getConditionalResources(rootNode));
 		return module;
-	}
-
-	private void validateModuleConfigVersion(String version) {
-		if (!validConfigVersions.contains(version)) {
-			throw new ModuleException(Context.getMessageSourceService().getMessage("Module.error.invalidConfigVersion",
-			    new Object[] { version, String.join(", ", validConfigVersions) }, Context.getLocale()), moduleFile.getName());
-		}
 	}
 
 	/**
