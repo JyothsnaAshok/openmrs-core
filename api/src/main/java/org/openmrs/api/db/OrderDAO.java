@@ -24,7 +24,6 @@ import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.User;
 import org.openmrs.api.APIException;
-import org.openmrs.parameter.OrderSearchCriteria;
 
 /**
  * Order-related database functions
@@ -72,11 +71,6 @@ public interface OrderDAO {
 	 */
 	public List<Order> getOrders(Patient patient, CareSetting careSetting, List<OrderType> orderTypes,
 	        boolean includeVoided, boolean includeDiscontinuationOrders);
-
-	/**
-	 * @see org.openmrs.api.OrderService#getOrders(OrderSearchCriteria)
-	 */
-	public List<Order> getOrders(OrderSearchCriteria orderSearchCriteria);
 	
 	/**
 	 * @param uuid
