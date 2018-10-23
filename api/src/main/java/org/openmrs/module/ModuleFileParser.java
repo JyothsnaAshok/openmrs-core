@@ -603,14 +603,8 @@ public class ModuleFileParser {
 
 	private GlobalProperty createGlobalProperty(String property, String defaultValue, String description,
 		String datatypeClassname, String datatypeConfig) {
-
 		GlobalProperty globalProperty = null;
-		if (property.isEmpty()) {
-			log.warn("'property' is required for global properties. Given '" + property + "'");
-			return globalProperty;
-		}
-
-		if (!datatypeClassname.isEmpty()) {
+		if (datatypeClassname.length() > 0 && property.length() > 0) {
 			try {
 				Class<CustomDatatype<?>> datatypeClazz = (Class<CustomDatatype<?>>) Class.forName(datatypeClassname)
 					.asSubclass(CustomDatatype.class);
@@ -624,8 +618,10 @@ public class ModuleFileParser {
 				log.error("The class specified by 'datatypeClassname' (" + datatypeClassname
 					+ ") could not be found.", ex);
 			}
-		} else {
+		} else if (property.length() > 0) {
 			globalProperty = new GlobalProperty(property, defaultValue, description);
+		} else {
+			log.warn("'property' is required for global properties. Given '" + property + "'");
 		}
 		return globalProperty;
 	}
