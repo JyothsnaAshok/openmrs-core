@@ -109,9 +109,6 @@ public class OpenmrsClassLoader extends URLClassLoader {
 	 * can happen correctly.
 	 */
 	private static class OpenmrsClassLoaderHolder {
-
-		private OpenmrsClassLoaderHolder() {
-		}
 		
 		private static OpenmrsClassLoader INSTANCE = null;
 		

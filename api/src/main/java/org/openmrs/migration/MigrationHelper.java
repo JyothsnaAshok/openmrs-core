@@ -59,9 +59,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class MigrationHelper {
-
-	private MigrationHelper() {
-	}
 	
 	private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 

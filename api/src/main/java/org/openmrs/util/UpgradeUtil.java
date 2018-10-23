@@ -24,9 +24,6 @@ import java.util.Properties;
 import org.openmrs.api.APIException;
 
 public class UpgradeUtil {
-
-	private UpgradeUtil() {
-	}
 	
 	/**
 	 * Returns conceptId for the given units from DatabaseUtil#ORDER_ENTRY_UPGRADE_SETTINGS_FILENAME

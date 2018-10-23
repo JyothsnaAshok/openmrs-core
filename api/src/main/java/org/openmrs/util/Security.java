@@ -34,9 +34,6 @@ import org.springframework.util.StringUtils;
  */
 public class Security {
 	
-	private Security() {
-	}
-	
 	/**
 	 * Defined encoding to avoid using default platform charset 
 	 */

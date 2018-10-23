@@ -45,9 +45,6 @@ import org.slf4j.LoggerFactory;
  * installation
  */
 public class TestInstallUtil {
-
-	private TestInstallUtil() {
-	}
 	
 	private static final Logger log = LoggerFactory.getLogger(TestInstallUtil.class);
 	

@@ -19,10 +19,7 @@ import org.openmrs.annotation.AddOnStartup;
  * @since 1.8
  */
 public class RoleConstants {
-
-	private RoleConstants() {
-	}
-
+	
 	@AddOnStartup(description = "Assigned to Administrators of OpenMRS. Gives additional access to change core aspects of the system.")
 	public static final String SUPERUSER = "System Developer";
 	

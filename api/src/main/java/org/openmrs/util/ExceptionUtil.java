@@ -17,9 +17,6 @@ import org.openmrs.api.APIAuthenticationException;
  * @since 1.8.4
  */
 public class ExceptionUtil {
-
-	private ExceptionUtil() {
-	}
 	
 	/**
 	 * If any cause in the exception chain is an instance of causeType, then rethrow that exception 

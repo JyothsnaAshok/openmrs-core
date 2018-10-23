@@ -37,10 +37,6 @@ public class DefaultMessageSourceServiceImpl implements MessageSourceService {
 	 * can happen correctly.
 	 */
 	private static class DefaultMessageSourceServiceImplHolder {
-
-		private DefaultMessageSourceServiceImplHolder() {
-		}
-
 		private static DefaultMessageSourceServiceImpl INSTANCE = null;
 	}
 	

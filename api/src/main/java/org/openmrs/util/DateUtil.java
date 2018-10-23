@@ -19,9 +19,6 @@ import java.util.Date;
  */
 public class DateUtil {
 	
-	private DateUtil() {
-	}
-	
 	/**
 	 * @param date
 	 * @return date truncated to second precision (e.g. with milliseconds dropped)

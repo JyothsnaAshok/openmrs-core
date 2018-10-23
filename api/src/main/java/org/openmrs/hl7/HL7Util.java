@@ -32,9 +32,6 @@ import ca.uhn.hl7v2.HL7Exception;
  */
 public class HL7Util {
 	
-	private HL7Util() {
-	}
-	
 	private static final Logger log = LoggerFactory.getLogger(HL7Util.class);
 	
 	// Date and time format parsers

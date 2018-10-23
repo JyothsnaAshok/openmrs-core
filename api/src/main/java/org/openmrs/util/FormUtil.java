@@ -38,9 +38,6 @@ import org.openmrs.hl7.HL7Constants;
  * @see org.openmrs.FieldAnswer
  */
 public class FormUtil {
-
-	private FormUtil() {
-	}
 	
 	private static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
 

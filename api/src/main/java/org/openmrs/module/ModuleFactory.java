@@ -61,9 +61,6 @@ import org.springframework.util.StringUtils;
  * Methods for loading, starting, stopping, and storing OpenMRS modules
  */
 public class ModuleFactory {
-
-	private ModuleFactory() {
-	}
 	
 	private static final Logger log = LoggerFactory.getLogger(ModuleFactory.class);
 	

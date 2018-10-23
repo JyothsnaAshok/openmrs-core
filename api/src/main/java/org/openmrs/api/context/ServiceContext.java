@@ -112,10 +112,6 @@ public class ServiceContext implements ApplicationContextAware {
 	}
 	
 	private static class ServiceContextHolder {
-
-		private ServiceContextHolder() {
-		}
-
 		private static ServiceContext instance = null;
 	}
 	
