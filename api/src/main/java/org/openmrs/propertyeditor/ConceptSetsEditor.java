@@ -13,6 +13,7 @@ import java.beans.PropertyEditorSupport;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Vector;
 
 import org.openmrs.ConceptSet;
 import org.openmrs.api.ConceptService;
@@ -37,7 +38,7 @@ public class ConceptSetsEditor extends PropertyEditorSupport {
 	 */
 	public ConceptSetsEditor(Collection<ConceptSet> conceptSets) {
 		if (conceptSets == null) {
-			originalConceptSets = new ArrayList<>();
+			originalConceptSets = new Vector<>();
 		}
 		
 		this.originalConceptSets = conceptSets;
