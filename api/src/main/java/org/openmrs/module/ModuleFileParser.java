@@ -19,7 +19,6 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
@@ -365,6 +364,13 @@ public class ModuleFileParser {
 		return getElement(element, name).trim();
 	}
 	
+	/**
+	 * Generic method to get a module tag
+	 *
+	 * @param root
+	 * @param tag
+	 * @return
+	 */
 	private String getElement(Element root, String tag) {
 		if (root.getElementsByTagName(tag).getLength() > 0) {
 			return root.getElementsByTagName(tag).item(0).getTextContent();
@@ -634,28 +640,35 @@ public class ModuleFileParser {
 		
 		return properties;
 	}
-
+	
+	/**
+	 * Load in the defined mapping file names
+	 *
+	 * @param rootNode
+	 * @return
+	 */
 	private List<String> getMappingFiles(Element rootNode) {
-		List<String> result = new ArrayList<>();
-		splitTagContentByWhitespace(rootNode, "mappingFiles", result);
-		return result;
-	}
-
-	private Set<String> getPackagesWithMappedClasses(Element rootNode) {
-		Set<String> result = new HashSet<>();
-		splitTagContentByWhitespace(rootNode, "packagesWithMappedClasses", result);
-		return result;
-	}
-
-	private Collection<String> splitTagContentByWhitespace(Element rootNode, String tag, Collection<String> result) {
-		String content = getElement(rootNode, tag);
-		for (String s : content.split("\\s")) {
+		String mappingString = getElement(rootNode, "mappingFiles");
+		List<String> mappings = new ArrayList<>();
+		for (String s : mappingString.split("\\s")) {
 			String s2 = s.trim();
 			if (s2.length() > 0) {
-				result.add(s2);
+				mappings.add(s2);
 			}
 		}
-		return result;
+		return mappings;
+	}
+	
+	private Set<String> getPackagesWithMappedClasses(Element rootNode) {
+		String element = getElement(rootNode, "packagesWithMappedClasses");
+		Set<String> packages = new HashSet<>();
+		for (String s : element.split("\\s")) {
+			String s2 = s.trim();
+			if (s2.length() > 0) {
+				packages.add(s2);
+			}
+		}
+		return packages;
 	}
 	
 	/**
