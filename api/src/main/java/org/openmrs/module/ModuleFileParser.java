@@ -9,8 +9,6 @@
  */
 package org.openmrs.module;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,6 +25,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.GlobalProperty;
@@ -131,40 +132,30 @@ public class ModuleFileParser {
 	}
 
 	private Document getModuleConfigXml() {
-		Document config;
+		Document configDoc;
 		try (JarFile jarfile = new JarFile(moduleFile)) {
-			ZipEntry configEntry = getConfigXmlZipEntry(jarfile);
-			config = parseConfigXml(jarfile, configEntry);
+			ZipEntry config = jarfile.getEntry(MODULE_CONFIG_XML_FILENAME);
+			if (config == null) {
+				throw new ModuleException(Context.getMessageSourceService().getMessage("Module.error.noConfigFile"),
+				        moduleFile.getName());
+			}
+
+			try (InputStream configStream = jarfile.getInputStream(config)) {
+				configDoc = parseConfig(configStream);
+			}
+			catch (IOException e) {
+				throw new ModuleException(Context.getMessageSourceService().getMessage(
+				    "Module.error.cannotGetConfigFileStream"), moduleFile.getName(), e);
+			}
 		}
 		catch (IOException e) {
 			throw new ModuleException(Context.getMessageSourceService().getMessage("Module.error.cannotGetJarFile"),
 				moduleFile.getName(), e);
 		}
-		return config;
-	}
-
-	private ZipEntry getConfigXmlZipEntry(JarFile jarfile) {
-		ZipEntry config = jarfile.getEntry(MODULE_CONFIG_XML_FILENAME);
-		if (config == null) {
-			throw new ModuleException(Context.getMessageSourceService().getMessage("Module.error.noConfigFile"),
-				moduleFile.getName());
-		}
-		return config;
+		return configDoc;
 	}
 	
-	private Document parseConfigXml(JarFile jarfile, ZipEntry configEntry) {
-		Document config;
-		try (InputStream configStream = jarfile.getInputStream(configEntry)) {
-			config = parseConfigXmlStream(configStream);
-		}
-		catch (IOException e) {
-			throw new ModuleException(Context.getMessageSourceService().getMessage(
-				"Module.error.cannotGetConfigFileStream"), moduleFile.getName(), e);
-		}
-		return config;
-	}
-	
-	private Document parseConfigXmlStream(InputStream configStream) {
+	private Document parseConfig(InputStream configStream) {
 		Document configDoc;
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
