@@ -10,8 +10,6 @@
 package org.openmrs.util;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -35,9 +33,14 @@ import org.springframework.util.StringUtils;
  * OpenMRS's security class deals with the hashing of passwords.
  */
 public class Security {
-
+	
 	private Security() {
 	}
+	
+	/**
+	 * Defined encoding to avoid using default platform charset 
+	 */
+	private static final String encoding = "UTF-8";
 	
 	/**
 	 * encryption settings
@@ -93,14 +96,16 @@ public class Security {
 		byte[] input;
 		try {
 			md = MessageDigest.getInstance(algorithm);
-			input = strToEncode.getBytes(StandardCharsets.UTF_8);
+			input = strToEncode.getBytes(encoding);
 		}
 		catch (NoSuchAlgorithmException e) {
 			// Yikes! Can't encode password...what to do?
 			log.error(getPasswordEncodeFailMessage(algorithm), e);
 			throw new APIException("system.cannot.find.password.encryption.algorithm", null, e);
 		}
-
+		catch (UnsupportedEncodingException e) {
+			throw new APIException("system.cannot.find.encoding", new Object[] { encoding }, e);
+		}
 		return hexString(md.digest(input));
 	}
 	
@@ -116,14 +121,16 @@ public class Security {
 		byte[] input;
 		try {
 			md = MessageDigest.getInstance(algorithm);
-			input = strToEncode.getBytes(StandardCharsets.UTF_8);
+			input = strToEncode.getBytes(encoding);
 		}
 		catch (NoSuchAlgorithmException e) {
 			// Yikes! Can't encode password...what to do?
 			log.error(getPasswordEncodeFailMessage(algorithm), e);
 			throw new APIException("system.cannot.find.encryption.algorithm", null, e);
 		}
-
+		catch (UnsupportedEncodingException e) {
+			throw new APIException("system.cannot.find.encoding", new Object[] { encoding }, e);
+		}
 		return hexString(md.digest(input));
 	}
 	
@@ -161,14 +168,16 @@ public class Security {
 		byte[] input;
 		try {
 			md = MessageDigest.getInstance(algorithm);
-			input = strToEncode.getBytes(StandardCharsets.UTF_8);
+			input = strToEncode.getBytes(encoding);
 		}
 		catch (NoSuchAlgorithmException e) {
 			// Yikes! Can't encode password...what to do?
 			log.error(getPasswordEncodeFailMessage(algorithm), e);
 			throw new APIException("system.cannot.find.encryption.algorithm", null, e);
 		}
-
+		catch (UnsupportedEncodingException e) {
+			throw new APIException("system.cannot.find.encoding", new Object[] { encoding }, e);
+		}
 		return incorrectHexString(md.digest(input));
 	}
 	
@@ -224,11 +233,14 @@ public class Security {
 		try {
 			Cipher cipher = Cipher.getInstance(OpenmrsConstants.ENCRYPTION_CIPHER_CONFIGURATION);
 			cipher.init(Cipher.ENCRYPT_MODE, secret, initVectorSpec);
-			encrypted = cipher.doFinal(text.getBytes(StandardCharsets.UTF_8));
-			result = new String(Base64.getEncoder().encode(encrypted), StandardCharsets.UTF_8);
+			encrypted = cipher.doFinal(text.getBytes(encoding));
+			result = new String(Base64.getEncoder().encode(encrypted), encoding);
 		}
 		catch (GeneralSecurityException e) {
 			throw new APIException("could.not.encrypt.text", null, e);
+		}
+		catch (UnsupportedEncodingException e) {
+			throw new APIException("system.cannot.find.encoding", new Object[] { encoding }, e);
 		}
 		
 		return result;
@@ -267,10 +279,13 @@ public class Security {
 			Cipher cipher = Cipher.getInstance(OpenmrsConstants.ENCRYPTION_CIPHER_CONFIGURATION);
 			cipher.init(Cipher.DECRYPT_MODE, secret, initVectorSpec);
 			byte[] original = cipher.doFinal(Base64.getDecoder().decode(text));
-			decrypted = new String(original, StandardCharsets.UTF_8);
+			decrypted = new String(original, encoding);
 		}
 		catch (GeneralSecurityException e) {
 			throw new APIException("could.not.decrypt.text", null, e);
+		}
+		catch (UnsupportedEncodingException e) {
+			throw new APIException("system.cannot.find.encoding", new Object[] { encoding }, e);
 		}
 		
 		return decrypted;

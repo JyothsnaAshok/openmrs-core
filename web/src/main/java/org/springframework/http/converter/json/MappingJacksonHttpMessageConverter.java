@@ -23,7 +23,6 @@ package org.springframework.http.converter.json;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.codehaus.jackson.JsonEncoding;
@@ -57,7 +56,7 @@ import org.springframework.util.Assert;
  */
 public class MappingJacksonHttpMessageConverter extends AbstractHttpMessageConverter<Object> implements GenericHttpMessageConverter<Object> {
 	
-	public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 	
 	private ObjectMapper objectMapper = new ObjectMapper();
 	
