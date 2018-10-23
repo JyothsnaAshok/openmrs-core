@@ -9,12 +9,10 @@
  */
 package org.openmrs.validator;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.openmrs.Encounter;
-import org.openmrs.Patient;
 import org.openmrs.Visit;
 import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
@@ -30,10 +28,6 @@ import org.springframework.validation.Validator;
  */
 @Handler(supports = { Visit.class }, order = 50)
 public class VisitValidator extends BaseCustomizableValidator implements Validator {
-	
-	private static final double ESTIMATED_BIRTHDATE_ERROR_MARGIN = -0.5;
-	
-	private static final int ESTIMATED_BIRTHDATE_ERROR_MARGIN_MINIMUM_YEARS = -1;
 	
 	/**
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
@@ -113,8 +107,6 @@ public class VisitValidator extends BaseCustomizableValidator implements Validat
 				validateStopDatetime(visit, otherVisit, errors);
 			}
 		}
-		
-		validateVisitStartedBeforePatientBirthdate(visit, errors);
 	}
 	
 	/*
@@ -166,34 +158,5 @@ public class VisitValidator extends BaseCustomizableValidator implements Validat
 			errors.rejectValue("stopDatetime", "Visit.visitCannotContainAnotherVisitOfTheSamePatient", message);
 		}
 		
-	}
-	
-	private void validateVisitStartedBeforePatientBirthdate(Visit visit, Errors errors) {
-		if (visit.getPatient() == null || visit.getPatient().getBirthdate() == null || visit.getStartDatetime() == null) {
-			return;
-		}
-		
-		if (visit.getStartDatetime().before(getPatientBirthdateAdjustedIfEstimated(visit.getPatient()))) {
-			errors.rejectValue("startDatetime", "Visit.startDateCannotFallBeforeTheBirthDateOfTheSamePatient",
-			    "This visit has a start date that falls before the birthdate of the same patient.");
-		}
-	}
-	
-	private Date getPatientBirthdateAdjustedIfEstimated(Patient patient) {
-		Date birthday = patient.getBirthdate();
-		
-		if (patient.getBirthdateEstimated()) {
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(birthday);
-			cal.add(Calendar.YEAR, calculateGracePeriodInYears(patient.getAge()));
-			birthday = cal.getTime();
-		}
-		
-		return birthday;
-	}
-	
-	private int calculateGracePeriodInYears(int age) {
-		return Math.min(ESTIMATED_BIRTHDATE_ERROR_MARGIN_MINIMUM_YEARS,
-		    new Double(Math.ceil(age * ESTIMATED_BIRTHDATE_ERROR_MARGIN)).intValue());
 	}
 }
