@@ -43,9 +43,8 @@ public class ModuleServlet extends HttpServlet {
 		
 		log.debug("ModuleId: " + moduleId);
 		Module mod = ModuleFactory.getModuleById(moduleId);
-		 
-		// where in the path to start trimming
-		int start = 1;
+		
+		int start = 1; // where in the path to start trimming
 		if (mod != null) {
 			log.debug("Module with id " + moduleId + " found.  Looking for servlet name after " + moduleId + " in url path");
 			start = moduleId.length() + 2;
