@@ -34,6 +34,30 @@ import java.util.Comparator;
 public final class NaturalStrings {
 	
 	/**
+	 * <p>
+	 * A string comparator that does case-sensitive comparisons and handles embedded numbers
+	 * correctly.
+	 * </p>
+	 * <p>
+	 * <b>Do not use</b> if your app might ever run on any locale that uses more than 7-bit ascii
+	 * characters.
+	 * </p>
+	 */
+	private static final Comparator<String> NATURAL_COMPARATOR_ASCII = (o1, o2) -> compareNaturalAscii(o1, o2);
+	
+	/**
+	 * <p>
+	 * A string comparator that does case insensitive comparisons and handles embedded numbers
+	 * correctly.
+	 * </p>
+	 * <p>
+	 * <b>Do not use</b> if your app might ever run on any locale that uses more than 7-bit ascii
+	 * characters.
+	 * </p>
+	 */
+	private static final Comparator<String> IGNORE_CASE_NATURAL_COMPARATOR_ASCII = (o1, o2) -> compareNaturalIgnoreCaseAscii(o1, o2);
+	
+	/**
 	 * This is a utility class (static methods only), don't instantiate.
 	 */
 	private NaturalStrings() {
@@ -93,7 +117,7 @@ public final class NaturalStrings {
 	 * @see #getNaturalComparator(java.text.Collator)
 	 */
 	public static Comparator<String> getNaturalComparatorAscii() {
-		return NaturalStrings::compareNaturalAscii;
+		return NATURAL_COMPARATOR_ASCII;
 	}
 	
 	/**
@@ -110,7 +134,7 @@ public final class NaturalStrings {
 	 * @see #getNaturalComparator(java.text.Collator)
 	 */
 	public static Comparator<String> getNaturalComparatorIgnoreCaseAscii() {
-		return NaturalStrings::compareNaturalIgnoreCaseAscii;
+		return IGNORE_CASE_NATURAL_COMPARATOR_ASCII;
 	}
 	
 	/**
