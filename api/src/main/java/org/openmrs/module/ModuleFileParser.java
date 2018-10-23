@@ -165,7 +165,7 @@ public class ModuleFileParser {
 	}
 	
 	private Document parseConfigXmlStream(InputStream configStream) {
-		Document config;
+		Document configDoc;
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
@@ -177,7 +177,7 @@ public class ModuleFileParser {
 				return new InputSource(new StringReader(""));
 			});
 
-			config = db.parse(configStream);
+			configDoc = db.parse(configStream);
 		}
 		catch (Exception e) {
 			log.error("Error parsing " + MODULE_CONFIG_XML_FILENAME + ": " + configStream.toString(), e);
@@ -209,7 +209,7 @@ public class ModuleFileParser {
 				Context.getMessageSourceService().getMessage("Module.error.cannotParseConfigFile"), moduleFile
 				.getName(), e);
 		}
-		return config;
+		return configDoc;
 	}
 
 	private Module createModule(Document configDoc) {
