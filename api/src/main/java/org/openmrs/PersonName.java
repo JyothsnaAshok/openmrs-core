@@ -183,10 +183,10 @@ public class PersonName extends BaseChangeableOpenmrsData implements java.io.Ser
 		}
 		
 		if (pn.getPreferred() != null) {
-			newName.setPreferred(pn.getPreferred());
+			newName.setPreferred(pn.getPreferred().booleanValue());
 		}
 		if (pn.getVoided() != null) {
-			newName.setVoided(pn.getVoided());
+			newName.setVoided(pn.getVoided().booleanValue());
 		}
 		
 		newName.setPerson(pn.getPerson());
