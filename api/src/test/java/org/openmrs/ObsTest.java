@@ -593,11 +593,11 @@ public class ObsTest {
 	 */
 	@Test(expected = APIException.class)
 	public void setFormField_shouldRejectANamepaceAndPathCombinationLongerThanTheMaxLength() throws Exception {
-		StringBuilder nsBuffer = new StringBuilder(125);
+		StringBuffer nsBuffer = new StringBuffer(125);
 		for (int i = 0; i < 125; i++) {
 			nsBuffer.append("n");
 		}
-		StringBuilder pathBuffer = new StringBuilder(130);
+		StringBuffer pathBuffer = new StringBuffer(130);
 		for (int i = 0; i < 130; i++) {
 			nsBuffer.append("p");
 		}

@@ -177,7 +177,7 @@ public class MigrateDataSet {
 		
 		File wd = new File("/tmp");
 		
-		StringBuilder out = new StringBuilder();
+		StringBuffer out = new StringBuffer();
 		
 		try {
 			// Needed to add support for working directory because of a linux
