@@ -407,6 +407,18 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 	}
 	
 	/**
+	 * @see VisitService#purgeVisit(Visit)
+	 */
+	@Test
+	public void purgeVisit_shouldEraseTheVisitFromTheDatabase() {
+		VisitService vs = Context.getVisitService();
+		Integer originalSize = vs.getVisits(null, null, null, null, null, null, null, null, null, true, true).size();
+		Visit visit = Context.getVisitService().getVisit(1);
+		vs.purgeVisit(visit);
+		assertEquals(originalSize - 1, vs.getVisits(null, null, null, null, null, null, null, null, null, true, true).size());
+	}
+	
+	/**
 	 * @see VisitService#getVisitsByPatient(Patient)
 	 */
 	@Test
@@ -766,42 +778,14 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 	/**
 	 * @see VisitService#purgeVisit(Visit)
 	 */
-	@Test
-	public void purgeVisit_shouldEraseTheVisitFromTheDatabase() {
-		VisitService vs = Context.getVisitService();
-		Integer originalSize = vs.getVisits(null, null, null, null, null, null, null, null, null, true, true).size();
-		Visit visit = Context.getVisitService().getVisit(1);
-		
-		vs.purgeVisit(visit);
-		
-		assertEquals(originalSize - 1, vs.getVisits(null, null, null, null, null, null, null, null, null, true, true).size());
-	}
-	
-	/**
-	 * @see VisitService#purgeVisit(Visit)
-	 */
-	@Test
-	public void purgeVisit_shouldReturnWithoutVoidingIfVisitIsUnsaved() {
-		VisitService vs = Context.getVisitService();
-		Integer originalSize = vs.getVisits(null, null, null, null, null, null, null, null, null, true, true).size();
-		
-		vs.purgeVisit(new Visit());
-		
-		assertEquals((long)originalSize, vs.getVisits(null, null, null,null, null, null, null, null, null, true, true).size());
-	}
-	
-	/**
-	 * @see VisitService#purgeVisit(Visit)
-	 */
 	@Test(expected = APIException.class)
 	public void purgeVisit_shouldFailIfTheVisitHasEncountersAssociatedToIt() {
 		Visit visit = Context.getVisitService().getVisit(1);
 		Encounter e = Context.getEncounterService().getEncounter(3);
-		visit.addEncounter(e);
-		Context.getVisitService().saveVisit(visit);
+		e.setVisit(visit);
+		Context.getEncounterService().saveEncounter(e);
 		//sanity check
 		assertTrue(Context.getEncounterService().getEncountersByVisit(visit, false).size() > 0);
-		
 		Context.getVisitService().purgeVisit(visit);
 	}
 	
