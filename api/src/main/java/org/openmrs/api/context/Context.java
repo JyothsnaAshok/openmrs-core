@@ -52,7 +52,6 @@ import org.openmrs.api.SerializationService;
 import org.openmrs.api.UserService;
 import org.openmrs.api.VisitService;
 import org.openmrs.api.ConditionService;
-import org.openmrs.api.DiagnosisService;
 import org.openmrs.api.db.ContextDAO;
 import org.openmrs.hl7.HL7Service;
 import org.openmrs.logic.LogicService;
@@ -427,15 +426,6 @@ public class Context {
 	 */
 	public static ConditionService getConditionService(){
 		return getServiceContext().getConditionService();
-	}
-
-	/**
-	 * @return diagnosis-related services
-	 *
-	 * @since 2.2
-	 */
-	public static DiagnosisService getDiagnosisService(){
-		return getServiceContext().getDiagnosisService();
 	}
 
 	/**
