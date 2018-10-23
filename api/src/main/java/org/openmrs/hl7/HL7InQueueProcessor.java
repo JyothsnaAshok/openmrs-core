@@ -30,8 +30,6 @@ public class HL7InQueueProcessor /* implements Runnable */{
 	private static final Logger log = LoggerFactory.getLogger(HL7InQueueProcessor.class);
 	
 	private static Boolean isRunning = false; // allow only one running
-
-	private static final Object lock = new Object();
 	
 	private static Integer count = 0;
 	
@@ -101,7 +99,7 @@ public class HL7InQueueProcessor /* implements Runnable */{
 	 * Starts up a thread to process all existing HL7InQueue entries
 	 */
 	public void processHL7InQueue() throws HL7Exception {
-		synchronized (lock) {
+		synchronized (isRunning) {
 			if (isRunning) {
 				log.warn("HL7 processor aborting (another processor already running)");
 				return;
