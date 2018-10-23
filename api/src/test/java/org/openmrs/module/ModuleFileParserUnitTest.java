@@ -50,7 +50,7 @@ public class ModuleFileParserUnitTest {
 		Element documentElement = getRootElement(xml);
 		
 		ModuleFileParser moduleFileParser = new ModuleFileParser();
-		List<ModuleConditionalResource> conditionalResources = moduleFileParser.extractConditionalResources(documentElement);
+		List<ModuleConditionalResource> conditionalResources = moduleFileParser.getConditionalResources(documentElement);
 		
 		ModuleConditionalResource htmlformentry = new ModuleConditionalResource();
 		htmlformentry.setPath("/lib/htmlformentry-api-1.10*");
@@ -89,7 +89,7 @@ public class ModuleFileParserUnitTest {
 		expectedException.expect(IllegalArgumentException.class);
 		expectedException.expectMessage("Found multiple conditionalResources tags.");
 		
-		new ModuleFileParser().extractConditionalResources(documentElement);
+		new ModuleFileParser().getConditionalResources(documentElement);
 	}
 	
 	@Test
@@ -103,7 +103,7 @@ public class ModuleFileParserUnitTest {
 		expectedException.expect(IllegalArgumentException.class);
 		expectedException.expectMessage("Found the invalidTag node under conditionalResources.");
 		
-		new ModuleFileParser().extractConditionalResources(documentElement);
+		new ModuleFileParser().getConditionalResources(documentElement);
 	}
 	
 	@Test
@@ -118,7 +118,7 @@ public class ModuleFileParserUnitTest {
 		expectedException.expect(IllegalArgumentException.class);
 		expectedException.expectMessage("The path of a conditional resource must not be blank");
 		
-		new ModuleFileParser().extractConditionalResources(documentElement);
+		new ModuleFileParser().getConditionalResources(documentElement);
 	}
 	
 	@Test
@@ -131,7 +131,7 @@ public class ModuleFileParserUnitTest {
 		Element documentElement = getRootElement(xml);
 		
 		ModuleFileParser moduleFileParser = new ModuleFileParser();
-		List<ModuleConditionalResource> conditionalResources = moduleFileParser.extractConditionalResources(documentElement);
+		List<ModuleConditionalResource> conditionalResources = moduleFileParser.getConditionalResources(documentElement);
 		
 		ModuleConditionalResource htmlformentry = new ModuleConditionalResource();
 		htmlformentry.setPath("/lib/htmlformentry-api-1.10*");
