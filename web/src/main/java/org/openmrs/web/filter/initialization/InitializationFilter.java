@@ -183,8 +183,8 @@ public class InitializationFilter extends StartupFilter {
 	 * Variable set at the end of the wizard when spring is being restarted
 	 */
 	private static boolean initializationComplete = false;
-
-	protected synchronized void setInitializationComplete(boolean initializationComplete) {
+	
+	synchronized protected void setInitializationComplete(boolean initializationComplete) {
 		InitializationFilter.initializationComplete = initializationComplete;
 	}
 	
@@ -1219,7 +1219,7 @@ public class InitializationFilter extends StartupFilter {
 	 *
 	 * @return true if this has been run already
 	 */
-	private synchronized static boolean isInitializationComplete() {
+	synchronized private static boolean isInitializationComplete() {
 		return initializationComplete;
 	}
 	
@@ -1264,21 +1264,21 @@ public class InitializationFilter extends StartupFilter {
 		
 		private List<WizardTask> executedTasks = new ArrayList<>();
 		
-		public synchronized void reportError(String error, String errorPage, Object... params) {
+		synchronized public void reportError(String error, String errorPage, Object... params) {
 			errors.put(error, params);
 			this.errorPage = errorPage;
 			erroneous = true;
 		}
-
-		public synchronized boolean hasErrors() {
+		
+		synchronized public boolean hasErrors() {
 			return erroneous;
 		}
-
-		public synchronized String getErrorPage() {
+		
+		synchronized public String getErrorPage() {
 			return errorPage;
 		}
-
-		public synchronized Map<String, Object[]> getErrors() {
+		
+		synchronized public Map<String, Object[]> getErrors() {
 			return errors;
 		}
 		
@@ -1299,20 +1299,20 @@ public class InitializationFilter extends StartupFilter {
 				log.error("Error generated", e);
 			}
 		}
-
-		protected synchronized void setStepsComplete(int steps) {
+		
+		synchronized protected void setStepsComplete(int steps) {
 			this.steps = steps;
 		}
 		
-		protected synchronized int getStepsComplete() {
+		synchronized protected int getStepsComplete() {
 			return steps;
 		}
 		
-		public synchronized String getMessage() {
+		synchronized public String getMessage() {
 			return message;
 		}
 		
-		public synchronized void setMessage(String message) {
+		synchronized public void setMessage(String message) {
 			this.message = message;
 			setStepsComplete(getStepsComplete() + 1);
 		}
@@ -1320,7 +1320,7 @@ public class InitializationFilter extends StartupFilter {
 		/**
 		 * @return the executingTask
 		 */
-		protected synchronized WizardTask getExecutingTask() {
+		synchronized protected WizardTask getExecutingTask() {
 			return executingTask;
 		}
 		
@@ -1343,21 +1343,21 @@ public class InitializationFilter extends StartupFilter {
 		 *
 		 * @param task
 		 */
-		protected synchronized void addExecutedTask(WizardTask task) {
+		synchronized protected void addExecutedTask(WizardTask task) {
 			this.executedTasks.add(task);
 		}
 		
 		/**
 		 * @param executingTask the executingTask to set
 		 */
-		protected synchronized void setExecutingTask(WizardTask executingTask) {
+		synchronized protected void setExecutingTask(WizardTask executingTask) {
 			this.executingTask = executingTask;
 		}
 		
 		/**
 		 * @return the executedTasks
 		 */
-		protected synchronized List<WizardTask> getExecutedTasks() {
+		synchronized protected List<WizardTask> getExecutedTasks() {
 			return this.executedTasks;
 		}
 		

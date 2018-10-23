@@ -35,7 +35,7 @@ public class DatabaseUtil {
 	
 	private static final Logger log = LoggerFactory.getLogger(DatabaseUtil.class);
 
-	public static final String ORDER_ENTRY_UPGRADE_SETTINGS_FILENAME = "order_entry_upgrade_settings.txt";
+	public final static String ORDER_ENTRY_UPGRADE_SETTINGS_FILENAME = "order_entry_upgrade_settings.txt";
 
 	/**
 	 * Executes the passed SQL query, enforcing select only if that parameter is set Load the jdbc
