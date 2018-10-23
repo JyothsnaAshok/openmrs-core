@@ -892,7 +892,7 @@ public class HL7ServiceImpl extends BaseOpenmrsService implements HL7Service {
 		person.setUuid(uuid);
 		
 		// Patient Identifiers
-		List<PatientIdentifier> goodIdentifiers = new ArrayList<>();
+		List<PatientIdentifier> goodIdentifiers = new ArrayList<PatientIdentifier>();
 		for (CX id : identifiers) {
 			
 			String assigningAuthority = id.getAssigningAuthority().getNamespaceID().getValue();

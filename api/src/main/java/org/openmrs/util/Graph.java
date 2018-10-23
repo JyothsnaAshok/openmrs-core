@@ -88,7 +88,7 @@ public class Graph<T> {
 		for (Edge edge : edges) {
 			nodesWithIncomingEdges.add(edge.getToNode());
 		}
-		Set<T> nodesWithoutIncomingEdges = new HashSet<>(nodes);
+		Set<T> nodesWithoutIncomingEdges = new HashSet<T>(nodes);
 		for (T node : nodesWithIncomingEdges) {
 			nodesWithoutIncomingEdges.remove(node);
 		}
