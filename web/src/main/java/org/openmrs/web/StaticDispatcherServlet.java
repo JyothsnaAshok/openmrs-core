@@ -28,7 +28,7 @@ public class StaticDispatcherServlet extends org.springframework.web.servlet.Dis
 	
 	private static final long serialVersionUID = 1L;
 	
-	private static final Logger log = LoggerFactory.getLogger(StaticDispatcherServlet.class);
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	/**
 	 * @see org.springframework.web.servlet.FrameworkServlet#initFrameworkServlet()
