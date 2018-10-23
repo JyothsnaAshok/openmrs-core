@@ -597,12 +597,13 @@ public class ObsTest {
 		for (int i = 0; i < 125; i++) {
 			nsBuffer.append("n");
 		}
+		StringBuilder pathBuffer = new StringBuilder(130);
 		for (int i = 0; i < 130; i++) {
 			nsBuffer.append("p");
 		}
 		
 		final String ns = nsBuffer.toString();
-		final String path = "";
+		final String path = pathBuffer.toString();
 		Obs obs = new Obs();
 		obs.setFormField(ns, path);
 	}
