@@ -79,19 +79,12 @@ public class Patient extends Person {
 	 * <br>
 	 *
 	 * @param patient the person object to copy onto a new Patient
-	 * @since 2.2.0
 	 */
 	public Patient(Patient patient){
 		super(patient);
 		this.patientId = patient.getPatientId();
 		this.allergyStatus = patient.getAllergyStatus();
-		Set<PatientIdentifier> newIdentifiers = new TreeSet<>();
-		for (PatientIdentifier pid : patient.getIdentifiers()) {
-			PatientIdentifier identifierClone = (PatientIdentifier) pid.clone();
-			identifierClone.setPatient(this);
-			newIdentifiers.add(identifierClone);
-		}
-		this.identifiers = newIdentifiers;
+		this.identifiers = patient.getIdentifiers();
 	}
 	
 	// Property accessors
@@ -388,6 +381,7 @@ public class Patient extends Person {
 	@Override
 	public void setId(Integer id) {
 		setPatientId(id);
+		
 	}
 	
 	/**
