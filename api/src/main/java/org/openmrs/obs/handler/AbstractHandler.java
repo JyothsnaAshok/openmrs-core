@@ -12,9 +12,10 @@ package org.openmrs.obs.handler;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Obs;
 import org.openmrs.api.context.Context;
@@ -36,6 +37,8 @@ public class AbstractHandler {
 	
 	protected NumberFormat nf;
 	
+	protected SimpleDateFormat longfmt;
+	
 	/**
 	 * Constructor initializes formats for alternative file names to protect from unintentionally
 	 * overwriting existing files.
@@ -44,6 +47,7 @@ public class AbstractHandler {
 		nf = NumberFormat.getInstance();
 		nf.setMaximumFractionDigits(0);
 		nf.setMinimumIntegerDigits(2);
+		longfmt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 	}
 	
 	/**
@@ -55,51 +59,65 @@ public class AbstractHandler {
 	 * @return File that the complex data should be written to
 	 */
 	public File getOutputFileToWrite(Obs obs) throws IOException {
+		// Get the title and remove the extension.
 		String title = obs.getComplexData().getTitle();
-		String titleWithoutExtension = FilenameUtils.removeExtension(title);
-		String extension = "." + StringUtils.defaultIfEmpty(FilenameUtils.getExtension(title), "dat");
-		String uuid = obs.getUuid();
-		String filename;
+		String extension = "." + getExtension(title);
 		
-		if (StringUtils.isNotBlank(titleWithoutExtension)) {
-			filename = titleWithoutExtension + "_" + uuid + extension;
-		} else {
-			filename = uuid + extension;
+		// If getExtension returns the title, there was no extension
+		if (getExtension(title).equals(title)) {
+			extension = "";
 		}
 		
-		File dir = OpenmrsUtil.getDirectoryInApplicationDataDirectory(
-		    Context.getAdministrationService().getGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_COMPLEX_OBS_DIR));
-		File outputfile = new File(dir, filename);
+		File dir = OpenmrsUtil.getDirectoryInApplicationDataDirectory(Context.getAdministrationService().getGlobalProperty(
+		    OpenmrsConstants.GLOBAL_PROPERTY_COMPLEX_OBS_DIR));
+		File outputfile;
+		
+		// Get the output stream
+		if (null == title) {
+			String now = longfmt.format(new Date());
+			outputfile = new File(dir, now);
+		} else {
+			title = title.replace(extension, "");
+			
+			outputfile = new File(dir, title + extension);
+		}
+		
+		int i = 0;
+		String tmp;
+		
+		// If the Obs does not exist, but the File does, append a two-digit
+		// count number to the filename and save it.
+		while (obs.getObsId() == null && outputfile.exists() && i < 100) {
+			// Remove the extension from the filename.
+			tmp = String.valueOf(outputfile.getAbsolutePath().replace(extension, ""));
+			// Append two-digit count number to the filename.
+			String filename = (i < 1) ? tmp + "_" + nf.format(Integer.valueOf(++i)) : tmp.replace(nf.format(Integer
+			        .valueOf(i)), nf.format(Integer.valueOf(++i)));
+			// Append the extension to the filename
+			outputfile = new File(filename + extension);
+		}
 		
 		return outputfile;
+		
 	}
 	
 	/**
-	 * Get the extension for a given filename if it exists, else return the filename. If there is no
-	 * filename in the input string, "raw" is returned. 
-	 * 
-	 * If given "asdf.jpg", will return "jpg".
-	 * If given "asdf", will return "asdf". 
-	 * If given "" or "a/b/c/" will return "raw".
+	 * Get the extension for a given filename. <br>
+	 * If given "asdf.jpg", will return "jpg". <br>
+	 * If given "asdf", will return "asdf". <br>
 	 * 
 	 * @param filename
-	 * @return the part after the period in the given filename, the filename, or "raw"
-	 * @deprecated since 2.1.3 use {@link org.apache.commons.io.FilenameUtils#getExtension(String)}
-	 *             instead.
+	 * @return the filepart after the period in the given filename
 	 */
-	@Deprecated
 	public String getExtension(String filename) {
-		String result = FilenameUtils.getExtension(filename);
+		String[] filenameParts = filename.split("\\.");
 		
-		if (StringUtils.isEmpty(result)) {
-			result = FilenameUtils.getBaseName(filename);
-			
-			if (StringUtils.isEmpty(result)) {
-				result = "raw";
-			}
-		}
+		log.debug("titles length: " + filenameParts.length);
 		
-		return result;
+		String extension = (filenameParts.length < 2) ? filenameParts[0] : filenameParts[filenameParts.length - 1];
+		extension = StringUtils.isNotEmpty(extension) ? extension : "raw";
+		
+		return extension;
 	}
 	
 	/**
@@ -135,8 +153,8 @@ public class AbstractHandler {
 			return true;
 		}
 		
-		log.warn(
-		    "Could not delete complex data object for obsId=" + obs.getObsId() + " located at " + file.getAbsolutePath());
+		log.warn("Could not delete complex data object for obsId=" + obs.getObsId() + " located at "
+		        + file.getAbsolutePath());
 		return false;
 	}
 	
@@ -149,8 +167,8 @@ public class AbstractHandler {
 	public static File getComplexDataFile(Obs obs) {
 		String[] names = obs.getValueComplex().split("\\|");
 		String filename = names.length < 2 ? names[0] : names[names.length - 1];
-		File dir = OpenmrsUtil.getDirectoryInApplicationDataDirectory(
-		    Context.getAdministrationService().getGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_COMPLEX_OBS_DIR));
+		File dir = OpenmrsUtil.getDirectoryInApplicationDataDirectory(Context.getAdministrationService().getGlobalProperty(
+		    OpenmrsConstants.GLOBAL_PROPERTY_COMPLEX_OBS_DIR));
 		return new File(dir, filename);
 	}
 	
