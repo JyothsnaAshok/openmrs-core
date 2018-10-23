@@ -1144,7 +1144,8 @@ public class ModuleFactory {
 			
 			// stop all dependent modules
 			// copy modules to new list to avoid "concurrent modification exception"
-			List<Module> startedModulesCopy = new ArrayList<>(getStartedModules());
+			List<Module> startedModulesCopy = new ArrayList<>();
+			startedModulesCopy.addAll(getStartedModules());
 			for (Module dependentModule : startedModulesCopy) {
 				if (dependentModule != null && !dependentModule.equals(mod) && isModuleRequiredByAnother(dependentModule, modulePackage)) {
 					dependentModulesStopped.add(dependentModule);

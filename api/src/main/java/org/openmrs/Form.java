@@ -137,7 +137,8 @@ public class Form extends BaseChangeableOpenmrsMetadata {
 	public List<FormField> getOrderedFormFields() {
 		if (this.formFields != null) {
 			List<FormField> fieldList = new ArrayList<>();
-			Set<FormField> fieldSet = new HashSet<>(this.formFields);
+			Set<FormField> fieldSet = new HashSet<>();
+			fieldSet.addAll(this.formFields);
 			
 			int fieldSize = fieldSet.size();
 			

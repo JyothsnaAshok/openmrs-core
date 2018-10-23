@@ -85,10 +85,11 @@ public class Graph<T> {
 	 */
 	private Set<T> getNodesWithNoIncomingEdges() {
 		Set<T> nodesWithIncomingEdges = new HashSet<>();
+		Set<T> nodesWithoutIncomingEdges = new HashSet<>();
 		for (Edge edge : edges) {
 			nodesWithIncomingEdges.add(edge.getToNode());
 		}
-		Set<T> nodesWithoutIncomingEdges = new HashSet<T>(nodes);
+		nodesWithoutIncomingEdges.addAll(nodes);
 		for (T node : nodesWithIncomingEdges) {
 			nodesWithoutIncomingEdges.remove(node);
 		}
@@ -151,7 +152,8 @@ public class Graph<T> {
 		List<T> result = new ArrayList<>();
 		
 		// The initial edges are stored.
-		List<Edge> initialEdges = new ArrayList<>(edges);
+		List<Edge> initialEdges = new ArrayList<>();
+		initialEdges.addAll(edges);
 		while (!queue.isEmpty()) {
 			T node = queue.iterator().next();
 			queue.remove(node);

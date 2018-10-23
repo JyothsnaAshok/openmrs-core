@@ -147,8 +147,9 @@ public class ModuleUtil {
 	 * Stops the module system by calling stopModule for all modules that are currently started
 	 */
 	public static void shutdown() {
-
-		List<Module> modules = new ArrayList<>(ModuleFactory.getStartedModules());
+		
+		List<Module> modules = new ArrayList<>();
+		modules.addAll(ModuleFactory.getStartedModules());
 		
 		for (Module mod : modules) {
 			if (log.isDebugEnabled()) {

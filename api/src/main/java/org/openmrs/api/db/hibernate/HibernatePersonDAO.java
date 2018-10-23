@@ -84,7 +84,9 @@ public class HibernatePersonDAO implements PersonDAO {
 		if (birthyear == null) {
 			birthyear = 0;
 		}
-
+		
+		Set<Person> people = new LinkedHashSet<>();
+		
 		name = name.replaceAll("  ", " ");
 		name = name.replace(", ", " ");
 		String[] names = name.split(" ");
@@ -187,8 +189,8 @@ public class HibernatePersonDAO implements PersonDAO {
 		if (qStr.contains(":gender")) {
 			query.setString("gender", gender);
 		}
-
-		Set<Person> people = new LinkedHashSet<Person>(query.list());
+		
+		people.addAll(query.list());
 		
 		return people;
 	}
