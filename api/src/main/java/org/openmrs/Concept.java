@@ -945,7 +945,9 @@ public class Concept extends BaseOpenmrsObject implements Auditable, Retireable,
 	 * @return whether this concept has the given name in any locale
 	 */
 	public boolean isNamed(String name) {
-		return getNames().stream().anyMatch(cn -> name.equals(cn.getName()));
+		return getNames().stream()
+				.filter(cn -> name.equals(cn.getName()))
+				.count() > 0;
 	}
 	
 	/**
