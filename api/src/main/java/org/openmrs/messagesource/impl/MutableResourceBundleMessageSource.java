@@ -44,7 +44,7 @@ import org.springframework.core.io.support.ResourcePatternResolver;
  */
 public class MutableResourceBundleMessageSource extends ReloadableResourceBundleMessageSource implements MutableMessageSource {
 
-	private static final Logger log = LoggerFactory.getLogger(MutableResourceBundleMessageSource.class);
+	private Logger log = LoggerFactory.getLogger(getClass());
 	
 	/**
 	 * Local reference to basenames used to search for properties files.

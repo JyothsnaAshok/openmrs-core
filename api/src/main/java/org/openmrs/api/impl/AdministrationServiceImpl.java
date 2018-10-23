@@ -64,8 +64,8 @@ import org.springframework.validation.Errors;
 @Transactional
 public class AdministrationServiceImpl extends BaseOpenmrsService implements AdministrationService, GlobalPropertyListener {
 	
-	private static final Logger log = LoggerFactory.getLogger(AdministrationServiceImpl.class);
-
+	protected Logger log = LoggerFactory.getLogger(getClass());
+	
 	protected AdministrationDAO dao;
 	
 	private EventListeners eventListeners;

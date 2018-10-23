@@ -44,6 +44,8 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateProgramWorkflowDAO implements ProgramWorkflowDAO {
 	
+	protected final Logger log = LoggerFactory.getLogger(getClass());
+	
 	private SessionFactory sessionFactory;
 	
 	public HibernateProgramWorkflowDAO() {

@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 public class AdvicePoint {
 	
-	private static final Logger log = LoggerFactory.getLogger(AdvicePoint.class);
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	private String point;
 	

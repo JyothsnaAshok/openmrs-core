@@ -35,6 +35,8 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateCohortDAO implements CohortDAO {
 	
+	protected final Logger log = LoggerFactory.getLogger(getClass());
+	
 	private SessionFactory sessionFactory;
 	
 	/**

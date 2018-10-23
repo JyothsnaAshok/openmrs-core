@@ -41,7 +41,7 @@ public class Person extends BaseChangeableOpenmrsData {
 	
 	public static final long serialVersionUID = 2L;
 	
-	private static final Logger log = LoggerFactory.getLogger(Person.class);
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 
 	@DocumentId
 	protected Integer personId;

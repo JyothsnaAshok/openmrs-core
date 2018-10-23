@@ -55,7 +55,7 @@ import org.springframework.util.Assert;
 @Transactional
 public class PersonServiceImpl extends BaseOpenmrsService implements PersonService {
 	
-	private static final Logger log = LoggerFactory.getLogger(PersonServiceImpl.class);
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	private PersonDAO dao;
 	

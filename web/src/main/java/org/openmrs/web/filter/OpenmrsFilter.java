@@ -36,7 +36,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  */
 public class OpenmrsFilter extends OncePerRequestFilter {
 	
-	private static final Logger log = LoggerFactory.getLogger(OpenmrsFilter.class);
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 	
 	/**
 	 * @see javax.servlet.Filter#destroy()

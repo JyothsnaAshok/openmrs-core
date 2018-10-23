@@ -29,7 +29,7 @@ import org.springframework.util.StringUtils;
  */
 public class ConceptAnswersEditor extends PropertyEditorSupport {
 	
-	private static final Logger log = LoggerFactory.getLogger(ConceptAnswersEditor.class);
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	private Collection<ConceptAnswer> originalConceptAnswers = null;
 	

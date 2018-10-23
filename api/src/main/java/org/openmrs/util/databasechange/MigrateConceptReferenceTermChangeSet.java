@@ -37,7 +37,7 @@ import liquibase.resource.ResourceAccessor;
  */
 public class MigrateConceptReferenceTermChangeSet implements CustomTaskChange {
 	
-	private static final Logger log = LoggerFactory.getLogger(MigrateConceptReferenceTermChangeSet.class);
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 	
 	public static final String DEFAULT_CONCEPT_MAP_TYPE = "NARROWER-THAN";
 	

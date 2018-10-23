@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Provider extends BaseCustomizableMetadata<ProviderAttribute> {
 	
-	private static final Logger log = LoggerFactory.getLogger(Provider.class);
+	private final Logger log = LoggerFactory.getLogger(getClass());
 	
 	private Integer providerId;
 	

@@ -18,7 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import org.openmrs.module.ModuleFileParser;
 import org.openmrs.module.web.WebModuleUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +28,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ModuleFilter implements Filter {
 	
-	private static final Logger log = LoggerFactory.getLogger(ModuleFilter.class);
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 	
 	/**
 	 * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)

@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateUserDAO implements UserDAO {
 	
-	private static final Logger log = LoggerFactory.getLogger(HibernateUserDAO.class);
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 	
 	/**
 	 * Hibernate session factory

@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateAlertDAO implements AlertDAO {
 	
-	private static final Logger log = LoggerFactory.getLogger(HibernateAlertDAO.class);
+	private final Logger log = LoggerFactory.getLogger(getClass());
 	
 	/**
 	 * Hibernate session factory

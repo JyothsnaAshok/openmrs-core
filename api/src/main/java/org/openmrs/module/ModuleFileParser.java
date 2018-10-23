@@ -53,7 +53,7 @@ import org.xml.sax.SAXException;
  */
 public class ModuleFileParser {
 	
-	private static final Logger log = LoggerFactory.getLogger(ModuleFileParser.class);
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	private File moduleFile = null;
 	

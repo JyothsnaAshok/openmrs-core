@@ -46,7 +46,7 @@ import org.springframework.test.context.support.AbstractTestExecutionListener;
  */
 public class StartModuleExecutionListener extends AbstractTestExecutionListener {
 	
-	private static final Logger log = LoggerFactory.getLogger(StartModuleExecutionListener.class);
+	private Logger log = LoggerFactory.getLogger(getClass());
 	
 	// stores the last class that restarted the module system because we only 
 	// want it restarted once per class, not once per method

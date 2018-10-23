@@ -28,6 +28,9 @@ import org.springframework.validation.Validator;
  */
 public abstract class BaseAttributeTypeValidator<T extends AttributeType<?>> implements Validator {
 	
+	/** Logger for this class and subclasses */
+	protected final Logger log = LoggerFactory.getLogger(getClass());
+	
 	/**
 	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
 	 * @should require name

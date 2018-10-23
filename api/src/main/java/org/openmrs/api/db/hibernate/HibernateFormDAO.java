@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateFormDAO implements FormDAO {
 	
-	private static final Logger log = LoggerFactory.getLogger(HibernateFormDAO.class);
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 	
 	/**
 	 * Hibernate session factory

@@ -27,7 +27,7 @@ import ca.uhn.hl7v2.HL7Exception;
 @Transactional
 public class HL7InQueueProcessor /* implements Runnable */{
 	
-	private static final Logger log = LoggerFactory.getLogger(HL7InQueueProcessor.class);
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	private static Boolean isRunning = false; // allow only one running
 	

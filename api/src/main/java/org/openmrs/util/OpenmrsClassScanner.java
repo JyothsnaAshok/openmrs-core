@@ -34,7 +34,7 @@ import org.springframework.core.type.filter.TypeFilter;
  */
 public class OpenmrsClassScanner {
 	
-	private static final Logger log = LoggerFactory.getLogger(OpenmrsClassScanner.class);
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 	
 	private final MetadataReaderFactory metadataReaderFactory;
 	

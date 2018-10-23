@@ -32,7 +32,7 @@ import liquibase.resource.ResourceAccessor;
  */
 public class EncryptSecretAnswersChangeSet implements CustomTaskChange {
 	
-	private static final Logger log = LoggerFactory.getLogger(EncryptSecretAnswersChangeSet.class);
+	private final static Logger log = LoggerFactory.getLogger(EncryptSecretAnswersChangeSet.class);
 	
 	/**
 	 * @see CustomTaskChange#execute(Database)

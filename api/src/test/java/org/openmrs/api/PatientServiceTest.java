@@ -90,6 +90,9 @@ import java.util.stream.Collectors;
  */
 public class PatientServiceTest extends BaseContextSensitiveTest {
 	
+	// Logger
+	protected final Logger log = LoggerFactory.getLogger(getClass());
+	
 	// Datasets
 	protected static final String CREATE_PATIENT_XML = "org/openmrs/api/include/PatientServiceTest-createPatient.xml";
 	

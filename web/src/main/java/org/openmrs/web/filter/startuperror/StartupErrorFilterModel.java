@@ -21,7 +21,9 @@ import org.slf4j.LoggerFactory;
  * the {@link StartupFilter}.
  */
 public class StartupErrorFilterModel {
-
+	
+	protected static final Logger log = LoggerFactory.getLogger(StartupErrorFilterModel.class);
+	
 	public Throwable errorAtStartup = null;
 	
 	public String stacktrace = null;

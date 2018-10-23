@@ -30,7 +30,7 @@ public class ModuleResourcesServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1239820102030344L;
 	
-	private static final Logger log = LoggerFactory.getLogger(ModuleResourcesServlet.class);
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	/**
 	 * Used for caching purposes

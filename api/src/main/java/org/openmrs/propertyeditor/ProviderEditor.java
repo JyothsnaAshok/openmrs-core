@@ -27,7 +27,7 @@ import org.springframework.util.StringUtils;
  */
 public class ProviderEditor extends PropertyEditorSupport {
 	
-	private static final Logger log = LoggerFactory.getLogger(ProviderEditor.class);
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	public ProviderEditor() {
 	}

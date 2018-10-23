@@ -52,7 +52,7 @@ import org.springframework.validation.Validator;
  */
 public class HibernateAdministrationDAO implements AdministrationDAO, ApplicationContextAware {
 	
-	private static final Logger log = LoggerFactory.getLogger(HibernateAdministrationDAO.class);
+	protected Logger log = LoggerFactory.getLogger(getClass());
 	
 	/**
 	 * Hibernate session factory

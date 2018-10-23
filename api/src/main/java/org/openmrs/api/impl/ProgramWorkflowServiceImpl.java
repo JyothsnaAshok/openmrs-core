@@ -45,7 +45,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ProgramWorkflowServiceImpl extends BaseOpenmrsService implements ProgramWorkflowService {
 	
-	private static final Logger log = LoggerFactory.getLogger(ProgramWorkflowServiceImpl.class);
+	protected final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	protected ProgramWorkflowDAO dao;
 	

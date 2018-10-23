@@ -31,7 +31,7 @@ import liquibase.resource.ResourceAccessor;
  */
 public class UpdateLayoutAddressFormatChangeSet implements CustomTaskChange {
 	
-	private static final Logger log = LoggerFactory.getLogger(UpdateLayoutAddressFormatChangeSet.class);
+	private final static Logger log = LoggerFactory.getLogger(UpdateLayoutAddressFormatChangeSet.class);
 	
 	/**
 	 * @see CustomTaskChange#execute(Database)

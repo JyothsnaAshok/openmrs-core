@@ -48,6 +48,8 @@ import org.slf4j.LoggerFactory;
  */
 public class HibernateObsDAO implements ObsDAO {
 	
+	protected final Logger log = LoggerFactory.getLogger(getClass());
+	
 	protected SessionFactory sessionFactory;
 	
 	/**
