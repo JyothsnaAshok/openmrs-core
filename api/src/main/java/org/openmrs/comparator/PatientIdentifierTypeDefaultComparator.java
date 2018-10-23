@@ -9,7 +9,6 @@
  */
 package org.openmrs.comparator;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 import org.apache.commons.collections.comparators.ComparatorChain;
@@ -22,9 +21,7 @@ import org.openmrs.PatientIdentifierType;
  * 
  * @since 1.9.2, 1.8.5
  */
-public class PatientIdentifierTypeDefaultComparator implements Comparator<PatientIdentifierType>, Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class PatientIdentifierTypeDefaultComparator implements Comparator<PatientIdentifierType> {
 	
 	private final ComparatorChain comparatorChain;
 	

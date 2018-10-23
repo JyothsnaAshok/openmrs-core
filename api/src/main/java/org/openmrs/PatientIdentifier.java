@@ -9,7 +9,6 @@
  */
 package org.openmrs;
 
-import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Comparator;
@@ -267,9 +266,7 @@ public class PatientIdentifier extends BaseChangeableOpenmrsData implements java
 	 Provides a default comparator.
 	 @since 1.12
 	 **/
-	public static class DefaultComparator implements Comparator<PatientIdentifier>, Serializable {
-
-		private static final long serialVersionUID = 1L;
+	public static class DefaultComparator implements Comparator<PatientIdentifier> {
 		
 		@Override
 		public int compare(PatientIdentifier pi1, PatientIdentifier pi2) {

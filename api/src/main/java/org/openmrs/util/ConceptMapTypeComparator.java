@@ -9,7 +9,6 @@
  */
 package org.openmrs.util;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 import org.openmrs.ConceptMapType;
@@ -23,9 +22,7 @@ import org.openmrs.ConceptMapType;
  * <li>Retired and Hidden</li>
  * </ol>
  */
-public class ConceptMapTypeComparator implements Comparator<ConceptMapType>, Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class ConceptMapTypeComparator implements Comparator<ConceptMapType> {
 	
 	/**
 	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)

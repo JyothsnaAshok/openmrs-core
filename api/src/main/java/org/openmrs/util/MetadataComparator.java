@@ -9,7 +9,6 @@
  */
 package org.openmrs.util;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Locale;
 
@@ -21,9 +20,7 @@ import org.openmrs.OpenmrsMetadata;
  *
  * @since 1.7
  */
-public class MetadataComparator implements Comparator<OpenmrsMetadata>, Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class MetadataComparator implements Comparator<OpenmrsMetadata> {
 	
 	/**
 	 * @param locale
