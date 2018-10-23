@@ -437,12 +437,18 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 		assertEquals(8, visitService.getVisitsByPatient(new Patient(2), true, false).size());
 	}
 	
+	/**
+	 * @see VisitService#getVisits(java.util.Collection, java.util.Collection, java.util.Collection, java.util.Collection, Date, Date, Date, Date, boolean)
+	 */
 	@Test
 	public void getVisits_shouldGetVisitsByIndications() {
 		assertEquals(1, visitService.getVisits(null, null, null, Collections.singletonList(new Concept(5497)),
 		    null, null, null, null, null, true, false).size());
 	}
 	
+	/**
+	 * @see VisitService#getVisits(java.util.Collection, java.util.Collection, java.util.Collection, java.util.Collection, Date, Date, Date, Date, boolean)
+	 */
 	@Test
 	public void getVisits_shouldGetVisitsByLocations() {
 		List<Location> locations = new ArrayList<>();
@@ -451,6 +457,9 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 		    false).size());
 	}
 	
+	/**
+	 * @see VisitService#getVisits(java.util.Collection, java.util.Collection, java.util.Collection, java.util.Collection, Date, Date, Date, Date, boolean)
+	 */
 	@Test
 	public void getVisits_shouldGetVisitsByVisitType() {
 		List<VisitType> visitTypes = new ArrayList<>();
@@ -459,6 +468,9 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 		    true, false).size());
 	}
 	
+	/**
+	 * @see VisitService#getVisits(java.util.Collection, java.util.Collection, java.util.Collection, java.util.Collection, Date, Date, Date, Date, boolean)
+	 */
 	@Test
 	public void getVisits_shouldGetVisitsEndedBetweenTheGivenEndDates() {
 		executeDataSet(VISITS_WITH_DATES_XML);
@@ -491,6 +503,9 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 		assertTrue(TestUtil.containsId(visits, 5));
 	}
 	
+	/**
+	 * @see VisitService#getVisits(java.util.Collection, java.util.Collection, java.util.Collection, java.util.Collection, Date, Date, Date, Date, boolean)
+	 */
 	@Test
 	public void getVisits_shouldGetVisitsStartedBetweenTheGivenStartDates() {
 		executeDataSet(VISITS_WITH_DATES_XML);
@@ -503,6 +518,9 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 		    null, true, false).size());
 	}
 	
+	/**
+	 * @see VisitService#getVisits(java.util.Collection, java.util.Collection, java.util.Collection, java.util.Collection, Date, Date, Date, Date, boolean)
+	 */
 	@Test
 	public void getVisits_shouldReturnAllVisitsIfIncludeVoidedIsSetToTrue() {
 		assertEquals(6, getNumberOfAllVisitsIncludingVoided());
@@ -658,6 +676,10 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 		assertNull(visitService.getVisitAttributeByUuid("not-a-uuid"));
 	}
 	
+	/**
+	 * @throws ParseException
+	 * @see VisitService#getVisits(Collection,Collection,Collection,Collection,Date,Date,Date,Date,Map,boolean)
+	 */
 	@Test
 	public void getVisits_shouldGetAllVisitsWithGivenAttributeValues() throws ParseException {
 		executeDataSet(VISITS_ATTRIBUTES_XML);
@@ -668,6 +690,10 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 		assertEquals(Integer.valueOf(1), visits.get(0).getVisitId());
 	}
 	
+	/**
+	 * @throws ParseException
+	 * @see VisitService#getVisits(Collection,Collection,Collection,Collection,Date,Date,Date,Date,Map,boolean)
+	 */
 	@Test
 	public void getVisits_shouldNotFindAnyVisitsIfNoneHaveGivenAttributeValues() throws ParseException {
 		executeDataSet(VISITS_ATTRIBUTES_XML);
@@ -816,6 +842,9 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 		assertNotNull(attribute.getDateVoided());
 	}
 	
+	/**
+	 * @see VisitService#stopVisits()
+	 */
 	@Test
 	public void stopVisits_shouldCloseAllUnvoidedActiveVisitMatchingTheSpecifiedVisitTypes() {
 		executeDataSet("org/openmrs/api/include/VisitServiceTest-includeVisitsAndTypeToAutoClose.xml");
