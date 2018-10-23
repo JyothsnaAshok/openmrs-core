@@ -260,26 +260,31 @@ public class ModuleFileParser {
 			    new Object[] { version, String.join(", ", validConfigVersions) }, Context.getLocale()), moduleFile.getName());
 		}
 	}
-
+	
 	private String ensureNonEmptyName(Element rootNode) {
-		return getTrimmedElementOrFail(rootNode, "name", "Module.error.nameCannotBeEmpty", moduleFile.getName());
-	}
-
-	private String ensureNonEmptyId(Element rootNode, String name) {
-		return getTrimmedElementOrFail(rootNode, "id", "Module.error.idCannotBeEmpty", name);
-	}
-
-	private String ensureNonEmptyPackage(Element rootNode, String name) {
-		return getTrimmedElementOrFail(rootNode, "package", "Module.error.packageCannotBeEmpty", name);
-	}
-
-	private String getTrimmedElementOrFail(Element rootNode, String elementName, String errorMessageKey, String moduleName) {
-		String element = getElementTrimmed(rootNode, elementName);
-		if (element == null || element.length() == 0) {
-			throw new ModuleException(Context.getMessageSourceService().getMessage(errorMessageKey),
-				moduleName);
+		String name = getElementTrimmed(rootNode, "name");
+		if (name == null || name.length() == 0) {
+			throw new ModuleException(Context.getMessageSourceService().getMessage("Module.error.nameCannotBeEmpty"),
+				moduleFile.getName());
 		}
-		return element;
+		return name;
+	}
+	
+	private String ensureNonEmptyId(Element rootNode, String name) {
+		String moduleId = getElementTrimmed(rootNode, "id");
+		if (moduleId == null || moduleId.length() == 0) {
+			throw new ModuleException(Context.getMessageSourceService().getMessage("Module.error.idCannotBeEmpty"), name);
+		}
+		return moduleId;
+	}
+	
+	private String ensureNonEmptyPackage(Element rootNode, String name) {
+		String packageName = getElementTrimmed(rootNode, "package");
+		if (packageName == null || packageName.length() == 0) {
+			throw new ModuleException(Context.getMessageSourceService().getMessage("Module.error.packageCannotBeEmpty"),
+			        name);
+		}
+		return packageName;
 	}
 	
 	/**
