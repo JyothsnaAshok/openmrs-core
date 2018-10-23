@@ -31,6 +31,12 @@ import org.xml.sax.SAXException;
  */
 public class ModuleFileParserUnitTest {
 	
+	/**
+	 * @throws IOException
+	 * @throws SAXException
+	 * @throws ParserConfigurationException
+	 * @see ModuleFileParser#getConditionalResources(org.w3c.dom.Element)
+	 */
 	@Test
 	public void getConditionalResources_shouldParseOpenmrsVersionAndModules()
 	        throws ParserConfigurationException, SAXException, IOException {
@@ -73,6 +79,12 @@ public class ModuleFileParserUnitTest {
 		return document.getDocumentElement();
 	}
 	
+	/**
+	 * @throws IOException
+	 * @throws SAXException
+	 * @throws ParserConfigurationException
+	 * @see ModuleFileParser#getConditionalResources(org.w3c.dom.Element)
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void getConditionalResources_shouldThrowExceptionIfMultipleConditionalResourcesTagsFound()
 	        throws ParserConfigurationException, SAXException, IOException {
@@ -83,6 +95,12 @@ public class ModuleFileParserUnitTest {
 		new ModuleFileParser().getConditionalResources(documentElement);
 	}
 	
+	/**
+	 * @throws IOException
+	 * @throws SAXException
+	 * @throws ParserConfigurationException
+	 * @see ModuleFileParser#getConditionalResources(org.w3c.dom.Element)
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void getConditionalResources_shouldThrowExceptionIfConditionalResourcesContainsInvalidTag()
 	        throws ParserConfigurationException, SAXException, IOException {
@@ -93,6 +111,12 @@ public class ModuleFileParserUnitTest {
 		new ModuleFileParser().getConditionalResources(documentElement);
 	}
 	
+	/**
+	 * @throws IOException
+	 * @throws SAXException
+	 * @throws ParserConfigurationException
+	 * @see ModuleFileParser#getConditionalResources(org.w3c.dom.Element)
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void getConditionalResources_shouldThrowExceptionIfPathIsBlank()
 	        throws ParserConfigurationException, SAXException, IOException {
@@ -104,6 +128,12 @@ public class ModuleFileParserUnitTest {
 		new ModuleFileParser().getConditionalResources(documentElement);
 	}
 	
+	/**
+	 * @throws IOException
+	 * @throws SAXException
+	 * @throws ParserConfigurationException
+	 * @see ModuleFileParser#getConditionalResources(org.w3c.dom.Element)
+	 */
 	@Test
 	public void getConditionalResources_shouldParseConditionalResourceWithWhitespace()
 	        throws ParserConfigurationException, SAXException, IOException {
