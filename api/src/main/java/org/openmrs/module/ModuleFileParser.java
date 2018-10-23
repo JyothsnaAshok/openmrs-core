@@ -215,12 +215,12 @@ public class ModuleFileParser {
 			    new Object[] { configVersion, String.join(", ", validConfigVersions) }, Context.getLocale()), moduleFile.getName());
 		}
 
-		String name = getElementTrimmed(rootNode, "name");
-		String moduleId = getElementTrimmed(rootNode, "id");
-		String packageName = getElementTrimmed(rootNode, "package");
-		String author = getElementTrimmed(rootNode, "author");
-		String desc = getElementTrimmed(rootNode, "description");
-		String version = getElementTrimmed(rootNode, "version");
+		String name = getElement(rootNode, "name").trim();
+		String moduleId = getElement(rootNode,"id").trim();
+		String packageName = getElement(rootNode,"package").trim();
+		String author = getElement(rootNode,"author").trim();
+		String desc = getElement(rootNode, "description").trim();
+		String version = getElement(rootNode, "version").trim();
 
 		// do some validation
 		if (name == null || name.length() == 0) {
@@ -239,11 +239,11 @@ public class ModuleFileParser {
 		module = new Module(name, moduleId, packageName, author, desc, version);
 
 		// find and load the activator class
-		module.setActivatorName(getElementTrimmed(rootNode, "activator"));
+		module.setActivatorName(getElement(rootNode, "activator").trim());
 
-		module.setRequireDatabaseVersion(getElementTrimmed(rootNode, "require_database_version"));
-		module.setRequireOpenmrsVersion(getElementTrimmed(rootNode, "require_version"));
-		module.setUpdateURL(getElementTrimmed(rootNode, "updateURL"));
+		module.setRequireDatabaseVersion(getElement(rootNode, "require_database_version").trim());
+		module.setRequireOpenmrsVersion(getElement(rootNode, "require_version").trim());
+		module.setUpdateURL(getElement(rootNode, "updateURL").trim());
 		module.setRequiredModulesMap(getRequiredModules(rootNode));
 		module.setAwareOfModulesMap(getAwareOfModules(rootNode));
 		module.setStartBeforeModulesMap(getStartBeforeModules(rootNode));
@@ -347,10 +347,6 @@ public class ModuleFileParser {
 		}
 		
 		return conditionalResources;
-	}
-	
-	private String getElementTrimmed(Element element, String name) {
-		return getElement(element, name).trim();
 	}
 	
 	/**
@@ -670,7 +666,7 @@ public class ModuleFileParser {
 	 */
 	private boolean getMandatory(Element rootNode, String configVersion) {
 		if (Double.parseDouble(configVersion) >= 1.3) {
-			String mandatory = getElementTrimmed(rootNode, "mandatory");
+			String mandatory = getElement(rootNode, "mandatory").trim();
 			return "true".equalsIgnoreCase(mandatory);
 		}
 		
