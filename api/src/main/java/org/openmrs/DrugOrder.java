@@ -293,7 +293,10 @@ public class DrugOrder extends Order {
 			DosingInstructions instructions = getDosingType().newInstance();
 			return instructions.getDosingInstructions(this);
 		}
-		catch (InstantiationException | IllegalAccessException e) {
+		catch (InstantiationException e) {
+			throw new IllegalStateException(e);
+		}
+		catch (IllegalAccessException e) {
 			throw new IllegalStateException(e);
 		}
 	}

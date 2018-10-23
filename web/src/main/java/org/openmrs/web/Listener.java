@@ -233,8 +233,11 @@ public final class Listener extends ContextLoader implements ServletContextListe
 			
 			Context.startup(getRuntimeProperties());
 		}
-		catch (DatabaseUpdateException | InputRequiredException updateEx) {
+		catch (DatabaseUpdateException updateEx) {
 			throw new ServletException("Should not be here because updates were run previously", updateEx);
+		}
+		catch (InputRequiredException inputRequiredEx) {
+			throw new ServletException("Should not be here because updates were run previously", inputRequiredEx);
 		}
 		catch (MandatoryModuleException mandatoryModEx) {
 			throw new ServletException(mandatoryModEx);
@@ -641,7 +644,11 @@ public final class Listener extends ContextLoader implements ServletContextListe
 			try {
 				WebModuleUtil.refreshWAC(servletContext, true, null);
 			}
-			catch (ModuleMustStartException | BeanCreationException ex) {
+			catch (ModuleMustStartException ex) {
+				// pass this up to the calling method so that openmrs loading stops
+				throw ex;
+			}
+			catch (BeanCreationException ex) {
 				// pass this up to the calling method so that openmrs loading stops
 				throw ex;
 			}

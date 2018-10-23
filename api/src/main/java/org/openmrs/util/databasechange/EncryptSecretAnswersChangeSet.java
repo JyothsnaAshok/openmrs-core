@@ -59,7 +59,10 @@ public class EncryptSecretAnswersChangeSet implements CustomTaskChange {
 			}
 			pStmt.executeBatch();
 		}
-		catch (DatabaseException | SQLException e) {
+		catch (DatabaseException e) {
+			throw new CustomChangeException("Failed to update secret answers: " + e);
+		}
+		catch (SQLException e) {
 			throw new CustomChangeException("Failed to update secret answers: " + e);
 		}
 		finally {

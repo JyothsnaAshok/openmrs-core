@@ -41,9 +41,13 @@ public class MemoryLeakUtil {
 			timer.cancel();
 			log.info("completed timer cancellation");
 		}
-		catch (ClassNotFoundException | NoSuchFieldException cnfe) {
+		catch (ClassNotFoundException cnfe) {
 			// Ignore
 			log.error("Cannot cancel", cnfe);
+		}
+		catch (NoSuchFieldException nsfe) {
+			// Ignore
+			log.error("Cannot cancel", nsfe);
 		}
 		catch (SecurityException se) {
 			log.info("Failed to shut-down MySQL Statement Cancellation Timer due to a SecurityException", se);

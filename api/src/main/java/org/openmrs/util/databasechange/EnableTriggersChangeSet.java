@@ -44,7 +44,10 @@ public class EnableTriggersChangeSet implements CustomTaskChange {
 			}
 			
 		}
-		catch (DatabaseException | SQLException ex) {
+		catch (DatabaseException ex) {
+			throw new CustomChangeException("Error enabling trigger: " + ex);
+		}
+		catch (SQLException ex) {
 			throw new CustomChangeException("Error enabling trigger: " + ex);
 		}
 	}

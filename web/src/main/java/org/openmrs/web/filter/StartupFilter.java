@@ -246,7 +246,10 @@ public abstract class StartupFilter implements Filter {
 				field.setAccessible(true);
 				velocityContext.put(field.getName(), field.get(model));
 			}
-			catch (IllegalArgumentException | IllegalAccessException e) {
+			catch (IllegalArgumentException e) {
+				log.error("Error generated while getting field value: " + field.getName(), e);
+			}
+			catch (IllegalAccessException e) {
 				log.error("Error generated while getting field value: " + field.getName(), e);
 			}
 		}

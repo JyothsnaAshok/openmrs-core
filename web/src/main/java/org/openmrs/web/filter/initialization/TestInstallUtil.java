@@ -238,6 +238,11 @@ public class TestInstallUtil {
 			urlConnect.getContent();
 			return true;
 		}
+		catch (UnknownHostException e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Error generated:", e);
+			}
+		}
 		catch (IOException e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Error generated:", e);

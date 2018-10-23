@@ -1065,6 +1065,9 @@ public class ModuleFactory {
 				// the user would be stepped through the questions returned here.
 				throw new ModuleException("Input during database updates is not yet implemented.", module.getName(), ire);
 			}
+			catch (DatabaseUpdateException e) {
+				throw new ModuleException("Unable to update data model using liquibase.xml.", module.getName(), e);
+			}
 			catch (Exception e) {
 				throw new ModuleException("Unable to update data model using liquibase.xml.", module.getName(), e);
 			}

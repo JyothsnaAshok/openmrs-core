@@ -38,7 +38,10 @@ public class CreateDiscontinueOrders implements CustomTaskChange {
 			List<DiscontinuedOrder> discontinuedOrders = getDiscontinuedOrders(connection);
 			createDiscontinueOrders(connection, discontinuedOrders);
 		}
-		catch (SQLException | DatabaseException e) {
+		catch (SQLException e) {
+			throw new CustomChangeException(e);
+		}
+		catch (DatabaseException e) {
 			throw new CustomChangeException(e);
 		}
 	}
@@ -83,7 +86,10 @@ public class CreateDiscontinueOrders implements CustomTaskChange {
 			insertStatement.executeBatch();
 			connection.commit();
 		}
-		catch (DatabaseException | SQLException e) {
+		catch (DatabaseException e) {
+			handleError(connection, e);
+		}
+		catch (SQLException e) {
 			handleError(connection, e);
 		}
 		finally {

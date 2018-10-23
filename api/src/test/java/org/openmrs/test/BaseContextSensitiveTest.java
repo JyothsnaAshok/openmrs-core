@@ -667,7 +667,13 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 					
 					reader.close();
 				}
-				catch (DataSetException | IOException e) {
+				catch (FileNotFoundException e) {
+					throw new DatabaseUnitRuntimeException(e);
+				}
+				catch (DataSetException e) {
+					throw new DatabaseUnitRuntimeException(e);
+				}
+				catch (IOException e) {
 					throw new DatabaseUnitRuntimeException(e);
 				}
 			}
@@ -788,7 +794,10 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 			//insert new rows, update existing rows, and leave others alone
 			DatabaseOperation.REFRESH.execute(dbUnitConn, dataset);
 		}
-		catch (DatabaseUnitException | SQLException e) {
+		catch (DatabaseUnitException e) {
+			throw new DatabaseUnitRuntimeException(e);
+		}
+		catch (SQLException e) {
 			throw new DatabaseUnitRuntimeException(e);
 		}
 	}
@@ -841,7 +850,13 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 			
 			isBaseSetup = false;
 		}
-		catch (SQLException | DatabaseUnitException e) {
+		catch (AmbiguousTableNameException e) {
+			throw new DatabaseUnitRuntimeException(e);
+		}
+		catch (SQLException e) {
+			throw new DatabaseUnitRuntimeException(e);
+		}
+		catch (DatabaseUnitException e) {
 			throw new DatabaseUnitRuntimeException(e);
 		}
 	}

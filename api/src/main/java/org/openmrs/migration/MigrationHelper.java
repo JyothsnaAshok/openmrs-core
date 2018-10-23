@@ -93,7 +93,10 @@ public class MigrationHelper {
 			
 			return builder.parse(new InputSource(new StringReader(xml)));
 		}
-		catch (IOException | SAXException ex) {
+		catch (IOException ex) {
+			return null;
+		}
+		catch (SAXException e) {
 			return null;
 		}
 	}

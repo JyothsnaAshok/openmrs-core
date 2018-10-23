@@ -188,7 +188,10 @@ public class GenerateUuid implements CustomTaskChange {
 							}
 						}
 					}
-					catch (DatabaseException | SQLException e) {
+					catch (DatabaseException e) {
+						throw new CustomChangeException("Unable to set uuid on table: " + tableName, e);
+					}
+					catch (SQLException e) {
 						throw new CustomChangeException("Unable to set uuid on table: " + tableName, e);
 					}
 				}

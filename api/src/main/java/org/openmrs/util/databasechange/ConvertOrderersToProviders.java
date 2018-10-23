@@ -90,7 +90,10 @@ public class ConvertOrderersToProviders implements CustomTaskChange {
 			
 			connection.commit();
 		}
-		catch (DatabaseException | SQLException e) {
+		catch (DatabaseException e) {
+			handleError(connection, e);
+		}
+		catch (SQLException e) {
 			handleError(connection, e);
 		}
 		finally {

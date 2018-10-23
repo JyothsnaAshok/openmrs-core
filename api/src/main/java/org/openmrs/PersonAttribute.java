@@ -150,10 +150,13 @@ public class PersonAttribute extends BaseChangeableOpenmrsData implements java.i
 			catch (NoSuchMethodException e) {
 				log.warn("No such method for comparison " + methodAttribute, e);
 			}
-			catch (IllegalAccessException | InvocationTargetException e) {
+			catch (IllegalAccessException e) {
 				log.error("Error while comparing attributes", e);
 			}
-
+			catch (InvocationTargetException e) {
+				log.error("Error while comparing attributes", e);
+			}
+			
 		}
 		
 		return returnValue;
