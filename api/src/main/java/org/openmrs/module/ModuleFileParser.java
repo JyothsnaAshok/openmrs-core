@@ -11,7 +11,6 @@ package org.openmrs.module;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -169,7 +168,16 @@ public class ModuleFileParser {
 	private Document parseConfigXmlStream(InputStream configStream) {
 		Document config;
 		try {
-			DocumentBuilder db = newDocumentBuilder();
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			db.setEntityResolver((publicId, systemId) -> {
+				// When asked to resolve external entities (such as a
+				// DTD) we return an InputSource
+				// with no data at the end, causing the parser to ignore
+				// the DTD.
+				return new InputSource(new StringReader(""));
+			});
+
 			config = db.parse(configStream);
 		}
 		catch (Exception e) {
@@ -195,19 +203,6 @@ public class ModuleFileParser {
 				.getName(), e);
 		}
 		return config;
-	}
-
-	private DocumentBuilder newDocumentBuilder() throws ParserConfigurationException {
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		DocumentBuilder db = dbf.newDocumentBuilder();
-		db.setEntityResolver((publicId, systemId) -> {
-			// When asked to resolve external entities (such as a
-			// DTD) we return an InputSource
-			// with no data at the end, causing the parser to ignore
-			// the DTD.
-			return new InputSource(new StringReader(""));
-		});
-		return db;
 	}
 
 	private Module createModule(Document config) {
