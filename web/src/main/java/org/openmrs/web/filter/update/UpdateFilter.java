@@ -621,9 +621,9 @@ public class UpdateFilter extends StartupFilter {
 		private List<String> updateWarnings = new LinkedList<>();
 		
 		public synchronized void reportError(String error, Object... params) {
-			Map<String, Object[]> reportedErrors = new HashMap<>();
-			reportedErrors.put(error, params);
-			reportErrors(reportedErrors);
+			Map<String, Object[]> errors = new HashMap<>();
+			errors.put(error, params);
+			reportErrors(errors);
 		}
 
 		public synchronized void reportErrors(Map<String, Object[]> errs) {
@@ -741,13 +741,13 @@ public class UpdateFilter extends StartupFilter {
 						}
 						catch (DatabaseUpdateException e) {
 							log.error("Unable to update the database", e);
-							Map<String, Object[]> databaseUpdateErrors = new HashMap<>();
-							databaseUpdateErrors.put(ErrorMessageConstants.UPDATE_ERROR_UNABLE, null);
-							for (String errorMessage : Arrays.asList(e.getMessage().split("\n"))) {
-								databaseUpdateErrors.put(errorMessage, null);
+							Map<String, Object[]> errors = new HashMap<>();
+							errors.put(ErrorMessageConstants.UPDATE_ERROR_UNABLE, null);
+							for (String message : Arrays.asList(e.getMessage().split("\n"))) {
+								errors.put(message, null);
 							}
 							model.updateChanges();
-							reportErrors(databaseUpdateErrors);
+							reportErrors(errors);
 							return;
 						}
 						

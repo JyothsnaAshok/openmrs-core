@@ -981,8 +981,8 @@ public class Obs extends BaseChangeableOpenmrsData {
 				if (getValueDrug() != null) {
 					return getValueDrug().getFullName(locale);
 				} else {
-					ConceptName codedName = getValueCodedName();
-					if (codedName != null) {
+					ConceptName valueCodedName = getValueCodedName();
+					if (valueCodedName != null) {
 						return getValueCoded().getName(locale, false).getName();
 					} else {
 						ConceptName fallbackName = getValueCoded().getName();
@@ -1019,10 +1019,10 @@ public class Obs extends BaseChangeableOpenmrsData {
 			} else if ("ST".equals(abbrev)) {
 				return getValueText();
 			} else if ("ED".equals(abbrev) && getValueComplex() != null) {
-				String[] valuesComplex = getValueComplex().split("\\|");
-				for (String value : valuesComplex) {
-					if (StringUtils.isNotEmpty(value)) {
-						return value.trim();
+				String[] valueComplex = getValueComplex().split("\\|");
+				for (String aValueComplex : valueComplex) {
+					if (StringUtils.isNotEmpty(aValueComplex)) {
+						return aValueComplex.trim();
 					}
 				}
 			}
@@ -1064,10 +1064,10 @@ public class Obs extends BaseChangeableOpenmrsData {
 		// returns the title portion of the valueComplex
 		// which is everything before the first bar '|' character.
 		if (getValueComplex() != null) {
-			String[] valuesComplex = getValueComplex().split("\\|");
-			for (String value : valuesComplex) {
-				if (StringUtils.isNotEmpty(value)) {
-					return value.trim();
+			String[] valueComplex = getValueComplex().split("\\|");
+			for (String aValueComplex : valueComplex) {
+				if (StringUtils.isNotEmpty(aValueComplex)) {
+					return aValueComplex.trim();
 				}
 			}
 		}
