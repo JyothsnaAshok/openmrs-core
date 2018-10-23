@@ -566,7 +566,7 @@ public class ModuleFileParser {
 			return result;
 		}
 		
-		log.debug("# global properties: {}", propNodes.getLength());
+		log.debug("# global props: " + propNodes.getLength());
 		int i = 0;
 		while (i < propNodes.getLength()) {
 			Element gpElement = (Element) propNodes.item(i);
@@ -589,9 +589,8 @@ public class ModuleFileParser {
 		String datatypeClassname = getElementTrimmed(element, "datatypeClassname");
 		String datatypeConfig = getElementTrimmed(element, "datatypeConfig");
 		
-		log.debug("property: {}, defaultValue: {}", property, defaultValue);
-		log.debug("description: {}, datatypeClassname: {}", description, datatypeClassname);
-		log.debug("datatypeConfig: {}", datatypeConfig);
+		log.debug("property: " + property + " defaultValue: " + defaultValue + " description: " + description);
+		log.debug("datatypeClassname: " + datatypeClassname + " datatypeConfig: " + datatypeConfig);
 
 		// remove tabs from description and trim start/end whitespace
 		if (description != null) {
