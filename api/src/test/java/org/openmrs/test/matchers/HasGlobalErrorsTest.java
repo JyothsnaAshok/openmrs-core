@@ -35,7 +35,7 @@ public class HasGlobalErrorsTest {
 	@Before
 	public void setUp() {
 		
-		item = new BindException("", "string");
+		item = new BindException(new String(), "string");
 		description = new StringDescription();
 	}
 	
