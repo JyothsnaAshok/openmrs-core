@@ -325,40 +325,40 @@ public class InitializationFilter extends StartupFilter {
 			wizardModel.currentDatabasePassword = script.getProperty("connection.password",
 			    wizardModel.currentDatabasePassword);
 			
-			String hasCurrentOpenmrsDatabase = script.getProperty("has_current_openmrs_database");
-			if (hasCurrentOpenmrsDatabase != null) {
-				wizardModel.hasCurrentOpenmrsDatabase = Boolean.valueOf(hasCurrentOpenmrsDatabase);
+			String has_current_openmrs_database = script.getProperty("has_current_openmrs_database");
+			if (has_current_openmrs_database != null) {
+				wizardModel.hasCurrentOpenmrsDatabase = Boolean.valueOf(has_current_openmrs_database);
 			}
 			wizardModel.createDatabaseUsername = script.getProperty("create_database_username",
 			    wizardModel.createDatabaseUsername);
 			wizardModel.createDatabasePassword = script.getProperty("create_database_password",
 			    wizardModel.createDatabasePassword);
 			
-			String createTables = script.getProperty("create_tables");
-			if (createTables != null) {
-				wizardModel.createTables = Boolean.valueOf(createTables);
+			String create_tables = script.getProperty("create_tables");
+			if (create_tables != null) {
+				wizardModel.createTables = Boolean.valueOf(create_tables);
 			}
 			
-			String createDatabaseUser = script.getProperty("create_database_user");
-			if (createDatabaseUser != null) {
-				wizardModel.createDatabaseUser = Boolean.valueOf(createDatabaseUser);
+			String create_database_user = script.getProperty("create_database_user");
+			if (create_database_user != null) {
+				wizardModel.createDatabaseUser = Boolean.valueOf(create_database_user);
 			}
 			wizardModel.createUserUsername = script.getProperty("create_user_username", wizardModel.createUserUsername);
 			wizardModel.createUserPassword = script.getProperty("create_user_password", wizardModel.createUserPassword);
 			
-			String addDemoData = script.getProperty("add_demo_data");
-			if (addDemoData != null) {
-				wizardModel.addDemoData = Boolean.valueOf(addDemoData);
+			String add_demo_data = script.getProperty("add_demo_data");
+			if (add_demo_data != null) {
+				wizardModel.addDemoData = Boolean.valueOf(add_demo_data);
 			}
 			
-			String moduleWebAdmin = script.getProperty("module_web_admin");
-			if (moduleWebAdmin != null) {
-				wizardModel.moduleWebAdmin = Boolean.valueOf(moduleWebAdmin);
+			String module_web_admin = script.getProperty("module_web_admin");
+			if (module_web_admin != null) {
+				wizardModel.moduleWebAdmin = Boolean.valueOf(module_web_admin);
 			}
 			
-			String autoUpdateDatabase = script.getProperty("auto_update_database");
-			if (autoUpdateDatabase != null) {
-				wizardModel.autoUpdateDatabase = Boolean.valueOf(autoUpdateDatabase);
+			String auto_update_database = script.getProperty("auto_update_database");
+			if (auto_update_database != null) {
+				wizardModel.autoUpdateDatabase = Boolean.valueOf(auto_update_database);
 			}
 			
 			wizardModel.adminUserPassword = script.getProperty("admin_user_password", wizardModel.adminUserPassword);

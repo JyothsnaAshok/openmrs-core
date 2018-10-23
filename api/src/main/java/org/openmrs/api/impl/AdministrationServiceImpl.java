@@ -764,7 +764,7 @@ public class AdministrationServiceImpl extends BaseOpenmrsService implements Adm
 	 * @return memory in mega bytes
 	 */
 	private String convertToMegaBytes(long bytes) {
-		final int ONE_KILO_BYTE = 1024;
+		int ONE_KILO_BYTE = 1024;
 		return String.valueOf(bytes / ONE_KILO_BYTE / ONE_KILO_BYTE) + " MB";
 	}
 	
