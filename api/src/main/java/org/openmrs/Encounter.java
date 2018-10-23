@@ -606,7 +606,8 @@ public class Encounter extends BaseChangeableOpenmrsData {
 	 */
 	public void setProvider(EncounterRole role, Provider provider) {
 		boolean hasProvider = false;
-		for (EncounterProvider encounterProvider : encounterProviders) {
+		for (Iterator<EncounterProvider> it = encounterProviders.iterator(); it.hasNext();) {
+			EncounterProvider encounterProvider = it.next();
 			if (encounterProvider.getEncounterRole().equals(role)) {
 				if (!encounterProvider.getProvider().equals(provider)) {
 					encounterProvider.setVoided(true);

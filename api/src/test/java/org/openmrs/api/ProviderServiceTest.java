@@ -469,9 +469,10 @@ public class ProviderServiceTest extends BaseContextSensitiveTest {
 		assertEquals(1, service.getCountOfProviders("Hippo").intValue());
 		Person person = Context.getPersonService().getPerson(502);
 		Set<PersonName> names = person.getNames();
-		for (PersonName name : names) {
+		for (Iterator<PersonName> iterator = names.iterator(); iterator.hasNext();) {
+			PersonName name = iterator.next();
 			name.setVoided(true);
-
+			
 		}
 		PersonName personName = new PersonName("Hippot", "A", "B");
 		personName.setPreferred(true);

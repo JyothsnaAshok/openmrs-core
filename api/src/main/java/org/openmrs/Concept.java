@@ -1108,7 +1108,8 @@ public class Concept extends BaseOpenmrsObject implements Auditable, Retireable,
 		Locale desiredLocale = locale;
 		
 		ConceptDescription defaultDescription = null;
-		for (ConceptDescription availableDescription : getDescriptions()) {
+		for (Iterator<ConceptDescription> i = getDescriptions().iterator(); i.hasNext();) {
+			ConceptDescription availableDescription = i.next();
 			Locale availableLocale = availableDescription.getLocale();
 			if (availableLocale.equals(desiredLocale)) {
 				foundDescription = availableDescription;
