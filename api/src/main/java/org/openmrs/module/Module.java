@@ -557,6 +557,7 @@ public final class Module {
 		for (Map.Entry<String, String> entry : extensionNames.entrySet()) {
 			String point = entry.getKey();
 			String className = entry.getValue();
+			final String errorLoadClassString = "Unable to load class for extension: ";
 			log.debug("expanding extension names: " + point + " : " + className);
 			try {
 				Class<?> cls = moduleClsLoader.loadClass(className);
@@ -570,7 +571,7 @@ public final class Module {
 				log.warn(getModuleId() + ": Unable to find class definition for extension: " + point, e);
 			}
 			catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-				log.warn("Unable to load class for extension: " + point, e);
+				log.warn(errorLoadClassString + point, e);
 			}
 		}
 		return extensions;
