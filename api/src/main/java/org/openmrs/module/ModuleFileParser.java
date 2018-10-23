@@ -245,7 +245,7 @@ public class ModuleFileParser {
 		module.setAdvicePoints(getAdvice(rootNode,  module));
 		module.setExtensionNames(getExtensions(rootNode));
 		module.setPrivileges(getPrivileges(rootNode));
-		module.setGlobalProperties(extractGlobalProperties(rootNode));
+		module.setGlobalProperties(getGlobalProperties(rootNode));
 		module.setMappingFiles(getMappingFiles(rootNode));
 		module.setPackagesWithMappedClasses(getPackagesWithMappedClasses(rootNode));
 
@@ -557,11 +557,17 @@ public class ModuleFileParser {
 		return privileges;
 	}
 	
-	private List<GlobalProperty> extractGlobalProperties(Element element) {
+	/**
+	 * load in required global properties and defaults
+	 *
+	 * @param root
+	 * @return
+	 */
+	private List<GlobalProperty> getGlobalProperties(Element root) {
 		
 		List<GlobalProperty> result = new ArrayList<>();
 		
-		NodeList propNodes = element.getElementsByTagName("globalProperty");
+		NodeList propNodes = root.getElementsByTagName("globalProperty");
 		if (propNodes.getLength() == 0) {
 			return result;
 		}
