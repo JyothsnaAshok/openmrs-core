@@ -264,6 +264,10 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 	public List<Patient> getPatients(String name, String identifier, List<PatientIdentifierType> identifierTypes,
 	        boolean matchIdentifierExactly) throws APIException {
 		
+		if (identifierTypes == null) {
+			identifierTypes = Collections.emptyList();
+		}
+		
 		return Context.getPatientService().getPatients(name, identifier, identifierTypes, matchIdentifierExactly, 0, null);
 	}
 	
@@ -1617,12 +1621,7 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 	public List<Patient> getPatients(String name, String identifier, List<PatientIdentifierType> identifierTypes,
 	        boolean matchIdentifierExactly, Integer start, Integer length) throws APIException {
 		
-		if(identifierTypes == null) {
-			return dao.getPatients(name != null ? name : identifier, start, length);
-		}
-		else {
-			return dao.getPatients(name != null ? name : identifier, identifierTypes, matchIdentifierExactly, start, length);
-		}
+		return dao.getPatients(name != null ? name : identifier, start, length);
 	}
 	
 	/**
