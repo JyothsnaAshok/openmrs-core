@@ -369,8 +369,4 @@ public class Daemon {
 			return null;
 		}
 	}
-
-	public static String getDaemonUserUuid() {
-		return DAEMON_USER_UUID;
-	}
 }
