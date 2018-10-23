@@ -214,38 +214,36 @@ public class WebUtil implements GlobalPropertyListener {
 	}
 
 	public static String escapeQuotes(String s) {
-		String tmpS = s;
-		if (tmpS == null) {
+		
+		if (s == null) {
 			return "";
 		}
 		
-		tmpS = tmpS.replace("\"", "\\\"");
+		s = s.replace("\"", "\\\"");
 		
-		return tmpS;
+		return s;
 	}
 	
 	public static String escapeNewlines(String s) {
-		String tmpS = s;
-		if (tmpS == null) {
+		if (s == null) {
 			return "";
 		}
 		
-		tmpS = tmpS.replace("\n", "\\n");
+		s = s.replace("\n", "\\n");
 		
-		return tmpS;
+		return s;
 	}
 	
 	public static String escapeQuotesAndNewlines(String s) {
-		String tmpS = s;
-		if (tmpS == null) {
+		if (s == null) {
 			return "";
 		}
-
-		tmpS = tmpS.replace("\"", "\\\"");
-		tmpS = tmpS.replace("\r\n", "\\r\\n");
-		tmpS = tmpS.replace("\n", "\\n");
 		
-		return tmpS;
+		s = s.replace("\"", "\\\"");
+		s = s.replace("\r\n", "\\r\\n");
+		s = s.replace("\n", "\\n");
+		
+		return s;
 	}
 	
 	/**
@@ -261,23 +259,22 @@ public class WebUtil implements GlobalPropertyListener {
 		}
 		
 		// for unix based filesystems
-		String tmpFilename = filename;
-		int index = tmpFilename.lastIndexOf("/");
+		int index = filename.lastIndexOf("/");
 		if (index != -1) {
-			tmpFilename = tmpFilename.substring(index + 1);
+			filename = filename.substring(index + 1);
 		}
 		
 		// for windows based filesystems
-		index = tmpFilename.lastIndexOf("\\");
+		index = filename.lastIndexOf("\\");
 		if (index != -1) {
-			tmpFilename = tmpFilename.substring(index + 1);
+			filename = filename.substring(index + 1);
 		}
 		
 		if (log.isDebugEnabled()) {
-			log.debug("Returning stripped down filename: " + tmpFilename);
+			log.debug("Returning stripped down filename: " + filename);
 		}
 		
-		return tmpFilename;
+		return filename;
 	}
 	
 	/**

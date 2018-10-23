@@ -200,12 +200,11 @@ public class FormServiceImpl extends BaseOpenmrsService implements FormService {
 	public FormField getFormField(Form form, Concept concept, Collection<FormField> ignoreFormFields, boolean force)
 	        throws APIException {
 		// create an empty ignoreFormFields list if none was passed in
-		Collection<FormField> tmpIgnoreFormFields = ignoreFormFields;
-		if (tmpIgnoreFormFields == null) {
-			tmpIgnoreFormFields = Collections.emptyList();
+		if (ignoreFormFields == null) {
+			ignoreFormFields = Collections.emptyList();
 		}
 		
-		return dao.getFormField(form, concept, tmpIgnoreFormFields, force);
+		return dao.getFormField(form, concept, ignoreFormFields, force);
 	}
 	
 	/**
@@ -315,17 +314,37 @@ public class FormServiceImpl extends BaseOpenmrsService implements FormService {
 	        Collection<String> tableNames, Collection<String> attributeNames, Boolean selectMultiple,
 	        Collection<FieldAnswer> containsAllAnswers, Collection<FieldAnswer> containsAnyAnswer, Boolean retired)
 	        throws APIException {
-
-		Collection<Form> tmpForms = forms == null ? Collections.emptyList() : forms;
-		Collection<Concept> tmpConcepts = concepts == null ? Collections.emptyList() : concepts;
-		Collection<FieldType> tmpFieldTypes = fieldTypes == null ? Collections.emptyList() : fieldTypes;
-		Collection<String> tmpTableNames = tableNames == null ? Collections.emptyList() : tableNames;
-		Collection<String> tmpAttributeNames = attributeNames == null ? Collections.emptyList() : attributeNames;
-		Collection<FieldAnswer> tmpContainsAllAnswers = containsAllAnswers == null ? Collections.emptyList() : containsAllAnswers;
-		Collection<FieldAnswer> tmpContainsAnyAnswer = containsAnyAnswer == null ? Collections.emptyList() : containsAnyAnswer;
 		
-		return dao.getFields(tmpForms, tmpFieldTypes, tmpConcepts, tmpTableNames, tmpAttributeNames, selectMultiple,
-				tmpContainsAllAnswers, tmpContainsAnyAnswer, retired);
+		if (forms == null) {
+			forms = Collections.emptyList();
+		}
+		
+		if (fieldTypes == null) {
+			fieldTypes = Collections.emptyList();
+		}
+		
+		if (concepts == null) {
+			concepts = Collections.emptyList();
+		}
+		
+		if (tableNames == null) {
+			tableNames = Collections.emptyList();
+		}
+		
+		if (attributeNames == null) {
+			attributeNames = Collections.emptyList();
+		}
+		
+		if (containsAllAnswers == null) {
+			containsAllAnswers = Collections.emptyList();
+		}
+		
+		if (containsAnyAnswer == null) {
+			containsAnyAnswer = Collections.emptyList();
+		}
+		
+		return dao.getFields(forms, fieldTypes, concepts, tableNames, attributeNames, selectMultiple, containsAllAnswers,
+		    containsAnyAnswer, retired);
 	}
 	
 	/**
@@ -384,14 +403,25 @@ public class FormServiceImpl extends BaseOpenmrsService implements FormService {
 	public List<Form> getForms(String partialName, Boolean published, Collection<EncounterType> encounterTypes,
 	        Boolean retired, Collection<FormField> containingAnyFormField, Collection<FormField> containingAllFormFields,
 	        Collection<Field> fields) {
-
-		Collection<EncounterType> tmpEncounterTypes = encounterTypes == null ? Collections.emptyList() : encounterTypes;
-		Collection<FormField> tmpContainingAllFormFields = containingAllFormFields == null ? Collections.emptyList() : containingAllFormFields;
-		Collection<FormField> tmpContainingAnyFormField = containingAnyFormField == null ? Collections.emptyList() : containingAnyFormField;
-		Collection<Field> tmpFields = fields == null ? Collections.emptyList() : fields;
 		
-		return dao.getForms(partialName, published, tmpEncounterTypes, retired, tmpContainingAnyFormField,
-		    tmpContainingAllFormFields, tmpFields);
+		if (encounterTypes == null) {
+			encounterTypes = Collections.emptyList();
+		}
+		
+		if (containingAllFormFields == null) {
+			containingAllFormFields = Collections.emptyList();
+		}
+		
+		if (containingAnyFormField == null) {
+			containingAnyFormField = Collections.emptyList();
+		}
+		
+		if (fields == null) {
+			fields = Collections.emptyList();
+		}
+		
+		return dao.getForms(partialName, published, encounterTypes, retired, containingAnyFormField,
+		    containingAllFormFields, fields);
 	}
 	
 	/**
@@ -404,14 +434,25 @@ public class FormServiceImpl extends BaseOpenmrsService implements FormService {
 	public Integer getFormCount(String partialName, Boolean published, Collection<EncounterType> encounterTypes,
 	        Boolean retired, Collection<FormField> containingAnyFormField, Collection<FormField> containingAllFormFields,
 	        Collection<Field> fields) {
-
-		Collection<EncounterType> tmpEncounterTypes = encounterTypes == null ? Collections.emptyList() : encounterTypes;
-		Collection<FormField> tmpContainingAllFormFields = containingAllFormFields == null ? Collections.emptyList() : containingAllFormFields;
-		Collection<FormField> tmpContainingAnyFormField = containingAnyFormField == null ? Collections.emptyList() : containingAnyFormField;
-		Collection<Field> tmpFields = fields == null ? Collections.emptyList() : fields;
 		
-		return dao.getFormCount(partialName, published, tmpEncounterTypes, retired, tmpContainingAnyFormField,
-		    tmpContainingAllFormFields, tmpFields);
+		if (encounterTypes == null) {
+			encounterTypes = Collections.emptyList();
+		}
+		
+		if (containingAllFormFields == null) {
+			containingAllFormFields = Collections.emptyList();
+		}
+		
+		if (containingAnyFormField == null) {
+			containingAnyFormField = Collections.emptyList();
+		}
+		
+		if (fields == null) {
+			fields = Collections.emptyList();
+		}
+		
+		return dao.getFormCount(partialName, published, encounterTypes, retired, containingAnyFormField,
+		    containingAllFormFields, fields);
 	}
 	
 	/**
@@ -543,28 +584,28 @@ public class FormServiceImpl extends BaseOpenmrsService implements FormService {
 		if (field.getUuid() == null) {
 			field.setUuid(UUID.randomUUID().toString());
 		}
-
-		FormField tmpFormField = dao.saveFormField(formField);
+		
+		formField = dao.saveFormField(formField);
 		
 		//Include all formfields from all serializable complex obs handlers
-		Concept concept = tmpFormField.getField().getConcept();
+		Concept concept = formField.getField().getConcept();
 		if (concept != null && concept.isComplex()) {
 			ComplexObsHandler handler = Context.getObsService().getHandler(((ConceptComplex) concept).getHandler());
 			if (handler instanceof SerializableComplexObsHandler) {
 				SerializableComplexObsHandler sHandler = (SerializableComplexObsHandler) handler;
 				if (sHandler.getFormFields() != null) {
 					for (FormField ff : sHandler.getFormFields()) {
-						ff.setParent(tmpFormField);
-						ff.setForm(tmpFormField.getForm());
-						ff.setCreator(tmpFormField.getCreator());
-						ff.setDateCreated(tmpFormField.getDateCreated());
+						ff.setParent(formField);
+						ff.setForm(formField.getForm());
+						ff.setCreator(formField.getCreator());
+						ff.setDateCreated(formField.getDateCreated());
 						dao.saveFormField(ff);
 					}
 				}
 			}
 		}
 		
-		return tmpFormField;
+		return formField;
 	}
 	
 	/**

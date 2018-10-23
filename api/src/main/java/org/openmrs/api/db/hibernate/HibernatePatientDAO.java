@@ -174,18 +174,15 @@ public class HibernatePatientDAO implements PatientDAO {
 		if (StringUtils.isBlank(query) || (length != null && length < 1)) {
 			return Collections.emptyList();
 		}
-
-		Integer tmpStart = start;
-		if (tmpStart == null || tmpStart < 0) {
-			tmpStart = 0;
+		
+		if (start == null || start < 0) {
+			start = 0;
+		}
+		if (length == null) {
+			length = HibernatePersonDAO.getMaximumSearchResults();
 		}
 
-		Integer tmpLength = length;
-		if (tmpLength == null) {
-			tmpLength = HibernatePersonDAO.getMaximumSearchResults();
-		}
-
-		List<Patient> patients = findPatients(query, includeVoided, tmpStart, tmpLength);
+		List<Patient> patients = findPatients(query, includeVoided, start, length);
 
 		return new ArrayList<>(patients);
 	}
@@ -666,14 +663,15 @@ public class HibernatePatientDAO implements PatientDAO {
 		if (StringUtils.isBlank(query)) {
 			return 0L;
 		}
-		String tmpQuery = LuceneQuery.escapeQuery(query);
 
-		LuceneQuery<PatientIdentifier> identifierQuery = getPatientIdentifierLuceneQuery(tmpQuery, includeVoided);
+		query = LuceneQuery.escapeQuery(query);
+
+		LuceneQuery<PatientIdentifier> identifierQuery = getPatientIdentifierLuceneQuery(query, includeVoided);
 
 		PersonLuceneQuery personLuceneQuery = new PersonLuceneQuery(sessionFactory);
 
-		LuceneQuery<PersonName> nameQuery = personLuceneQuery.getPatientNameQuery(tmpQuery, includeVoided, identifierQuery);
-		LuceneQuery<PersonAttribute> attributeQuery = personLuceneQuery.getPatientAttributeQuery(tmpQuery, includeVoided, nameQuery);
+		LuceneQuery<PersonName> nameQuery = personLuceneQuery.getPatientNameQuery(query, includeVoided, identifierQuery);
+		LuceneQuery<PersonAttribute> attributeQuery = personLuceneQuery.getPatientAttributeQuery(query, includeVoided, nameQuery);
 
 		return identifierQuery.resultSize() + nameQuery.resultSize() + attributeQuery.resultSize();
 	}
@@ -683,14 +681,12 @@ public class HibernatePatientDAO implements PatientDAO {
 	}
 
 	public List<Patient> findPatients(String query, boolean includeVoided, Integer start, Integer length){
-		Integer tmpStart = start;
-		if (tmpStart == null) {
-			tmpStart = 0;
+		if (start == null) {
+			start = 0;
 		}
 		Integer maxLength = HibernatePersonDAO.getMaximumSearchResults();
-		Integer tmpLength = length;
-		if (tmpLength == null || tmpLength > maxLength) {
-			tmpLength = maxLength;
+		if (length == null || length > maxLength) {
+			length = maxLength;
 		}
 		query = LuceneQuery.escapeQuery(query);
 
@@ -708,17 +704,17 @@ public class HibernatePatientDAO implements PatientDAO {
 		LuceneQuery<PatientIdentifier> identifierQuery = getPatientIdentifierLuceneQuery(query, includeVoided);
 
 		long identifiersSize = identifierQuery.resultSize();
-		if (identifiersSize > tmpStart) {
-			ListPart<Object[]> patientIdentifiers = identifierQuery.listPartProjection(tmpStart, tmpLength, "patient.personId");
+		if (identifiersSize > start) {
+			ListPart<Object[]> patientIdentifiers = identifierQuery.listPartProjection(start, length, "patient.personId");
 			patientIdentifiers.getList().forEach(patientIdentifier -> patients.add(getPatient((Integer) patientIdentifier[0])));
 
-			tmpLength -= patientIdentifiers.getList().size();
-			tmpStart = 0;
+			length -= patientIdentifiers.getList().size();
+			start = 0;
 		} else {
-			tmpStart -= (int) identifiersSize;
+			start -= (int) identifiersSize;
 		}
 
-		if (tmpLength == 0) {
+		if (length == 0) {
 			return patients;
 		}
 
@@ -726,24 +722,24 @@ public class HibernatePatientDAO implements PatientDAO {
 
 		LuceneQuery<PersonName> nameQuery = personLuceneQuery.getPatientNameQuery(query, includeVoided, identifierQuery);
 		long namesSize = nameQuery.resultSize();
-		if (namesSize > tmpStart) {
-			ListPart<Object[]> personNames = nameQuery.listPartProjection(tmpStart, tmpLength, "person.personId");
+		if (namesSize > start) {
+			ListPart<Object[]> personNames = nameQuery.listPartProjection(start, length, "person.personId");
 			personNames.getList().forEach(personName -> patients.add(getPatient((Integer) personName[0])));
 
-			tmpLength -= personNames.getList().size();
-			tmpStart = 0;
+			length -= personNames.getList().size();
+			start = 0;
 		} else {
-			tmpStart -= (int) namesSize;
+			start -= (int) namesSize;
 		}
 
-		if (tmpLength == 0) {
+		if (length == 0) {
 			return patients;
 		}
 
 		LuceneQuery<PersonAttribute> attributeQuery = personLuceneQuery.getPatientAttributeQuery(query, includeVoided, nameQuery);
 		long attributesSize = attributeQuery.resultSize();
-		if (attributesSize > tmpStart) {
-			ListPart<Object[]> personAttributes = attributeQuery.listPartProjection(tmpStart, tmpLength, "person.personId");
+		if (attributesSize > start) {
+			ListPart<Object[]> personAttributes = attributeQuery.listPartProjection(start, length, "person.personId");
 			personAttributes.getList().forEach(personAttribute -> patients.add(getPatient((Integer) personAttribute[0])));
 		}
 
