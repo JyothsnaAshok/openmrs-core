@@ -38,7 +38,7 @@ public class TimerSchedulerServiceImplTest extends BaseContextSensitiveTest {
 		Calendar startTime = Calendar.getInstance();
 		
 		// Define repeatInterval as zero
-		Long repeatInterval = 0L;
+		Long repeatInterval = new Long(0);
 		
 		String taskName = "TestTask";
 		String className = "org.openmrs.scheduler.tasks.TestTask";
