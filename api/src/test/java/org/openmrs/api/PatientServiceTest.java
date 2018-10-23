@@ -2750,12 +2750,6 @@ public class PatientServiceTest extends BaseContextSensitiveTest {
 		Assert.assertFalse(patient.getPersonVoided());
 	}
 	
-	@Test
-	public void unvoidPatient_shouldReturnNullWhenPatientIsNull() throws Exception {
-		
-		assertNull(patientService.unvoidPatient(null));
-	}
-	
 	/**
 	 * @see PatientService#unvoidPatient(Patient)
 	 */
