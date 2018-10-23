@@ -9,7 +9,6 @@
  */
 package org.openmrs.layout.name;
 
-import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.layout.LayoutSupport;
 import org.slf4j.Logger;
@@ -32,7 +31,7 @@ public class NameSupport extends LayoutSupport<NameTemplate> {
 	
 	public static NameSupport getInstance() {
 		if (singleton == null) {
-			throw new APIException("Not Yet Instantiated");
+			throw new RuntimeException("Not Yet Instantiated");
 		} else {
 			return singleton;
 		}
