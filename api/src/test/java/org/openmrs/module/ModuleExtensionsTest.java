@@ -25,9 +25,6 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.openmrs.messagesource.MessageSourceService;
-import org.openmrs.test.BaseContextMockTest;
 
 /**
  * Tests for {@link Module#getExtensions()}.
@@ -35,13 +32,10 @@ import org.openmrs.test.BaseContextMockTest;
  * Look at {@link ModuleFileParser#parse()} for how a Module is constructed and initialized.
  * At first the extension tags found in config.xml are parsed and set in {@link Module#setExtensionNames(Map)}.
  */
-public class ModuleExtensionsTest extends BaseContextMockTest {
+public class ModuleExtensionsTest {
 
 	private static final String EXTENSION_POINT_ID_PATIENT_DASHBOARD = "org.openmrs.patientDashboard";
 	private static final String LOGIC_MODULE_PATH = "org/openmrs/module/include/logic-0.2.omod";
-	
-	@Mock
-	MessageSourceService messageSourceService;
 
 	private Module module;
 
@@ -93,9 +87,8 @@ public class ModuleExtensionsTest extends BaseContextMockTest {
 		// legacyui module, which since thats not loaded cannot be found, more specifically leads to
 		// java.lang.NoClassDefFoundError: org/openmrs/module/web/extension/AdministrationSectionExt
 
-		module = new ModuleFileParser(messageSourceService).parse(
-			new File(getClass().getClassLoader().getResource(LOGIC_MODULE_PATH).getPath())
-		);
+		File moduleFile = new File(getClass().getClassLoader().getResource(LOGIC_MODULE_PATH).getPath());
+		module = new ModuleFileParser(moduleFile).parse();
 		ModuleClassLoader moduleClassLoader = new ModuleClassLoader(module, getClass().getClassLoader());
 		ModuleFactory.getModuleClassLoaderMap().put(module, moduleClassLoader);
 
