@@ -270,6 +270,15 @@ public class ModuleFileParser {
 		return getTrimmedElementOrFail(rootNode, "package", "Module.error.packageCannotBeEmpty", name);
 	}
 
+	private String getTrimmedElementOrFail(Element rootNode, String elementName, String errorMessageKey, String moduleName) {
+		String element = getElementTrimmed(rootNode, elementName);
+		if (element == null || element.length() == 0) {
+			throw new ModuleException(Context.getMessageSourceService().getMessage(errorMessageKey),
+				moduleName);
+		}
+		return element;
+	}
+	
 	/**
 	 * Parses conditionalResources tag.
 	 * @param rootNode
@@ -350,6 +359,17 @@ public class ModuleFileParser {
 		}
 		
 		return conditionalResources;
+	}
+	
+	private String getElementTrimmed(Element element, String name) {
+		return getElement(element, name).trim();
+	}
+	
+	private String getElement(Element root, String tag) {
+		if (root.getElementsByTagName(tag).getLength() > 0) {
+			return root.getElementsByTagName(tag).item(0).getTextContent();
+		}
+		return "";
 	}
 	
 	/**
@@ -636,26 +656,6 @@ public class ModuleFileParser {
 			}
 		}
 		return result;
-	}
-	
-	private String getTrimmedElementOrFail(Element rootNode, String elementName, String errorMessageKey, String moduleName) {
-		String element = getElementTrimmed(rootNode, elementName);
-		if (element == null || element.length() == 0) {
-			throw new ModuleException(Context.getMessageSourceService().getMessage(errorMessageKey),
-				moduleName);
-		}
-		return element;
-	}
-
-	private String getElementTrimmed(Element element, String name) {
-		return getElement(element, name).trim();
-	}
-
-	private String getElement(Element root, String tag) {
-		if (root.getElementsByTagName(tag).getLength() > 0) {
-			return root.getElementsByTagName(tag).item(0).getTextContent();
-		}
-		return "";
 	}
 	
 	/**
