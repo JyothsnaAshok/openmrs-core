@@ -59,11 +59,11 @@ public class LogicTransform {
 		}
 		
 		if (numResults != null) {
-			result.append(" ").append(numResults);
+			result.append(" " + numResults);
 		}
 		
 		if (sortColumn != null) {
-			result.append(" ordered by ").append(sortColumn);
+			result.append(" ordered by " + sortColumn);
 		}
 		return result.toString();
 	}

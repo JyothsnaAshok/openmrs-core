@@ -169,11 +169,11 @@ public class HibernatePersonDAO implements PersonDAO {
 		String genderMatch = " (p.gender = :gender or p.gender = '') ";
 		
 		if (birthyear != 0 && gender != null) {
-			q.append(" and (").append(birthdayMatch).append("and ").append(genderMatch).append(") ");
+			q.append(" and (" + birthdayMatch + "and " + genderMatch + ") ");
 		} else if (birthyear != 0) {
-			q.append(" and ").append(birthdayMatch);
+			q.append(" and " + birthdayMatch);
 		} else if (gender != null) {
-			q.append(" and ").append(genderMatch);
+			q.append(" and " + genderMatch);
 		}
 		
 		q.append(" order by pname.givenName asc,").append(" pname.middleName asc,").append(" pname.familyName asc,").append(
