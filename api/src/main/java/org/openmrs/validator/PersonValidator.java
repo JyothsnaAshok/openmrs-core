@@ -53,8 +53,7 @@ public class PersonValidator implements Validator {
 	 * @should fail validation if deathdate is a future date
 	 * @should fail validation if birthdate is after death date
 	 * @should fail validation if voidReason is blank when patient is voided
-	 * @should fail validation if causeOfDeath and causeOfDeathNonCoded is blank when patient is dead
-	 * @should fail validation if causeOfDeath and causeOfDeathNonCoded is both set
+	 * @should fail validation if causeOfDeath is blank when patient is dead
 	 * @should pass validation if gender is blank for Persons
 	 * @should pass validation if field lengths are correct
 	 * @should fail validation if field lengths are not correct
@@ -104,12 +103,7 @@ public class PersonValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "voidReason", "error.null");
 		}
 		if (person.getDead()) {
-			if(person.getCauseOfDeath() != null && person.getCauseOfDeathNonCoded() != null) {
-				errors.rejectValue("causeOfDeath", "Person.dead.shouldHaveOnlyOneCauseOfDeathOrCauseOfDeathNonCodedSet");
-			}
-			else if(person.getCauseOfDeath() == null && person.getCauseOfDeathNonCoded() == null) {
-				errors.rejectValue("causeOfDeath", "Person.dead.causeOfDeathAndCauseOfDeathNonCodedNull");
-			}
+			ValidationUtils.rejectIfEmpty(errors, "causeOfDeath", "Person.dead.causeOfDeathNull");
 		}
 		
 		ValidateUtil.validateFieldLengths(errors, Person.class, "gender", "personVoidReason");

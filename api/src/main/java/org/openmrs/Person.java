@@ -72,8 +72,6 @@ public class Person extends BaseChangeableOpenmrsData {
 	
 	private Concept causeOfDeath;
 	
-	private String causeOfDeathNonCoded;
-	
 	private User personCreator;
 	
 	private Date personDateCreated;
@@ -136,7 +134,7 @@ public class Person extends BaseChangeableOpenmrsData {
 		dead = person.getDead();
 		deathDate = person.getDeathDate();
 		causeOfDeath = person.getCauseOfDeath();
-		causeOfDeathNonCoded = person.getCauseOfDeathNonCoded();
+		
 		// base creator/voidedBy/changedBy info is not copied here
 		// because that is specific to and will be recreated
 		// by the subobject upon save
@@ -325,29 +323,6 @@ public class Person extends BaseChangeableOpenmrsData {
 	 */
 	public void setCauseOfDeath(Concept causeOfDeath) {
 		this.causeOfDeath = causeOfDeath;
-	}
-	
-	/**
-	 * This method returns the non coded cause of death
-	 * 
-	 * @return non coded cause of death
-	 * @since 2.2.0
-	 * 
-	 */
-	public String getCauseOfDeathNonCoded() {
-		return this.causeOfDeathNonCoded;
-	}
-	
-	/**
-	 * This method sets the non coded cause of death with the value given as parameter
-	 * 
-	 * @param causeOfDeathNonCoded is a String that describes as text the cause of death
-	 * @since 2.2.0
-	 * @should not fail with null causeOfDeathNonCoded
-	 * @should set the attribute causeOfDeathNonCoded with the given parameter
-	 */
-	public void setCauseOfDeathNonCoded(String causeOfDeathNonCoded) { 
-		this.causeOfDeathNonCoded = causeOfDeathNonCoded;
 	}
 	
 	/**
