@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Vector;
 
 import org.apache.commons.collections.ListUtils;
 import org.junit.Assert;
@@ -217,7 +218,7 @@ public class FormServiceTest extends BaseContextSensitiveTest {
 		
 		// test that the first formfield is ignored when a second fetch
 		// is done on the same form and same concept
-		List<FormField> ignoreFormFields = new ArrayList<>();
+		List<FormField> ignoreFormFields = new Vector<>();
 		ignoreFormFields.add(ff);
 		FormField ff2 = Context.getFormService().getFormField(new Form(1), new Concept(1), ignoreFormFields, false);
 		assertNotNull(ff2);
@@ -248,7 +249,7 @@ public class FormServiceTest extends BaseContextSensitiveTest {
 		
 		FormService formService = Context.getFormService();
 		
-		List<Field> fields = new ArrayList<>();
+		List<Field> fields = new Vector<>();
 		fields.add(new Field(1));
 		
 		List<Form> forms = formService.getForms(null, null, null, null, null, null, fields);
