@@ -519,7 +519,7 @@ public class ModuleFileParser {
 				
 				// point and class are required
 				if (point.length() > 0 && extClass.length() > 0) {
-					if (point.contains(Extension.extensionIdSeparator)) {
+					if (point.indexOf(Extension.extensionIdSeparator) != -1) {
 						log.warn("Point id contains illegal character: '" + Extension.extensionIdSeparator + "'");
 					} else {
 						extensions.put(point, extClass);
