@@ -136,7 +136,7 @@ public class MutableResourceBundleMessageSource extends ReloadableResourceBundle
 	 */
 	@Override
 	public Collection<PresentationMessage> getPresentations() {
-		Collection<PresentationMessage> presentations = new ArrayList<PresentationMessage>();
+		Collection<PresentationMessage> presentations = new Vector<PresentationMessage>();
 		
 		for (Resource propertiesFile : findPropertiesFiles()) {
 			Locale currentLocale = parseLocaleFrom(propertiesFile.getFilename());

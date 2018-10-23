@@ -580,10 +580,10 @@ public class OrderServiceImpl extends BaseOpenmrsService implements OrderService
 		if (patient == null || concept == null) {
 			throw new IllegalArgumentException("patient and concept are required");
 		}
-		List<Concept> concepts = new ArrayList<Concept>();
+		List<Concept> concepts = new Vector<Concept>();
 		concepts.add(concept);
 		
-		List<Patient> patients = new ArrayList<Patient>();
+		List<Patient> patients = new Vector<Patient>();
 		patients.add(patient);
 		
 		return dao.getOrders(null, patients, concepts, new Vector<User>(), new Vector<Encounter>());

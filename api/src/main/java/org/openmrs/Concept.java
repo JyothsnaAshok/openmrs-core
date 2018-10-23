@@ -879,7 +879,7 @@ public class Concept extends BaseOpenmrsObject implements Auditable, Retireable,
 	 * @return a collection of all short names for this concept
 	 */
 	public Collection<ConceptName> getShortNames() {
-		List<ConceptName> shortNames = new ArrayList<ConceptName>();
+		List<ConceptName> shortNames = new Vector<ConceptName>();
 		if (getNames().isEmpty()) {
 			if (log.isDebugEnabled()) {
 				log.debug("The Concept with id: " + conceptId + " has no names");
@@ -1273,7 +1273,7 @@ public class Concept extends BaseOpenmrsObject implements Auditable, Retireable,
 	 */
 	public Collection<ConceptName> getSynonyms(Locale locale) {
 		
-		List<ConceptName> syns = new ArrayList<ConceptName>();
+		List<ConceptName> syns = new Vector<ConceptName>();
 		ConceptName preferredConceptName = null;
 		for (ConceptName possibleSynonymInLoc : getSynonyms()) {
 			if (locale.equals(possibleSynonymInLoc.getLocale())) {
@@ -1415,7 +1415,7 @@ public class Concept extends BaseOpenmrsObject implements Auditable, Retireable,
 	 */
 	@Override
 	public List<Concept> findPossibleValues(String searchText) {
-		List<Concept> concepts = new ArrayList<Concept>();
+		List<Concept> concepts = new Vector<Concept>();
 		try {
 			
 			for (ConceptSearchResult searchResult : Context.getConceptService().getConcepts(searchText,
@@ -1532,7 +1532,7 @@ public class Concept extends BaseOpenmrsObject implements Auditable, Retireable,
 	 * @return sortedConceptSet Collection&lt;ConceptSet&gt;
 	 */
 	private List<ConceptSet> getSortedConceptSets() {
-		List<ConceptSet> cs = new ArrayList<ConceptSet>();
+		List<ConceptSet> cs = new Vector<ConceptSet>();
 		if (conceptSets != null) {
 			cs.addAll(conceptSets);
 			Collections.sort(cs);
@@ -1552,7 +1552,7 @@ public class Concept extends BaseOpenmrsObject implements Auditable, Retireable,
 	 * @should return concept set members sorted with retired last
 	 */
 	public List<Concept> getSetMembers() {
-		List<Concept> conceptMembers = new ArrayList<Concept>();
+		List<Concept> conceptMembers = new Vector<Concept>();
 		
 		Collection<ConceptSet> sortedConceptSet = getSortedConceptSets();
 		

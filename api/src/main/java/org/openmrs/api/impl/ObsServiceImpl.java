@@ -13,7 +13,6 @@ import java.io.File;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Vector;
 
@@ -416,12 +415,12 @@ public class ObsServiceImpl extends BaseOpenmrsService implements ObsService {
 		// search on patient identifier
 		PatientService ps = Context.getPatientService();
 		List<Patient> patients = ps.getPatients(searchString);
-		List<Person> persons = new ArrayList<Person>();
+		List<Person> persons = new Vector<Person>();
 		persons.addAll(patients);
 		
 		// try to search on encounterId
 		EncounterService es = Context.getEncounterService();
-		List<Encounter> encounters = new ArrayList<Encounter>();
+		List<Encounter> encounters = new Vector<Encounter>();
 		try {
 			Encounter e = es.getEncounter(Integer.valueOf(searchString));
 			if (e != null) {
@@ -432,7 +431,7 @@ public class ObsServiceImpl extends BaseOpenmrsService implements ObsService {
 			// pass
 		}
 		
-		List<Obs> returnList = new ArrayList<Obs>();
+		List<Obs> returnList = new Vector<Obs>();
 		
 		if (!encounters.isEmpty() || !persons.isEmpty()) {
 			returnList = Context.getObsService().getObservations(persons, encounters, null, null, null, null, null, null,
@@ -472,11 +471,11 @@ public class ObsServiceImpl extends BaseOpenmrsService implements ObsService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Obs> getObservationsByPersonAndConcept(Person who, Concept question) throws APIException {
-		List<Person> whom = new ArrayList<Person>();
+		List<Person> whom = new Vector<Person>();
 		if (who != null && who.getPersonId() != null) {
 			whom.add(who);
 		}
-		List<Concept> questions = new ArrayList<Concept>();
+		List<Concept> questions = new Vector<Concept>();
 		questions.add(question);
 		
 		return Context.getObsService().getObservations(whom, null, questions, null, null, null, null, null, null, null,

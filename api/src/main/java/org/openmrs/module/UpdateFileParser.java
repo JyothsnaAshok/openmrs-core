@@ -10,7 +10,6 @@
 package org.openmrs.module;
 
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -160,7 +159,7 @@ public class UpdateFileParser {
 	 * @return
 	 */
 	private static List<String> validConfigVersions() {
-		List<String> versions = new ArrayList<String>();
+		List<String> versions = new Vector<String>();
 		versions.add("1.0");
 		versions.add("1.1");
 		return versions;

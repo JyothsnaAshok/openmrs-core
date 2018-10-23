@@ -23,7 +23,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Vector;
@@ -626,7 +625,7 @@ public class WebModuleUtil {
 	 */
 	public static List<Filter> getFiltersForRequest(ServletRequest request) {
 		
-		List<Filter> filters = new ArrayList<Filter>();
+		List<Filter> filters = new Vector<Filter>();
 		if (request != null) {
 			HttpServletRequest httpRequest = (HttpServletRequest) request;
 			String requestPath = httpRequest.getRequestURI();
