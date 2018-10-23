@@ -102,7 +102,9 @@ public abstract class BaseCustomizableData<A extends Attribute> extends BaseChan
 		
 		if (getActiveAttributes(attribute.getAttributeType()).size() == 1) {
 			A existing = getActiveAttributes(attribute.getAttributeType()).get(0);
-			if (!existing.getValue().equals(attribute.getValue())) {
+			if (existing.getValue().equals(attribute.getValue())) {
+				// do nothing, since the value is already as-specified
+			} else {
 				if (existing.getId() != null) {
 					existing.setVoided(true);
 				} else {
@@ -111,6 +113,7 @@ public abstract class BaseCustomizableData<A extends Attribute> extends BaseChan
 				getAttributes().add(attribute);
 				attribute.setOwner(this);
 			}
+			
 		} else {
 			for (A existing : getActiveAttributes(attribute.getAttributeType())) {
 				if (existing.getAttributeType().equals(attribute.getAttributeType())) {
