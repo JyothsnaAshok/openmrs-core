@@ -11,6 +11,7 @@ package org.openmrs.api.db.hibernate.search;
 
 import java.util.List;
 
+import org.apache.commons.lang.Validate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.openmrs.collection.ListPart;
@@ -27,12 +28,8 @@ public abstract class SearchQuery<T> {
 	private final Session session;
 	
 	public SearchQuery(Session session, Class<T> type) {
-		if (session == null) {
-			throw new IllegalArgumentException("session must not be null");
-		}
-		if (type == null) {
-			throw new IllegalArgumentException("type must not be null");
-		}
+		Validate.notNull(session);
+		Validate.notNull(type);
 		
 		this.session = session;
 		this.type = type;

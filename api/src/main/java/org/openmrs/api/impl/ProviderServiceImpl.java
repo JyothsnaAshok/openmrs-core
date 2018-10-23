@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.Validate;
 import org.openmrs.Person;
 import org.openmrs.Provider;
 import org.openmrs.ProviderAttribute;
@@ -131,9 +132,7 @@ public class ProviderServiceImpl extends BaseOpenmrsService implements ProviderS
 	@Override
 	@Transactional(readOnly = true)
 	public Collection<Provider> getProvidersByPerson(Person person) {
-		if (person == null) {
-			throw new IllegalArgumentException("Person must not be null");
-		}
+		Validate.notNull(person, "Person must not be null");
 		return Context.getProviderService().getProvidersByPerson(person, true);
 	}
 	
