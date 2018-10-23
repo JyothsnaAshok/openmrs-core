@@ -523,7 +523,7 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getVisits_shouldReturnAllVisitsIfIncludeVoidedIsSetToTrue() {
-		assertEquals(6, getNumberOfAllVisitsIncludingVoided());
+		assertEquals(6, visitService.getVisits(null, null, null, null, null, null, null, null, null, true, true).size());
 	}
 	
 	@Test(expected = APIException.class)
@@ -776,25 +776,25 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 	@Test
 	public void purgeVisit_shouldEraseTheVisitFromTheDatabase() {
 		
-		int originalSize = getNumberOfAllVisitsIncludingVoided();
+		Integer originalSize = visitService.getVisits(null, null, null, null, null, null, null, null, null, true, true).size();
 		Visit visit = visitService.getVisit(1);
 		
 		visitService.purgeVisit(visit);
 		
-		assertEquals(originalSize - 1, getNumberOfAllVisitsIncludingVoided());
+		assertEquals(originalSize - 1, visitService.getVisits(null, null, null, null, null, null, null, null, null, true, true).size());
 	}
-
+	
 	/**
 	 * @see VisitService#purgeVisit(Visit)
 	 */
 	@Test
 	public void purgeVisit_shouldReturnWithoutVoidingIfVisitIsUnsaved() {
 		
-		int originalSize = getNumberOfAllVisitsIncludingVoided();
+		Integer originalSize = visitService.getVisits(null, null, null, null, null, null, null, null, null, true, true).size();
 		
 		visitService.purgeVisit(new Visit());
 		
-		assertEquals(originalSize, getNumberOfAllVisitsIncludingVoided());
+		assertEquals((long)originalSize, visitService.getVisits(null, null, null,null, null, null, null, null, null, true, true).size());
 	}
 	
 	/**
@@ -958,11 +958,5 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 		visitTypes = visitService.getAllVisitTypes(false);
 		assertEquals("get all visit types excluding retired", 2, visitTypes.size());
 	}
-
-	private int getNumberOfAllVisitsIncludingVoided() {
-		return visitService
-			.getVisits(null, null, null, null, null, null, null, null, null, true, true)
-			.size();
-	}
-
+	
 }
