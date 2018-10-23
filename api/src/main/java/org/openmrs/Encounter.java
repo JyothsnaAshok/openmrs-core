@@ -698,7 +698,9 @@ public class Encounter extends BaseChangeableOpenmrsData {
 		Map<String, OrderGroup> orderGroups = new HashMap<>();
 		for (Order order : orders) {
 			if (order.getOrderGroup() != null) {
-				orderGroups.computeIfAbsent(order.getOrderGroup().getUuid(), k -> order.getOrderGroup());
+				if (null == orderGroups.get(order.getOrderGroup().getUuid())) {
+					orderGroups.put(order.getOrderGroup().getUuid(), order.getOrderGroup());
+				}
 				order.getOrderGroup().addOrder(order, null);
 			}
 		}

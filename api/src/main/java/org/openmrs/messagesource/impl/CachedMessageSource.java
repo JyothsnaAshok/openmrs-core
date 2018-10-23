@@ -35,8 +35,11 @@ public class CachedMessageSource extends AbstractMessageSource implements Mutabl
 	 */
 	@Override
 	public void addPresentation(PresentationMessage message) {
-		PresentationMessageMap codeMessageMap = localizedMap
-				.computeIfAbsent(message.getLocale(), k -> new PresentationMessageMap(message.getLocale()));
+		PresentationMessageMap codeMessageMap = localizedMap.get(message.getLocale());
+		if (codeMessageMap == null) {
+			codeMessageMap = new PresentationMessageMap(message.getLocale());
+			localizedMap.put(message.getLocale(), codeMessageMap);
+		}
 		codeMessageMap.put(message.getCode(), message);
 	}
 	

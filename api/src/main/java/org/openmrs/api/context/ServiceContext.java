@@ -483,7 +483,9 @@ public class ServiceContext implements ApplicationContextAware {
 		if (advisedService.indexOf(advisor) < 0) {
 			advisedService.addAdvisor(advisor);
 		}
-		addedAdvisors.computeIfAbsent(cls, k -> new HashSet<>());
+		if (addedAdvisors.get(cls) == null) {
+			addedAdvisors.put(cls, new HashSet<>());
+		}
 		getAddedAdvisors(cls).add(advisor);
 	}
 	
@@ -496,7 +498,9 @@ public class ServiceContext implements ApplicationContextAware {
 		if (advisedService.indexOf(advice) < 0) {
 			advisedService.addAdvice(advice);
 		}
-		addedAdvice.computeIfAbsent(cls, k -> new HashSet<>());
+		if (addedAdvice.get(cls) == null) {
+			addedAdvice.put(cls, new HashSet<>());
+		}
 		getAddedAdvice(cls).add(advice);
 	}
 	
