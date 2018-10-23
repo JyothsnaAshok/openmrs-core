@@ -59,7 +59,9 @@ public class HibernateSessionFactoryBean extends LocalSessionFactoryBean {
 	 */
 	@Override
 	public void setMappingResources(String... mappingResources) {
-		Collections.addAll(this.mappingResources, mappingResources);
+		for (String resource : mappingResources) {
+			this.mappingResources.add(resource);
+		}
 		
 		super.setMappingResources(this.mappingResources.toArray(new String[] {}));
 	}

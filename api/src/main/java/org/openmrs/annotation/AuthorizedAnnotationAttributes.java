@@ -13,7 +13,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -68,7 +67,9 @@ public class AuthorizedAnnotationAttributes {
 			// check for Secured annotations
 			if (annotation instanceof Authorized) {
 				Authorized attr = (Authorized) annotation;
-				Collections.addAll(attributes, attr.value());
+				for (String privilege : attr.value()) {
+					attributes.add(privilege);
+				}
 				break;
 			}
 		}
@@ -88,7 +89,9 @@ public class AuthorizedAnnotationAttributes {
 			// check for Secured annotations
 			if (annotation instanceof Authorized) {
 				Authorized attr = (Authorized) annotation;
-				Collections.addAll(attributes, attr.value());
+				for (String privilege : attr.value()) {
+					attributes.add(privilege);
+				}
 				break;
 			}
 		}
