@@ -12,6 +12,8 @@ package org.openmrs;
 import java.util.Date;
 
 import org.openmrs.util.OpenmrsUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @since 2.1.0

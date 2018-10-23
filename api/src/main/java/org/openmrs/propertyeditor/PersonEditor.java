@@ -14,6 +14,8 @@ import java.beans.PropertyEditorSupport;
 import org.openmrs.Person;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 /**

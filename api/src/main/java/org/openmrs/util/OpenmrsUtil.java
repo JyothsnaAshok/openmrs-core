@@ -50,6 +50,7 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.Vector;
 import java.util.jar.JarFile;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
