@@ -11,13 +11,10 @@ package org.openmrs.hl7.impl;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -1166,7 +1163,7 @@ public class HL7ServiceImpl extends BaseOpenmrsService implements HL7Service {
 			        + ".txt");
 			
 			//write the hl7 data to the file
-			writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fileToWriteTo), StandardCharsets.UTF_8));
+			writer = new PrintWriter(fileToWriteTo);
 			writer.write(hl7InArchive.getHL7Data());
 			
 			//check if there was an error while writing to the current file

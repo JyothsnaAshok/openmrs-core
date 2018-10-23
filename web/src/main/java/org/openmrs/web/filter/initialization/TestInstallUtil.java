@@ -21,7 +21,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Base64.Encoder;
 import java.util.Enumeration;
@@ -81,7 +80,7 @@ public class TestInstallUtil {
 		try {
 			proc = Runtime.getRuntime().exec(command);
 			try {
-				br = new BufferedReader(new InputStreamReader(proc.getErrorStream(), StandardCharsets.UTF_8));
+				br = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
 				String line;
 				StringBuilder sb = new StringBuilder();
 				while ((line = br.readLine()) != null) {
@@ -262,7 +261,7 @@ public class TestInstallUtil {
 	        throws MalformedURLException, IOException, APIException {
 		
 		HttpURLConnection connection = createConnection(url);
-		OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8);
+		OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
 		out.write(encodeCredentials(openmrsUsername, openmrsPassword));
 		out.flush();
 		out.close();
