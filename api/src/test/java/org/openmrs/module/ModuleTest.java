@@ -134,7 +134,7 @@ public class ModuleTest {
 	 */
 	@Test
 	public void addRequiredModule_shouldAddModuleToRequiredModulesMap () {
-		testModule.setRequiredModulesMap(new IdentityHashMap<>());
+		testModule.setRequiredModulesMap(new IdentityHashMap<String, String>());		
 		testModule.addRequiredModule("mod1", "1.0");
 		
 		assertEquals("1.0", testModule.getRequiredModuleVersion("mod1"));

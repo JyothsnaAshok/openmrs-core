@@ -22,7 +22,7 @@ public class PresentationMessageMap implements Map<String, PresentationMessage> 
 	
 	private Locale locale;
 	
-	private Map<String, PresentationMessage> internalMap = new HashMap<>();
+	private Map<String, PresentationMessage> internalMap = new HashMap<String, PresentationMessage>();
 	
 	/**
 	 * Create a new PresentationMessageMap for the given locale.

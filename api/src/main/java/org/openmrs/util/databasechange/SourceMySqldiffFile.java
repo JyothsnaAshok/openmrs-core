@@ -102,7 +102,7 @@ public class SourceMySqldiffFile implements CustomTaskChange {
 		}
 		
 		// build the mysql command line string
-		List<String> commands = new ArrayList<>();
+		List<String> commands = new ArrayList<String>();
 		String databaseName;
 		try {
 			commands.add("mysql");

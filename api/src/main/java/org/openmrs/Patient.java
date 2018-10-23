@@ -139,7 +139,7 @@ public class Patient extends Person {
 	 */
 	public Set<PatientIdentifier> getIdentifiers() {
 		if (identifiers == null) {
-			identifiers = new TreeSet<>();
+			identifiers = new TreeSet<PatientIdentifier>();
 		}
 		return this.identifiers;
 	}
@@ -313,8 +313,8 @@ public class Patient extends Person {
 	 * @should return preferred identifiers first in the list
 	 */
 	public List<PatientIdentifier> getActiveIdentifiers() {
-		List<PatientIdentifier> ids = new ArrayList<>();
-		List<PatientIdentifier> nonPreferred = new LinkedList<>();
+		List<PatientIdentifier> ids = new ArrayList<PatientIdentifier>();
+		List<PatientIdentifier> nonPreferred = new LinkedList<PatientIdentifier>();
 		for (PatientIdentifier pi : getIdentifiers()) {
 			if (!pi.getVoided()) {
 				if (pi.getPreferred()) {
@@ -337,7 +337,7 @@ public class Patient extends Person {
 	 * @see #getIdentifiers()
 	 */
 	public List<PatientIdentifier> getPatientIdentifiers(PatientIdentifierType pit) {
-		List<PatientIdentifier> ids = new ArrayList<>();
+		List<PatientIdentifier> ids = new ArrayList<PatientIdentifier>();
 		for (PatientIdentifier pi : getIdentifiers()) {
 			if (!pi.getVoided() && pit.equals(pi.getIdentifierType())) {
 				ids.add(pi);

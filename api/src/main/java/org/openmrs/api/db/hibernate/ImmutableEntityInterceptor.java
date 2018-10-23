@@ -99,7 +99,7 @@ public abstract class ImmutableEntityInterceptor extends EmptyInterceptor {
 				Object currentValue = (currentState != null) ? currentState[i] : null;
 				if (!OpenmrsUtil.nullSafeEquals(currentValue, previousValue)) {
 					if (changedProperties == null) {
-						changedProperties = new ArrayList<>();
+						changedProperties = new ArrayList<String>();
 					}
 					changedProperties.add(property);
 				}

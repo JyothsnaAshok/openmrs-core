@@ -27,16 +27,16 @@ import org.hibernate.search.filter.impl.CachingWrapperFilter;
 
 public class TermsFilterFactory {
 	
-	private Set<Set<Term>> includeTerms = new HashSet<>();
+	private Set<Set<Term>> includeTerms = new HashSet<Set<Term>>();
 	
-	private Set<Term> excludeTerms = new HashSet<>();
+	private Set<Term> excludeTerms = new HashSet<Term>();
 	
 	public void setIncludeTerms(Set<Set<Term>> terms) {
-		this.includeTerms = new HashSet<>(terms);
+		this.includeTerms = new HashSet<Set<Term>>(terms);
 	}
 	
 	public void setExcludeTerms(Set<Term> terms) {
-		this.excludeTerms = new HashSet<>(terms);
+		this.excludeTerms = new HashSet<Term>(terms);
 	}
 
 	@Key

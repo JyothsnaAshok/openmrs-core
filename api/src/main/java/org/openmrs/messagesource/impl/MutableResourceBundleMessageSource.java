@@ -86,7 +86,7 @@ public class MutableResourceBundleMessageSource extends ReloadableResourceBundle
 	 * @see #findPropertiesFiles()
 	 */
 	private Collection<Locale> findLocales() {
-		Collection<Locale> foundLocales = new HashSet<>();
+		Collection<Locale> foundLocales = new HashSet<Locale>();
 		
 		for (Resource propertiesFile : findPropertiesFiles()) {
 			String filename = propertiesFile.getFilename();
@@ -136,7 +136,7 @@ public class MutableResourceBundleMessageSource extends ReloadableResourceBundle
 	 */
 	@Override
 	public Collection<PresentationMessage> getPresentations() {
-		Collection<PresentationMessage> presentations = new ArrayList<>();
+		Collection<PresentationMessage> presentations = new ArrayList<PresentationMessage>();
 		
 		for (Resource propertiesFile : findPropertiesFiles()) {
 			Locale currentLocale = parseLocaleFrom(propertiesFile.getFilename());
@@ -305,15 +305,15 @@ public class MutableResourceBundleMessageSource extends ReloadableResourceBundle
 		
 		// collect all existing properties
 		Resource[] propertiesFiles = findPropertiesFiles();
-		Map<Locale, List<Resource>> localeToFilesMap = new HashMap<>();
-		Map<Resource, Properties> fileToPropertiesMap = new HashMap<>();
+		Map<Locale, List<Resource>> localeToFilesMap = new HashMap<Locale, List<Resource>>();
+		Map<Resource, Properties> fileToPropertiesMap = new HashMap<Resource, Properties>();
 		
 		for (Resource propertiesFile : propertiesFiles) {
 			Properties props = new Properties();
 			Locale propsLocale = parseLocaleFrom(propertiesFile.getFilename());
 			List<Resource> propList = localeToFilesMap.get(propsLocale);
 			if (propList == null) {
-				propList = new ArrayList<>();
+				propList = new ArrayList<Resource>();
 				localeToFilesMap.put(propsLocale, propList);
 			}
 			propList.add(propertiesFile);

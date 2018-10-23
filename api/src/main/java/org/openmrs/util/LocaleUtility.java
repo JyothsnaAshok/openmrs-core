@@ -168,7 +168,7 @@ public class LocaleUtility implements GlobalPropertyListener {
 	 */
 	public static Set<Locale> getLocalesInOrder() {
 		
-		Set<Locale> locales = new LinkedHashSet<>();
+		Set<Locale> locales = new LinkedHashSet<Locale>();
 		locales.add(Context.getLocale());
 		locales.add(getDefaultLocale());
 		if (localesAllowedListCache == null) {

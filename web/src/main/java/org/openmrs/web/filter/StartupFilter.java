@@ -81,12 +81,12 @@ public abstract class StartupFilter implements Filter {
 	/**
 	 * Records errors that will be displayed to the user
 	 */
-	protected Map<String, Object[]> errors = new HashMap<>();
+	protected Map<String, Object[]> errors = new HashMap<String, Object[]>();
 	
 	/**
 	 * Messages that will be displayed to the user
 	 */
-	protected Map<String, Object[]> msgs = new HashMap<>();
+	protected Map<String, Object[]> msgs = new HashMap<String, Object[]>();
 	
 	/**
 	 * Used for configuring tools within velocity toolbox

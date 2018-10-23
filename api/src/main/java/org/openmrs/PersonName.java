@@ -399,7 +399,7 @@ public class PersonName extends BaseChangeableOpenmrsData implements java.io.Ser
 	 * @should not put spaces around an empty middle name
 	 */
 	public String getFullName() {
-		List<String> temp = new ArrayList<>();
+		List<String> temp = new ArrayList<String>();
 		if (StringUtils.hasText(getPrefix())) {
 			temp.add(getPrefix());
 		}

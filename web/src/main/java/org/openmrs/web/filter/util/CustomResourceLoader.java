@@ -49,8 +49,8 @@ public class CustomResourceLoader {
 	 * default constructor that initializes inner map of resources
 	 */
 	private CustomResourceLoader(HttpServletRequest httpRequest) {
-		this.resources = new HashMap<>();
-		this.availablelocales = new HashSet<>();
+		this.resources = new HashMap<Locale, ResourceBundle>();
+		this.availablelocales = new HashSet<Locale>();
 		
 		try {
 			PathMatchingResourcePatternResolver patternResolver = new PathMatchingResourcePatternResolver();

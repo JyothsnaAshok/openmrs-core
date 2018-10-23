@@ -86,13 +86,13 @@ public class ServiceContext implements ApplicationContextAware {
 	private boolean useSystemClassLoader = false;
 	
 	// Cached service objects
-	Map<Class, Object> services = new HashMap<>();
+	Map<Class, Object> services = new HashMap<Class, Object>();
 	
 	// Advisors added to services by this service
-	Map<Class, Set<Advisor>> addedAdvisors = new HashMap<>();
+	Map<Class, Set<Advisor>> addedAdvisors = new HashMap<Class, Set<Advisor>>();
 	
 	// Advice added to services by this service
-	Map<Class, Set<Advice>> addedAdvice = new HashMap<>();
+	Map<Class, Set<Advice>> addedAdvice = new HashMap<Class, Set<Advice>>();
 	
 	/**
 	 * Services implementing the OpenmrsService interface for each module. The map is keyed by the
@@ -100,7 +100,7 @@ public class ServiceContext implements ApplicationContextAware {
 	 *
 	 * @since 1.9
 	 */
-	Map<String, OpenmrsService> moduleOpenmrsServices = new HashMap<>();
+	Map<String, OpenmrsService> moduleOpenmrsServices = new HashMap<String, OpenmrsService>();
 	
 	/**
 	 * The default constructor is private so as to keep only one instance per java vm.
@@ -484,7 +484,7 @@ public class ServiceContext implements ApplicationContextAware {
 			advisedService.addAdvisor(advisor);
 		}
 		if (addedAdvisors.get(cls) == null) {
-			addedAdvisors.put(cls, new HashSet<>());
+			addedAdvisors.put(cls, new HashSet<Advisor>());
 		}
 		getAddedAdvisors(cls).add(advisor);
 	}
@@ -499,7 +499,7 @@ public class ServiceContext implements ApplicationContextAware {
 			advisedService.addAdvice(advice);
 		}
 		if (addedAdvice.get(cls) == null) {
-			addedAdvice.put(cls, new HashSet<>());
+			addedAdvice.put(cls, new HashSet<Advice>());
 		}
 		getAddedAdvice(cls).add(advice);
 	}
@@ -843,7 +843,7 @@ public class ServiceContext implements ApplicationContextAware {
 		if (log.isTraceEnabled()) {
 			log.trace("getRegisteredComponents(" + type + ") = " + m);
 		}
-		return new ArrayList<>(m.values());
+		return new ArrayList<T>(m.values());
 	}
 	
 	/**
@@ -874,7 +874,7 @@ public class ServiceContext implements ApplicationContextAware {
 	 */
 	@SuppressWarnings("unchecked")
 	private <T> Map<String, T> getRegisteredComponents(ApplicationContext context, Class<T> type) {
-		Map<String, T> components = new HashMap<>();
+		Map<String, T> components = new HashMap<String, T>();
 		Map registeredComponents = context.getBeansOfType(type);
 		if (log.isTraceEnabled()) {
 			log.trace("getRegisteredComponents(" + context + ", " + type + ") = " + registeredComponents);
@@ -950,7 +950,7 @@ public class ServiceContext implements ApplicationContextAware {
 	 * @since 1.9
 	 */
 	public List<OpenmrsService> getModuleOpenmrsServices(String modulePackage) {
-		List<OpenmrsService> services = new ArrayList<>();
+		List<OpenmrsService> services = new ArrayList<OpenmrsService>();
 		
 		for (Entry<String, OpenmrsService> entry : moduleOpenmrsServices.entrySet()) {
 			if (entry.getKey().startsWith(modulePackage)) {

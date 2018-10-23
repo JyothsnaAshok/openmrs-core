@@ -41,7 +41,7 @@ public class ConceptAnswersEditor extends PropertyEditorSupport {
 	 */
 	public ConceptAnswersEditor(Collection<ConceptAnswer> originalAnswers) {
 		if (originalAnswers == null) {
-			originalConceptAnswers = new HashSet<>();
+			originalConceptAnswers = new HashSet<ConceptAnswer>();
 		} else {
 			originalConceptAnswers = originalAnswers;
 		}
@@ -59,7 +59,7 @@ public class ConceptAnswersEditor extends PropertyEditorSupport {
 		if (StringUtils.hasText(text)) {
 			ConceptService cs = Context.getConceptService();
 			String[] conceptIds = text.split(" ");
-			List<String> requestConceptIds = new ArrayList<>();
+			List<String> requestConceptIds = new ArrayList<String>();
 			//set up parameter answer Set for easier add/delete functions and removal of duplicates
 			for (String id : conceptIds) {
 				id = id.trim();
@@ -68,7 +68,7 @@ public class ConceptAnswersEditor extends PropertyEditorSupport {
 				}
 			}
 			
-			Collection<ConceptAnswer> deletedConceptAnswers = new HashSet<>();
+			Collection<ConceptAnswer> deletedConceptAnswers = new HashSet<ConceptAnswer>();
 			
 			// loop over original concept answers to find any deleted answers
 			for (ConceptAnswer origConceptAnswer : originalConceptAnswers) {

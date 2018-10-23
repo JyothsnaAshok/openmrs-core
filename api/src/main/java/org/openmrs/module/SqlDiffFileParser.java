@@ -53,7 +53,7 @@ public class SqlDiffFileParser {
 			throw new ModuleException("Module cannot be null");
 		}
 		
-		SortedMap<String, String> map = new TreeMap<>(new VersionComparator());
+		SortedMap<String, String> map = new TreeMap<String, String>(new VersionComparator());
 		
 		InputStream diffStream = null;
 		
@@ -175,7 +175,7 @@ public class SqlDiffFileParser {
 	 * @return
 	 */
 	private static List<String> validConfigVersions() {
-		List<String> versions = new ArrayList<>();
+		List<String> versions = new ArrayList<String>();
 		versions.add("1.0");
 		return versions;
 	}

@@ -226,7 +226,7 @@ public class MessageServiceImpl implements MessageService {
 		log.debug("Sending message to role " + role);
 		log.debug("User Service : " + Context.getUserService());
 		
-		List<Role> roles = new ArrayList<>();
+		List<Role> roles = new ArrayList<Role>();
 		roles.add(role);
 		
 		Collection<User> users = Context.getUserService().getUsers(null, roles, false);

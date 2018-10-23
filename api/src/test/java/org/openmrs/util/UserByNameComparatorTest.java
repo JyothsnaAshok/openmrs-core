@@ -47,7 +47,7 @@ public class UserByNameComparatorTest {
 		person4.addName(new PersonName("givenName", "middleNamh", "familyName"));
 		User user4 = new User(person4);
 		
-		List<User> listToSort = new ArrayList<>();
+		List<User> listToSort = new ArrayList<User>();
 		// add the users randomly
 		listToSort.add(user3);
 		listToSort.add(user1);

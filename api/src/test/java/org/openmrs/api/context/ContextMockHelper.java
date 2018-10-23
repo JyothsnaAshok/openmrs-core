@@ -92,7 +92,7 @@ public class ContextMockHelper {
 	
 	ContextDAO contextDAO;
 	
-	Map<Class<?>, Object> realServices = new HashMap<>();
+	Map<Class<?>, Object> realServices = new HashMap<Class<?>, Object>();
 	
 	UserContext realUserContext;
 	

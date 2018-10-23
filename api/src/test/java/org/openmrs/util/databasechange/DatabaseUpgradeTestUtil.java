@@ -187,9 +187,9 @@ public class DatabaseUpgradeTestUtil {
 		PreparedStatement query = connection.prepareStatement(sql);
 		ResultSet resultSet = query.executeQuery();
 		
-		List<Map<String, String>> results = new ArrayList<>();
+		List<Map<String, String>> results = new ArrayList<Map<String, String>>();
 		while (resultSet.next()) {
-			Map<String, String> columns = new HashMap<>();
+			Map<String, String> columns = new HashMap<String, String>();
 			results.add(columns);
 			
 			for (int i = 0; i < allColumnNames.length; i++) {

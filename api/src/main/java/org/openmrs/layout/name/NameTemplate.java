@@ -37,7 +37,7 @@ public class NameTemplate extends LayoutTemplate {
 	
 	public String format(PersonName personName) {
 		
-		List<String> personNameLines = new ArrayList<>();
+		List<String> personNameLines = new ArrayList<String>();
 		List<List<Map<String, String>>> lines = getLines();
 		String layoutToken = getLayoutToken();
 		

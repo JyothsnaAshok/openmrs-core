@@ -67,21 +67,21 @@ public final class Module {
 	
 	private Map<String, String> startBeforeModulesMap;
 	
-	private List<AdvicePoint> advicePoints = new ArrayList<>();
+	private List<AdvicePoint> advicePoints = new ArrayList<AdvicePoint>();
 	
-	private Map<String, String> extensionNames = new IdentityHashMap<>();
+	private Map<String, String> extensionNames = new IdentityHashMap<String, String>();
 	
-	private List<Extension> extensions = new ArrayList<>();
+	private List<Extension> extensions = new ArrayList<Extension>();
 	
-	private Map<String, Properties> messages = new HashMap<>();
+	private Map<String, Properties> messages = new HashMap<String, Properties>();
 	
-	private List<Privilege> privileges = new ArrayList<>();
+	private List<Privilege> privileges = new ArrayList<Privilege>();
 	
-	private List<GlobalProperty> globalProperties = new ArrayList<>();
+	private List<GlobalProperty> globalProperties = new ArrayList<GlobalProperty>();
 	
-	private List<String> mappingFiles = new ArrayList<>();
+	private List<String> mappingFiles = new ArrayList<String>();
 	
-	private Set<String> packagesWithMappedClasses = new HashSet<>();
+	private Set<String> packagesWithMappedClasses = new HashSet<String>();
 	
 	private Document config = null;
 	
@@ -89,7 +89,7 @@ public final class Module {
 	
 	private boolean mandatory = Boolean.FALSE;
 	
-	private List<ModuleConditionalResource> conditionalResources = new ArrayList<>();
+	private List<ModuleConditionalResource> conditionalResources = new ArrayList<ModuleConditionalResource>();
 	
 	// keep a reference to the file that we got this module from so we can delete
 	// it if necessary
@@ -260,7 +260,7 @@ public final class Module {
 	 * @return the list of requiredModules
 	 */
 	public List<String> getRequiredModules() {
-		return requiredModulesMap == null ? null : new ArrayList<>(requiredModulesMap.keySet());
+		return requiredModulesMap == null ? null : new ArrayList<String>(requiredModulesMap.keySet());
 	}
 	
 	/**
@@ -283,7 +283,7 @@ public final class Module {
 	 */
 	public void setRequiredModules(List<String> requiredModules) {
 		if (requiredModulesMap == null) {
-			requiredModulesMap = new HashMap<>();
+			requiredModulesMap = new HashMap<String, String>();
 		}
 		
 		for (String module : requiredModules) {
@@ -344,7 +344,7 @@ public final class Module {
 	 * @return list of module names or null
 	 */
 	public List<String> getStartBeforeModules() {
-		return this.startBeforeModulesMap == null ? null : new ArrayList<>(this.startBeforeModulesMap.keySet());
+		return this.startBeforeModulesMap == null ? null : new ArrayList<String>(this.startBeforeModulesMap.keySet());
 	}
 	
 	/**
@@ -366,7 +366,7 @@ public final class Module {
 	 * @return the list of awareOfModules
 	 */
 	public List<String> getAwareOfModules() {
-		return awareOfModulesMap == null ? null : new ArrayList<>(awareOfModulesMap.keySet());
+		return awareOfModulesMap == null ? null : new ArrayList<String>(awareOfModulesMap.keySet());
 	}
 	
 	public String getAwareOfModuleVersion(String awareOfModule) {

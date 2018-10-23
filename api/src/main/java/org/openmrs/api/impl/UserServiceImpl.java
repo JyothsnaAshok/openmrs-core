@@ -130,7 +130,7 @@ public class UserServiceImpl extends BaseOpenmrsService implements UserService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<User> getUsersByRole(Role role) throws APIException {
-		List<Role> roles = new ArrayList<>();
+		List<Role> roles = new ArrayList<Role>();
 		roles.add(role);
 		
 		return Context.getUserService().getUsers(null, roles, false);
@@ -377,7 +377,7 @@ public class UserServiceImpl extends BaseOpenmrsService implements UserService {
 	 */
 	private void checkPrivileges(User user) {
 		Collection<Role> roles = user.getAllRoles();
-		List<String> requiredPrivs = new ArrayList<>();
+		List<String> requiredPrivs = new ArrayList<String>();
 		
 		for (Role r : roles) {
 			if (r.getRole().equals(RoleConstants.SUPERUSER)
@@ -568,7 +568,7 @@ public class UserServiceImpl extends BaseOpenmrsService implements UserService {
 		// persons should be searched
 		Role authRole = getRole(RoleConstants.AUTHENTICATED);
 		if (roles.contains(authRole)) {
-			return dao.getCountOfUsers(name, new Vector<>(), includeRetired);
+			return dao.getCountOfUsers(name, new Vector<Role>(), includeRetired);
 		}
 		
 		return dao.getCountOfUsers(name, roles, includeRetired);
@@ -586,11 +586,11 @@ public class UserServiceImpl extends BaseOpenmrsService implements UserService {
 		}
 		
 		if (roles == null) {
-			roles = new Vector<>();
+			roles = new Vector<Role>();
 		}
 		
 		// add the requested roles and all child roles for consideration
-		Set<Role> allRoles = new HashSet<>();
+		Set<Role> allRoles = new HashSet<Role>();
 		for (Role r : roles) {
 			allRoles.add(r);
 			allRoles.addAll(r.getAllChildRoles());
@@ -600,10 +600,10 @@ public class UserServiceImpl extends BaseOpenmrsService implements UserService {
 		// persons should be searched
 		Role authRole = getRole(RoleConstants.AUTHENTICATED);
 		if (roles.contains(authRole)) {
-			return dao.getUsers(name, new Vector<>(), includeRetired, start, length);
+			return dao.getUsers(name, new Vector<Role>(), includeRetired, start, length);
 		}
 		
-		return dao.getUsers(name, new ArrayList<>(allRoles), includeRetired, start, length);
+		return dao.getUsers(name, new ArrayList<Role>(allRoles), includeRetired, start, length);
 	}
 	
 	/**

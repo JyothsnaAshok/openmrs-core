@@ -73,7 +73,7 @@ public class DuplicateEncounterTypeNameChangeSet implements CustomTaskChange {
 	@Override
 	public void execute(Database database) throws CustomChangeException {
 		JdbcConnection connection = (JdbcConnection) database.getConnection();
-		Map<String, HashSet<Integer>> duplicates = new HashMap<>();
+		Map<String, HashSet<Integer>> duplicates = new HashMap<String, HashSet<Integer>>();
 		Statement stmt = null;
 		PreparedStatement pStmt = null;
 		ResultSet rs = null;
@@ -97,7 +97,7 @@ public class DuplicateEncounterTypeNameChangeSet implements CustomTaskChange {
 				name = rs.getString("name");
 				
 				if (duplicates.get(name) == null) {
-					HashSet<Integer> results = new HashSet<>();
+					HashSet<Integer> results = new HashSet<Integer>();
 					results.add(id);
 					duplicates.put(name, results);
 				} else {

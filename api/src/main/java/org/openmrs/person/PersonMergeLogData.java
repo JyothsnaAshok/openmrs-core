@@ -131,14 +131,14 @@ public class PersonMergeLogData {
 	
 	public void addMovedVisit(String uuid) {
 		if (movedVisits == null) {
-			movedVisits = new ArrayList<>();
+			movedVisits = new ArrayList<String>();
 		}
 		movedVisits.add(uuid);
 	}
 	
 	public void addMovedEncounter(String uuid) {
 		if (movedEncounters == null) {
-			movedEncounters = new ArrayList<>();
+			movedEncounters = new ArrayList<String>();
 		}
 		movedEncounters.add(uuid);
 	}
@@ -149,7 +149,7 @@ public class PersonMergeLogData {
 	
 	public void addCreatedProgram(String uuid) {
 		if (createdPrograms == null) {
-			createdPrograms = new ArrayList<>();
+			createdPrograms = new ArrayList<String>();
 		}
 		createdPrograms.add(uuid);
 	}
@@ -160,7 +160,7 @@ public class PersonMergeLogData {
 	
 	public void addVoidedRelationship(String uuid) {
 		if (voidedRelationships == null) {
-			voidedRelationships = new ArrayList<>();
+			voidedRelationships = new ArrayList<String>();
 		}
 		voidedRelationships.add(uuid);
 	}
@@ -171,7 +171,7 @@ public class PersonMergeLogData {
 	
 	public void addCreatedRelationship(String uuid) {
 		if (createdRelationships == null) {
-			createdRelationships = new ArrayList<>();
+			createdRelationships = new ArrayList<String>();
 		}
 		createdRelationships.add(uuid);
 	}
@@ -182,7 +182,7 @@ public class PersonMergeLogData {
 	
 	public void addMovedIndependentObservation(String uuid) {
 		if (movedIndependentObservations == null) {
-			movedIndependentObservations = new ArrayList<>();
+			movedIndependentObservations = new ArrayList<String>();
 		}
 		movedIndependentObservations.add(uuid);
 	}
@@ -193,7 +193,7 @@ public class PersonMergeLogData {
 	
 	public void addCreatedOrder(String uuid) {
 		if (createdOrders == null) {
-			createdOrders = new ArrayList<>();
+			createdOrders = new ArrayList<String>();
 		}
 		createdOrders.add(uuid);
 	}
@@ -204,7 +204,7 @@ public class PersonMergeLogData {
 	
 	public void addCreatedIdentifier(String uuid) {
 		if (createdIdentifiers == null) {
-			createdIdentifiers = new ArrayList<>();
+			createdIdentifiers = new ArrayList<String>();
 		}
 		createdIdentifiers.add(uuid);
 	}
@@ -215,7 +215,7 @@ public class PersonMergeLogData {
 	
 	public void addCreatedAddress(String uuid) {
 		if (createdAddresses == null) {
-			createdAddresses = new ArrayList<>();
+			createdAddresses = new ArrayList<String>();
 		}
 		createdAddresses.add(uuid);
 	}
@@ -226,7 +226,7 @@ public class PersonMergeLogData {
 	
 	public void addCreatedName(String uuid) {
 		if (createdNames == null) {
-			createdNames = new ArrayList<>();
+			createdNames = new ArrayList<String>();
 		}
 		createdNames.add(uuid);
 	}
@@ -237,7 +237,7 @@ public class PersonMergeLogData {
 	
 	public void addCreatedAttribute(String uuid) {
 		if (createdAttributes == null) {
-			createdAttributes = new ArrayList<>();
+			createdAttributes = new ArrayList<String>();
 		}
 		createdAttributes.add(uuid);
 	}
@@ -248,7 +248,7 @@ public class PersonMergeLogData {
 	
 	public void addMovedUser(String uuid) {
 		if (movedUsers == null) {
-			movedUsers = new ArrayList<>();
+			movedUsers = new ArrayList<String>();
 		}
 		movedUsers.add(uuid);
 	}

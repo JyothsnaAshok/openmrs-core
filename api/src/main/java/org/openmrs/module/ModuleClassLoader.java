@@ -67,7 +67,7 @@ public class ModuleClassLoader extends URLClassLoader {
 	
 	private boolean probeParentLoaderLast = true;
 	
-	private Set<String> providedPackages = new LinkedHashSet<>();
+	private Set<String> providedPackages = new LinkedHashSet<String>();
 	
 	private boolean disposed = false;
 
@@ -96,7 +96,7 @@ public class ModuleClassLoader extends URLClassLoader {
 		this.module = module;
 		requiredModules = collectRequiredModuleImports(module);
 		awareOfModules = collectAwareOfModuleImports(module);
-		libraryCache = new WeakHashMap<>();
+		libraryCache = new WeakHashMap<URI, File>();
 	}
 	
 	/**
@@ -198,10 +198,10 @@ public class ModuleClassLoader extends URLClassLoader {
 	 * @return List&lt;URL&gt; of all urls found (and cached) in the module
 	 */
 	private static List<URL> getUrls(final Module module) {
-		List<URL> result = new LinkedList<>();
+		List<URL> result = new LinkedList<URL>();
 		
 		//if in dev mode, add development folder to the classpath
-		List<String> devFolderNames = new ArrayList<>();
+		List<String> devFolderNames = new ArrayList<String>();
 		File devDir = ModuleUtil.getDevelopmentDirectory(module.getModuleId());
 		try {
 			if (devDir != null) {
@@ -280,7 +280,7 @@ public class ModuleClassLoader extends URLClassLoader {
 			File libdir = new File(tmpModuleDir, "lib");
 			
 			if (libdir != null && libdir.exists()) {
-				Map<String, String> startedRelatedModules = new HashMap<>();
+				Map<String, String> startedRelatedModules = new HashMap<String, String>();
 				for (Module requiredModule : collectRequiredModuleImports(module)) {
 					startedRelatedModules.put(requiredModule.getModuleId(), requiredModule.getVersion());
 				}
@@ -432,7 +432,7 @@ public class ModuleClassLoader extends URLClassLoader {
 	 */
 	private static List<URL> getUrls(final Module module, final URL[] existingUrls) {
 		List<URL> urls = Arrays.asList(existingUrls);
-		List<URL> result = new LinkedList<>();
+		List<URL> result = new LinkedList<URL>();
 		for (URL url : getUrls(module)) {
 			if (!urls.contains(url)) {
 				result.add(url);
@@ -447,7 +447,7 @@ public class ModuleClassLoader extends URLClassLoader {
 	 */
 	protected static Module[] collectRequiredModuleImports(Module module) {
 		// collect imported modules (exclude duplicates)
-		Map<String, Module> publicImportsMap = new WeakHashMap<>(); //<module ID, Module>
+		Map<String, Module> publicImportsMap = new WeakHashMap<String, Module>(); //<module ID, Module>
 		
 		for (String moduleId : ModuleConstants.CORE_MODULES.keySet()) {
 			Module coreModule = ModuleFactory.getModuleById(moduleId);
@@ -479,7 +479,7 @@ public class ModuleClassLoader extends URLClassLoader {
 	 */
 	protected static Module[] collectAwareOfModuleImports(Module module) {
 		// collect imported modules (exclude duplicates)
-		Map<String, Module> publicImportsMap = new WeakHashMap<>(); //<module ID, Module>
+		Map<String, Module> publicImportsMap = new WeakHashMap<String, Module>(); //<module ID, Module>
 		
 		for (String awareOfPackage : module.getAwareOfModules()) {
 			Module awareOfModule = ModuleFactory.getModuleByPackage(awareOfPackage);
@@ -655,13 +655,13 @@ public class ModuleClassLoader extends URLClassLoader {
 		// can be loaded from them.
 		
 		if (seenModules == null) {
-			seenModules = new HashSet<>();
+			seenModules = new HashSet<String>();
 		}
 		
 		// Add this module to the list of modules we've tried already
 		seenModules.add(getModule().getModuleId());
 		
-		List<Module> importedModules = new ArrayList<>();
+		List<Module> importedModules = new ArrayList<Module>();
 		if (requiredModules != null) {
 			Collections.addAll(importedModules, requiredModules);
 		}
@@ -848,7 +848,7 @@ public class ModuleClassLoader extends URLClassLoader {
 	 */
 	@Override
 	public Enumeration<URL> findResources(final String name) throws IOException {
-		List<URL> result = new LinkedList<>();
+		List<URL> result = new LinkedList<URL>();
 		findResources(result, name, this, null);
 		
 		// expand all of the "jar" urls
@@ -893,7 +893,7 @@ public class ModuleClassLoader extends URLClassLoader {
 		}
 		
 		if (seenModules == null) {
-			seenModules = new HashSet<>();
+			seenModules = new HashSet<String>();
 		}
 		
 		seenModules.add(getModule().getModuleId());
@@ -959,7 +959,7 @@ public class ModuleClassLoader extends URLClassLoader {
 		}
 	
 		if (seenModules == null) {
-			seenModules = new HashSet<>();
+			seenModules = new HashSet<String>();
 		}
 		seenModules.add(getModule().getModuleId());
 		if (requiredModules != null) {

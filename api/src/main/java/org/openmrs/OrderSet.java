@@ -83,7 +83,7 @@ public class OrderSet extends BaseChangeableOpenmrsMetadata {
 	 */
 	public List<OrderSetMember> getOrderSetMembers() {
 		if (orderSetMembers == null) {
-			orderSetMembers = new ArrayList<>();
+			orderSetMembers = new ArrayList<OrderSetMember>();
 		}
 		return orderSetMembers;
 	}
@@ -150,7 +150,7 @@ public class OrderSet extends BaseChangeableOpenmrsMetadata {
 	 * @return the orderSetMembers that are not retired
 	 */
 	public List<OrderSetMember> getUnRetiredOrderSetMembers() {
-		List<OrderSetMember> osm = new ArrayList<>();
+		List<OrderSetMember> osm = new ArrayList<OrderSetMember>();
 		for (OrderSetMember orderSetMember : getOrderSetMembers()) {
 			if (!orderSetMember.getRetired()) {
 				osm.add(orderSetMember);

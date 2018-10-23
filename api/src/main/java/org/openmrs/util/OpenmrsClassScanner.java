@@ -75,10 +75,10 @@ public class OpenmrsClassScanner {
 				return annotationToClassMap.get(annotationClass);
 			}
 		} else {
-			annotationToClassMap = new HashMap<>();
+			annotationToClassMap = new HashMap<Class<?>, Set<Class<?>>>();
 		}
 		
-		Set<Class<?>> types = new HashSet<>();
+		Set<Class<?>> types = new HashSet<Class<?>>();
 		String pattern = "classpath*:org/openmrs/**/*.class";
 		
 		try {

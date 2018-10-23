@@ -529,7 +529,7 @@ public class WebModuleUtil {
 	public static void loadFilters(Module module, ServletContext servletContext) {
 		
 		// Load Filters
-		Map<String, Filter> filters = new HashMap<>();
+		Map<String, Filter> filters = new HashMap<String, Filter>();
 		try {
 			for (ModuleFilterDefinition def : ModuleFilterDefinition.retrieveFilterDefinitions(module)) {
 				if (moduleFiltersByName.containsKey(def.getFilterName())) {
@@ -626,7 +626,7 @@ public class WebModuleUtil {
 	 */
 	public static List<Filter> getFiltersForRequest(ServletRequest request) {
 		
-		List<Filter> filters = new ArrayList<>();
+		List<Filter> filters = new ArrayList<Filter>();
 		if (request != null) {
 			HttpServletRequest httpRequest = (HttpServletRequest) request;
 			String requestPath = httpRequest.getRequestURI();

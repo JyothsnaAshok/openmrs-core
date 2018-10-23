@@ -53,7 +53,7 @@ public class StartModuleExecutionListener extends AbstractTestExecutionListener 
 	private static String lastClassRun = "";
 	
 	// storing the bean definitions that have been manually removed from the context
-	private Map<String, BeanDefinition> filteredDefinitions = new HashMap<>();
+	private Map<String, BeanDefinition> filteredDefinitions = new HashMap<String, BeanDefinition>();
 	
 	/**
 	 * called before @BeforeTransaction methods
@@ -118,7 +118,7 @@ public class StartModuleExecutionListener extends AbstractTestExecutionListener 
 		// first looking at a context loading the bean definitions "now"
 		GenericApplicationContext ctx = new GenericApplicationContext();
 		(new XmlBeanDefinitionReader(ctx)).loadBeanDefinitions("classpath:applicationContext-service.xml");
-		Set<String> filteredBeanNames = new HashSet<>();
+		Set<String> filteredBeanNames = new HashSet<String>();
 		for (String beanName : ctx.getBeanDefinitionNames()) {
 			if (beanName.startsWith("openmrsProfile")) {
 				filteredBeanNames.add(beanName);
@@ -127,7 +127,7 @@ public class StartModuleExecutionListener extends AbstractTestExecutionListener 
 		ctx.close();
 		
 		// then looking at the context as it loaded the bean definitions before the module(s) were started
-		Set<String> originalBeanNames = new HashSet<>();
+		Set<String> originalBeanNames = new HashSet<String>();
 		for (String beanName : ((GenericApplicationContext) context).getBeanDefinitionNames()) {
 			if (beanName.startsWith("openmrsProfile")) {
 				originalBeanNames.add(beanName);

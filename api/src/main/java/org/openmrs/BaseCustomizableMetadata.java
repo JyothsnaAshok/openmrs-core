@@ -26,7 +26,7 @@ import org.openmrs.customdatatype.Customizable;
  */
 public abstract class BaseCustomizableMetadata<A extends Attribute> extends BaseChangeableOpenmrsMetadata implements Customizable<A> {
 	
-	private Set<A> attributes = new LinkedHashSet<>();
+	private Set<A> attributes = new LinkedHashSet<A>();
 	
 	/**
 	 * @see org.openmrs.customdatatype.Customizable#getAttributes()
@@ -48,7 +48,7 @@ public abstract class BaseCustomizableMetadata<A extends Attribute> extends Base
 	 */
 	@Override
 	public Collection<A> getActiveAttributes() {
-		List<A> ret = new ArrayList<>();
+		List<A> ret = new ArrayList<A>();
 		if (getAttributes() != null) {
 			for (A attr : getAttributes()) {
 				if (!attr.getVoided()) {
@@ -64,7 +64,7 @@ public abstract class BaseCustomizableMetadata<A extends Attribute> extends Base
 	 */
 	@Override
 	public List<A> getActiveAttributes(CustomValueDescriptor ofType) {
-		List<A> ret = new ArrayList<>();
+		List<A> ret = new ArrayList<A>();
 		if (getAttributes() != null) {
 			for (A attr : getAttributes()) {
 				if (attr.getAttributeType().equals(ofType) && !attr.getVoided()) {
@@ -81,7 +81,7 @@ public abstract class BaseCustomizableMetadata<A extends Attribute> extends Base
 	@Override
 	public void addAttribute(A attribute) {
 		if (getAttributes() == null) {
-			setAttributes(new LinkedHashSet<>());
+			setAttributes(new LinkedHashSet<A>());
 		}
 		getAttributes().add(attribute);
 		attribute.setOwner(this);

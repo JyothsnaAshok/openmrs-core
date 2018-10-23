@@ -182,7 +182,7 @@ public class Field extends BaseChangeableOpenmrsMetadata {
 	 */
 	public void addAnswer(FieldAnswer fieldAnswer) {
 		if (answers == null) {
-			answers = new HashSet<>();
+			answers = new HashSet<FieldAnswer>();
 		}
 		if (!answers.contains(fieldAnswer) && fieldAnswer != null) {
 			answers.add(fieldAnswer);

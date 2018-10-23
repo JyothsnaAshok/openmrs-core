@@ -355,7 +355,7 @@ public class HibernateLocationDAO implements LocationDAO {
 	 * @return
 	 */
 	private List<Integer> getLocationTagIds(List<LocationTag> tags) {
-		List<Integer> locationTagIds = new ArrayList<>();
+		List<Integer> locationTagIds = new ArrayList<Integer>();
 		for (LocationTag tag : tags) {
 			locationTagIds.add(tag.getLocationTagId());
 		}

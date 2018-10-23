@@ -452,7 +452,7 @@ public class Obs extends BaseChangeableOpenmrsData {
 			//Empty set so return null
 			return null;
 		}
-		Set<Obs> nonVoided = new LinkedHashSet<>(groupMembers);
+		Set<Obs> nonVoided = new LinkedHashSet<Obs>(groupMembers);
 		Iterator<Obs> i = nonVoided.iterator();
 		while (i.hasNext()) {
 			Obs obs = i.next();
@@ -498,7 +498,7 @@ public class Obs extends BaseChangeableOpenmrsData {
 		}
 		
 		if (getGroupMembers() == null) {
-			groupMembers = new HashSet<>();
+			groupMembers = new HashSet<Obs>();
 		}
 		
 		// a quick sanity check to make sure someone isn't adding
@@ -542,7 +542,7 @@ public class Obs extends BaseChangeableOpenmrsData {
 	 * @return Set&lt;Obs&gt;
 	 */
 	public Set<Obs> getRelatedObservations() {
-		Set<Obs> ret = new HashSet<>();
+		Set<Obs> ret = new HashSet<Obs>();
 		if (this.isObsGrouping()) {
 			ret.addAll(this.getGroupMembers());
 			Obs parentObs = this;

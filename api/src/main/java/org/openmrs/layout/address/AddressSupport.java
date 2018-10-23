@@ -59,7 +59,7 @@ public class AddressSupport extends LayoutSupport<AddressTemplate> implements Gl
 			    OpenmrsConstants.GLOBAL_PROPERTY_ADDRESS_TEMPLATE);
 			setAddressTemplate(layoutTemplateXml);
 			
-			List<String> specialTokens = new ArrayList<>();
+			List<String> specialTokens = new ArrayList<String>();
 			specialTokens.add("address1");
 			specialTokens.add("address2");
 			specialTokens.add("address3");
@@ -137,7 +137,7 @@ public class AddressSupport extends LayoutSupport<AddressTemplate> implements Gl
 		}
 		catch (Exception ex) {
 			log.error("Error in new xml global property value", ex);
-			setAddressTemplate(new Vector<>());
+			setAddressTemplate(new Vector<AddressTemplate>());
 		}
 	}
 	
@@ -153,7 +153,7 @@ public class AddressSupport extends LayoutSupport<AddressTemplate> implements Gl
 			addressTemplate = new AddressTemplate("Error while deserializing address layout template.");
 		}
 		
-		List<AddressTemplate> list = new ArrayList<>();
+		List<AddressTemplate> list = new ArrayList<AddressTemplate>();
 		list.add(addressTemplate);
 		setAddressTemplate(list);
 	}
@@ -166,7 +166,7 @@ public class AddressSupport extends LayoutSupport<AddressTemplate> implements Gl
 		if (!OpenmrsConstants.GLOBAL_PROPERTY_ADDRESS_TEMPLATE.equals(propertyName)) {
 			return;
 		}
-		setAddressTemplate(new Vector<>());
+		setAddressTemplate(new Vector<AddressTemplate>());
 	}
 	
 }

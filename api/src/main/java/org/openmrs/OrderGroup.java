@@ -96,7 +96,7 @@ public class OrderGroup extends BaseChangeableOpenmrsData {
 	 */
 	public List<Order> getOrders() {
 		if (orders == null) {
-			orders = new ArrayList<>();
+			orders = new ArrayList<Order>();
 		}
 		return orders;
 	}

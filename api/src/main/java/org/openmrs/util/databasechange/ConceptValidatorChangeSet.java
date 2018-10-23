@@ -57,13 +57,13 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 	private final static Logger log = LoggerFactory.getLogger(ConceptValidatorChangeSet.class);
 	
 	//List to store warnings
-	private List<String> updateWarnings = new LinkedList<>();
+	private List<String> updateWarnings = new LinkedList<String>();
 	
 	//List to store info messages
-	private List<String> logMessages = new LinkedList<>();
+	private List<String> logMessages = new LinkedList<String>();
 	
 	//A set to store unique concept names that have been updated and changes have to be persisted to the database
-	private Set<ConceptName> updatedConceptNames = new HashSet<>();
+	private Set<ConceptName> updatedConceptNames = new HashSet<ConceptName>();
 	
 	private Locale defaultLocale = new Locale("en");
 	
@@ -136,7 +136,7 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 				boolean preferredNameForLocaleFound = false;
 				boolean shortNameForLocaleFound = false;
 				//map to hold a name and a list of conceptNames that are found as duplicates
-				Map<String, List<ConceptName>> nameDuplicateConceptNamesMap = new HashMap<>();
+				Map<String, List<ConceptName>> nameDuplicateConceptNamesMap = new HashMap<String, List<ConceptName>>();
 				
 				//for each name in the locale
 				for (ConceptName nameInLocale : e.getValue()) {
@@ -147,7 +147,7 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 					//if the concept name has no locale, wonder why this would be the case but there was no not-null constraint originally
 					if (conceptNameLocale == null) {
 						if (namesWithNoLocale == null) {
-							namesWithNoLocale = new LinkedList<>();
+							namesWithNoLocale = new LinkedList<ConceptName>();
 						}
 						
 						namesWithNoLocale.add(nameInLocale);
@@ -227,10 +227,10 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 					if ((nameInLocale.isFullySpecifiedName() || nameInLocale.isPreferred())
 					        && !isNameUniqueInLocale(connection, nameInLocale, conceptId)) {
 						if (localeDuplicateNamesMap == null) {
-							localeDuplicateNamesMap = new HashMap<>();
+							localeDuplicateNamesMap = new HashMap<Locale, Set<String>>();
 						}
 						if (!localeDuplicateNamesMap.containsKey(conceptNameLocale)) {
-							localeDuplicateNamesMap.put(conceptNameLocale, new HashSet<>());
+							localeDuplicateNamesMap.put(conceptNameLocale, new HashSet<String>());
 						}
 						
 						localeDuplicateNamesMap.get(conceptNameLocale).add(nameInLocale.getName());
@@ -238,7 +238,7 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 					
 					String name = nameInLocale.getName().toLowerCase();
 					if (!nameDuplicateConceptNamesMap.containsKey(name)) {
-						nameDuplicateConceptNamesMap.put(name, new ArrayList<>());
+						nameDuplicateConceptNamesMap.put(name, new ArrayList<ConceptName>());
 					}
 					
 					nameDuplicateConceptNamesMap.get(name).add(nameInLocale);
@@ -444,7 +444,7 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 			
 			while (rs.next()) {
 				if (conceptIds == null) {
-					conceptIds = new LinkedList<>();
+					conceptIds = new LinkedList<Integer>();
 				}
 				
 				conceptIds.add(rs.getInt("concept_id"));
@@ -591,7 +591,7 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 			
 			while (rs.next()) {
 				if (localeConceptNamesMap == null) {
-					localeConceptNamesMap = new HashMap<>();
+					localeConceptNamesMap = new HashMap<Locale, List<ConceptName>>();
 				}
 				ConceptName conceptName = new ConceptName();
 				conceptName.setConceptNameId(rs.getInt("concept_name_id"));
@@ -616,7 +616,7 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 				conceptName.setVoided(false);
 				
 				if (!localeConceptNamesMap.containsKey(conceptName.getLocale())) {
-					localeConceptNamesMap.put(conceptName.getLocale(), new LinkedList<>());
+					localeConceptNamesMap.put(conceptName.getLocale(), new LinkedList<ConceptName>());
 				}
 				
 				localeConceptNamesMap.get(conceptName.getLocale()).add(conceptName);

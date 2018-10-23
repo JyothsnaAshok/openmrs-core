@@ -56,7 +56,7 @@ public class ImageHandler extends AbstractHandler implements ComplexObsHandler {
 		super();
 		
 		// Create a HashSet to quickly check for supported extensions.
-		extensions = new HashSet<>();
+		extensions = new HashSet<String>();
 		Collections.addAll(extensions, ImageIO.getWriterFormatNames());
 	}
 	

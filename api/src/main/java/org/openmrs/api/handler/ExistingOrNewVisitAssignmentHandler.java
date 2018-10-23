@@ -72,7 +72,7 @@ public class ExistingOrNewVisitAssignmentHandler extends ExistingVisitAssignment
 		
 		if (encounterVisitMapping == null) {
 			//initial one-time setup
-			setEncounterVisitMapping(new HashMap<>());
+			setEncounterVisitMapping(new HashMap<EncounterType, VisitType>());
 			Context.getAdministrationService().addGlobalPropertyListener(this);
 		}
 		
@@ -81,7 +81,7 @@ public class ExistingOrNewVisitAssignmentHandler extends ExistingVisitAssignment
 			visitType = loadVisitType(encounter.getEncounterType());
 			
 			//replace reference instead of synchronizing
-			Map<EncounterType, VisitType> newMap = new HashMap<>(encounterVisitMapping);
+			Map<EncounterType, VisitType> newMap = new HashMap<EncounterType, VisitType>(encounterVisitMapping);
 			newMap.put(encounter.getEncounterType(), visitType);
 			
 			setEncounterVisitMapping(newMap);
@@ -148,12 +148,12 @@ public class ExistingOrNewVisitAssignmentHandler extends ExistingVisitAssignment
 	
 	@Override
 	public void globalPropertyChanged(GlobalProperty newValue) {
-		setEncounterVisitMapping(new HashMap<>());
+		setEncounterVisitMapping(new HashMap<EncounterType, VisitType>());
 	}
 	
 	@Override
 	public void globalPropertyDeleted(String propertyName) {
-		setEncounterVisitMapping(new HashMap<>());
+		setEncounterVisitMapping(new HashMap<EncounterType, VisitType>());
 	}
 	
 }

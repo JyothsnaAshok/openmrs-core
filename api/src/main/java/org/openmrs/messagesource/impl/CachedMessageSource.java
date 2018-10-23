@@ -28,7 +28,7 @@ import org.springframework.context.support.AbstractMessageSource;
  */
 public class CachedMessageSource extends AbstractMessageSource implements MutableMessageSource {
 	
-	Map<Locale, PresentationMessageMap> localizedMap = new HashMap<>();
+	Map<Locale, PresentationMessageMap> localizedMap = new HashMap<Locale, PresentationMessageMap>();
 	
 	/* (non-Javadoc)
 	 * @see org.openmrs.messagesource.MutableMessageSource#addPresentation(org.openmrs.api.PresentationMessage)
@@ -57,7 +57,7 @@ public class CachedMessageSource extends AbstractMessageSource implements Mutabl
 	 */
 	@Override
 	public Collection<PresentationMessage> getPresentations() {
-		Collection<PresentationMessage> allMessages = new ArrayList<>();
+		Collection<PresentationMessage> allMessages = new ArrayList<PresentationMessage>();
 		
 		for (PresentationMessageMap codeMessageMap : localizedMap.values()) {
 			allMessages.addAll(codeMessageMap.values());

@@ -401,7 +401,7 @@ public class HibernateContextDAO implements ContextDAO {
 	@Override
 	public void mergeDefaultRuntimeProperties(Properties runtimeProperties) {
 		
-		Map<String, String> cache = new HashMap<>();
+		Map<String, String> cache = new HashMap<String, String>();
 		// loop over runtime properties and precede each with "hibernate" if
 		// it isn't already
 		for (Map.Entry<Object, Object> entry : runtimeProperties.entrySet()) {

@@ -55,7 +55,7 @@ public class Drug extends BaseChangeableOpenmrsMetadata {
 	
 	/** default constructor */
 	public Drug() {
-		ingredients = new LinkedHashSet<>();
+		ingredients = new LinkedHashSet<DrugIngredient>();
 	}
 	
 	/** constructor with id */
@@ -243,7 +243,7 @@ public class Drug extends BaseChangeableOpenmrsMetadata {
 	 */
 	public Set<DrugReferenceMap> getDrugReferenceMaps() {
 		if (drugReferenceMaps == null) {
-			drugReferenceMaps = new LinkedHashSet<>();
+			drugReferenceMaps = new LinkedHashSet<DrugReferenceMap>();
 		}
 		return drugReferenceMaps;
 	}

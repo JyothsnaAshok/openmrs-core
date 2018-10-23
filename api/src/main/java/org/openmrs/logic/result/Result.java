@@ -699,7 +699,7 @@ public class Result extends ArrayList<Result> {
 			}
 			return this;
 		}
-		List<Result> matches = new ArrayList<>();
+		List<Result> matches = new ArrayList<Result>();
 		for (Result r : this) {
 			if (!r.gt(value).isEmpty()) {
 				matches.add(r);
@@ -751,11 +751,11 @@ public class Result extends ArrayList<Result> {
 			return this;
 		}
 		Integer something = Integer.valueOf(1);
-		Map<Result, Integer> map = new HashMap<>();
+		Map<Result, Integer> map = new HashMap<Result, Integer>();
 		for (Result r : this) {
 			map.put(r, something);
 		}
-		List<Result> uniqueList = new ArrayList<>(map.keySet());
+		List<Result> uniqueList = new ArrayList<Result>(map.keySet());
 		return new Result(uniqueList);
 	}
 	

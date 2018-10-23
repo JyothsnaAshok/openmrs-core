@@ -84,7 +84,7 @@ public class Role extends BaseChangeableOpenmrsMetadata {
 	 */
 	public void addPrivilege(Privilege privilege) {
 		if (privileges == null) {
-			privileges = new HashSet<>();
+			privileges = new HashSet<Privilege>();
 		}
 		if (privilege != null && !containsPrivilege(privileges, privilege.getPrivilege())) {
 			privileges.add(privilege);
@@ -166,7 +166,7 @@ public class Role extends BaseChangeableOpenmrsMetadata {
 	 */
 	public Set<Role> getInheritedRoles() {
 		if (inheritedRoles == null) {
-			inheritedRoles = new HashSet<>();
+			inheritedRoles = new HashSet<Role>();
 		}
 		return inheritedRoles;
 	}
@@ -194,7 +194,7 @@ public class Role extends BaseChangeableOpenmrsMetadata {
 	 * @return Return this role's parents
 	 */
 	public Set<Role> getAllParentRoles() {
-		Set<Role> parents = new HashSet<>();
+		Set<Role> parents = new HashSet<Role>();
 		if (inheritsRoles()) {
 			parents.addAll(this.recurseOverParents(parents));
 		}
@@ -212,8 +212,8 @@ public class Role extends BaseChangeableOpenmrsMetadata {
 			return total;
 		}
 		
-		Set<Role> allRoles = new HashSet<>(); // total roles (parents + children)
-		Set<Role> myRoles = new HashSet<>(); // new roles
+		Set<Role> allRoles = new HashSet<Role>(); // total roles (parents + children)
+		Set<Role> myRoles = new HashSet<Role>(); // new roles
 		allRoles.addAll(total);
 		
 		myRoles.addAll(this.getInheritedRoles());
@@ -258,7 +258,7 @@ public class Role extends BaseChangeableOpenmrsMetadata {
 	 */
 	public Set<Role> getChildRoles() {
 		if (childRoles == null) {
-			childRoles = new HashSet<>();
+			childRoles = new HashSet<Role>();
 		}
 		return childRoles;
 	}
@@ -289,7 +289,7 @@ public class Role extends BaseChangeableOpenmrsMetadata {
 	 * @since 1.9
 	 */
 	public Set<Role> getAllChildRoles() {
-		Set<Role> children = new HashSet<>();
+		Set<Role> children = new HashSet<Role>();
 		if (hasChildRoles()) {
 			children.addAll(this.recurseOverChildren(children));
 		}
@@ -308,8 +308,8 @@ public class Role extends BaseChangeableOpenmrsMetadata {
 			return total;
 		}
 		
-		Set<Role> allRoles = new HashSet<>(); // total roles (parents + children)
-		Set<Role> myRoles = new HashSet<>(); // new roles
+		Set<Role> allRoles = new HashSet<Role>(); // total roles (parents + children)
+		Set<Role> myRoles = new HashSet<Role>(); // new roles
 		allRoles.addAll(total);
 		
 		myRoles.addAll(this.getChildRoles());

@@ -508,7 +508,7 @@ public class OrderServiceImpl extends BaseOpenmrsService implements OrderService
 		}
 		List<OrderType> orderTypes = null;
 		if (orderType != null) {
-			orderTypes = new ArrayList<>();
+			orderTypes = new ArrayList<OrderType>();
 			orderTypes.add(orderType);
 			orderTypes.addAll(getSubtypes(orderType, true));
 		}
@@ -580,13 +580,13 @@ public class OrderServiceImpl extends BaseOpenmrsService implements OrderService
 		if (patient == null || concept == null) {
 			throw new IllegalArgumentException("patient and concept are required");
 		}
-		List<Concept> concepts = new ArrayList<>();
+		List<Concept> concepts = new ArrayList<Concept>();
 		concepts.add(concept);
 		
-		List<Patient> patients = new ArrayList<>();
+		List<Patient> patients = new ArrayList<Patient>();
 		patients.add(patient);
 		
-		return dao.getOrders(null, patients, concepts, new Vector<>(), new Vector<>());
+		return dao.getOrders(null, patients, concepts, new Vector<User>(), new Vector<Encounter>());
 	}
 	
 	/**
@@ -604,7 +604,7 @@ public class OrderServiceImpl extends BaseOpenmrsService implements OrderService
 	@Override
 	@Transactional(readOnly = true)
 	public List<Order> getOrderHistoryByOrderNumber(String orderNumber) {
-		List<Order> orders = new ArrayList<>();
+		List<Order> orders = new ArrayList<Order>();
 		Order order = dao.getOrderByOrderNumber(orderNumber);
 		while (order != null) {
 			orders.add(order);
@@ -628,7 +628,7 @@ public class OrderServiceImpl extends BaseOpenmrsService implements OrderService
 		}
 		List<OrderType> orderTypes = null;
 		if (orderType != null) {
-			orderTypes = new ArrayList<>();
+			orderTypes = new ArrayList<OrderType>();
 			orderTypes.add(orderType);
 			orderTypes.addAll(getSubtypes(orderType, true));
 		}
@@ -936,10 +936,10 @@ public class OrderServiceImpl extends BaseOpenmrsService implements OrderService
 	@Override
 	@Transactional(readOnly = true)
 	public List<OrderType> getSubtypes(OrderType orderType, boolean includeRetired) {
-		List<OrderType> allSubtypes = new ArrayList<>();
+		List<OrderType> allSubtypes = new ArrayList<OrderType>();
 		List<OrderType> immediateAncestors = dao.getOrderSubtypes(orderType, includeRetired);
 		while (!immediateAncestors.isEmpty()) {
-			List<OrderType> ancestorsAtNextLevel = new ArrayList<>();
+			List<OrderType> ancestorsAtNextLevel = new ArrayList<OrderType>();
 			for (OrderType type : immediateAncestors) {
 				allSubtypes.add(type);
 				ancestorsAtNextLevel.addAll(dao.getOrderSubtypes(type, includeRetired));
@@ -985,7 +985,7 @@ public class OrderServiceImpl extends BaseOpenmrsService implements OrderService
 	@Override
 	@Transactional(readOnly = true)
 	public List<Concept> getDrugDispensingUnits() {
-		List<Concept> dispensingUnits = new ArrayList<>();
+		List<Concept> dispensingUnits = new ArrayList<Concept>();
 		dispensingUnits.addAll(getSetMembersOfConceptSetFromGP(OpenmrsConstants.GP_DRUG_DISPENSING_UNITS_CONCEPT_UUID));
 		for (Concept concept : getDrugDosingUnits()) {
 			if (!dispensingUnits.contains(concept)) {
