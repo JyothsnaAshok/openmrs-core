@@ -75,7 +75,8 @@ public class Security {
 	 * @return the error message string with algorithm type used
 	 */
 	private static String getPasswordEncodeFailMessage(String algo) {
-		return "Can't encode password because the given algorithm: " + algo + " was not found! (fail)";
+		String errorMessage = "Can't encode password because the given algorithm: " + algo + " was not found! (fail)";
+		return errorMessage;
 	}
 	
 	/**

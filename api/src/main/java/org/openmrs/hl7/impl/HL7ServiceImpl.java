@@ -422,8 +422,9 @@ public class HL7ServiceImpl extends BaseOpenmrsService implements HL7Service {
  	 * @return error string. User can not be resolveUserId
  	 */
  	private String getFindingUserErrorMessage(String idNum, String fName, String gName) {
-	    return "Error resolving user with id '" + idNum + "' family name '" + fName
-			      + "' and given name '" + gName + "'";
+ 		String cantFindUser = "Error resolving user with id '" + idNum + "' family name '" + fName
+ 				  + "' and given name '" + gName + "'";
+ 		return cantFindUser;
  	}
 	
 	/**

@@ -234,7 +234,8 @@ public class HibernateFormDAO implements FormDAO {
 			}
 		} else {
 			// if formFields.size() is still greater than 0
-			return (FormField) formFields.get(0);
+			FormField ff = (FormField) formFields.get(0);
+			return ff;
 		}
 	}
 	

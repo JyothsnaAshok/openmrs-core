@@ -1776,8 +1776,10 @@ public class HibernateConceptDAO implements ConceptDAO {
 		    null, null, null, null, null);
 		
 		List<ConceptName> names = conceptNameQuery.list();
-
-		return new ArrayList<>(transformNamesToConcepts(names));
+		
+		final List<Concept> concepts = new ArrayList<>(transformNamesToConcepts(names));
+		
+		return concepts;
 	}
 	
 	/**

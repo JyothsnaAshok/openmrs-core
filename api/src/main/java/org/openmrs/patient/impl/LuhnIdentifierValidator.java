@@ -99,7 +99,8 @@ public class LuhnIdentifierValidator extends BaseHyphenatedIdentifierValidator {
 		checkAllowedIdentifier(undecoratedIdentifier);
 		
 		int checkDigit = getCheckDigit(undecoratedIdentifier);
-
-		return undecoratedIdentifier + "-" + checkDigit;
+		
+		String result = undecoratedIdentifier + "-" + checkDigit;
+		return result;
 	}
 }

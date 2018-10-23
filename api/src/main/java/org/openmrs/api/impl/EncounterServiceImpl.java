@@ -682,8 +682,9 @@ public class EncounterServiceImpl extends BaseOpenmrsService implements Encounte
 	@Override
 	@Transactional(readOnly = true)
 	public List<EncounterVisitHandler> getEncounterVisitHandlers() {
-
-		return HandlerUtil.getHandlersForType(EncounterVisitHandler.class, null);
+		List<EncounterVisitHandler> handlers = HandlerUtil.getHandlersForType(EncounterVisitHandler.class, null);
+		
+		return handlers;
 	}
 	
 	/**

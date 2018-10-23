@@ -43,8 +43,9 @@ public abstract class BaseHyphenatedIdentifierValidator implements IdentifierVal
 		checkAllowedIdentifier(undecoratedIdentifier);
 		
 		char checkLetter = convertCheckDigitToChar(getCheckDigit(undecoratedIdentifier));
-
-		return undecoratedIdentifier + "-" + checkLetter;
+		
+		String result = undecoratedIdentifier + "-" + checkLetter;
+		return result;
 	}
 	
 	/**

@@ -263,7 +263,8 @@ public class PersonAttribute extends BaseChangeableOpenmrsData implements java.i
 			catch (InstantiationException e) {
 				// try to hydrate the object with the String constructor
 				log.trace("Unable to call no-arg constructor for class: " + c.getName());
-				return c.getConstructor(String.class).newInstance(getValue());
+				Object o = c.getConstructor(String.class).newInstance(getValue());
+				return o;
 			}
 		}
 		catch (Exception e) {

@@ -92,7 +92,8 @@ public class OrderSetServiceImpl extends BaseOpenmrsService implements OrderSetS
 	@Override
 	@Transactional(readOnly = true)
 	public List<OrderSet> getOrderSets(boolean includeRetired) throws APIException {
-		return dao.getOrderSets(includeRetired);
+		List<OrderSet> orderSets = dao.getOrderSets(includeRetired);
+		return orderSets;
 	}
 	
 	/**

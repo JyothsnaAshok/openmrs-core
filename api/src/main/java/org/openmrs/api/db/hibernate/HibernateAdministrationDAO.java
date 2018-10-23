@@ -97,8 +97,9 @@ public class HibernateAdministrationDAO implements AdministrationDAO, Applicatio
 	public GlobalProperty getGlobalPropertyObject(String propertyName) {
 		if (isDatabaseStringComparisonCaseSensitive()) {
 			Criteria criteria = sessionFactory.getCurrentSession().createCriteria(GlobalProperty.class);
-			return (GlobalProperty) criteria.add(Restrictions.eq("property", propertyName).ignoreCase())
+			GlobalProperty gp = (GlobalProperty) criteria.add(Restrictions.eq("property", propertyName).ignoreCase())
 			        .uniqueResult();
+			return gp;
 		} else {
 			return (GlobalProperty) sessionFactory.getCurrentSession().get(GlobalProperty.class, propertyName);
 		}
@@ -106,9 +107,10 @@ public class HibernateAdministrationDAO implements AdministrationDAO, Applicatio
 	
 	@Override
 	public GlobalProperty getGlobalPropertyByUuid(String uuid) throws DAOException {
-
-		return (GlobalProperty) sessionFactory.getCurrentSession()
+		GlobalProperty gp = (GlobalProperty) sessionFactory.getCurrentSession()
 		        .createQuery("from GlobalProperty t where t.uuid = :uuid").setString("uuid", uuid).uniqueResult();
+		
+		return gp;
 	}
 	
 	/**

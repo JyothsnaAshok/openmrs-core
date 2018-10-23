@@ -350,8 +350,9 @@ public class UpdateFilter extends StartupFilter {
 							String storedPassword = results.getString(2);
 							String salt = results.getString(3);
 							String passwordToHash = password + salt;
-							return Security.hashMatches(storedPassword, passwordToHash)
+							boolean result = Security.hashMatches(storedPassword, passwordToHash)
 							        && isSuperUser(connection, userId);
+							return result;
 						}
 					}
 					finally {
@@ -402,8 +403,9 @@ public class UpdateFilter extends StartupFilter {
 								String storedPassword = results.getString(2);
 								String salt = results.getString(3);
 								String passwordToHash = password + salt;
-								return Security.hashMatches(storedPassword, passwordToHash)
+								boolean result = Security.hashMatches(storedPassword, passwordToHash)
 								        && isSuperUser(connection, userId);
+								return result;
 							}
 						}
 						finally {
