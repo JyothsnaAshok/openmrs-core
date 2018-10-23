@@ -1508,7 +1508,7 @@ public class HibernateConceptDAO implements ConceptDAO {
 		}
 		
 		List<ConceptMapType> conceptMapTypes = criteria.list();
-		conceptMapTypes.sort(new ConceptMapTypeComparator());
+		Collections.sort(conceptMapTypes, new ConceptMapTypeComparator());
 		
 		return conceptMapTypes;
 	}

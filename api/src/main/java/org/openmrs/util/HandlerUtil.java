@@ -143,8 +143,8 @@ public class HandlerUtil implements ApplicationListener<ContextRefreshedEvent> {
 		}
 		
 		// Return the list of handlers based on the order specified in the Handler annotation
-		handlers.sort(new Comparator<H>() {
-
+		Collections.sort(handlers, new Comparator<H>() {
+			
 			@Override
 			public int compare(H o1, H o2) {
 				return getOrderOfHandler(o1.getClass()).compareTo(getOrderOfHandler(o2.getClass()));

@@ -54,7 +54,7 @@ public class PatientIdentifierTypeDefaultComparatorTest {
 		
 		List<PatientIdentifierType> list = Arrays.asList(notRequiredRetired, requiredRetired2a, notRequiredNotRetiredA,
 		    requiredNotRetired, notRequiredNotRetiredB, requiredRetired1A);
-		list.sort(new PatientIdentifierTypeDefaultComparator());
+		Collections.sort(list, new PatientIdentifierTypeDefaultComparator());
 		
 		Assert.assertEquals(Arrays.asList(requiredNotRetired, notRequiredNotRetiredA, notRequiredNotRetiredB,
 		    requiredRetired1A, requiredRetired2a, notRequiredRetired), list);
