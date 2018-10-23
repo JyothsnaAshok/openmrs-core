@@ -78,6 +78,3 @@ nb-configuration.xml
 #############
 
 *.log
-
-!.editorconfig
-
