@@ -585,13 +585,18 @@ public class ModuleFileParser {
 	private GlobalProperty extractGlobalProperty(Element element) {
 		String property = getElementTrimmed(element, "property");
 		String defaultValue = getElementTrimmed(element, "defaultValue");
-		String description = removeTabsAndTrim(getElementTrimmed(element, "description"));
+		String description = getElementTrimmed(element, "description");
 		String datatypeClassname = getElementTrimmed(element, "datatypeClassname");
 		String datatypeConfig = getElementTrimmed(element, "datatypeConfig");
 		
 		log.debug("property: {}, defaultValue: {}", property, defaultValue);
 		log.debug("description: {}, datatypeClassname: {}", description, datatypeClassname);
 		log.debug("datatypeConfig: {}", datatypeConfig);
+
+		// remove tabs from description and trim start/end whitespace
+		if (description != null) {
+			description = description.replaceAll("	", "").trim();
+		}
 
 		// name is required
 		GlobalProperty globalProperty = null;
@@ -615,10 +620,6 @@ public class ModuleFileParser {
 			log.warn("'property' is required for global properties. Given '" + property + "'");
 		}
 		return globalProperty;
-	}
-
-	private String removeTabsAndTrim(String string) {
-		return string.replaceAll("	", "").trim();
 	}
 
 	private List<String> getMappingFiles(Element rootNode) {
