@@ -320,4 +320,8 @@
 			</build>
 		</profile>
 	</profiles>
+	
+	<properties>
+		<sonar.exclusions>src/main/java/org/openmrs/arden/**/*</sonar.exclusions>
+	</properties>
 </project>
