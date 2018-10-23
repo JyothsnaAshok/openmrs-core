@@ -175,8 +175,9 @@ public class ModuleFactoryTest extends BaseContextSensitiveTest {
 	
 	private Module loadModule(String location, String moduleName, boolean replace) {
 		String moduleLocation = ModuleUtil.class.getClassLoader().getResource(location).getPath();
+		Module newModule = ModuleFactory.loadModule(new File(moduleLocation), replace);
 
-		return ModuleFactory.loadModule(new File(moduleLocation), replace);
+		return newModule;
 	}
 	
 	private List<File> getModuleFiles() {

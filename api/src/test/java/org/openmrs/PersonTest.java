@@ -538,10 +538,11 @@ public class PersonTest extends BaseContextSensitiveTest {
 		
 		// addresses
 		PersonAddress notVoidedAddress = PersonAddressBuilder.newBuilder().withPreferred(false).withVoided(false).build();
-
+		
+		PersonAddress expectedPersonAddress = notVoidedAddress;
 		Set<PersonAddress> personAddresses = new HashSet<>(Arrays.asList(voidedAddress, notVoidedAddress));
 		
-		checkGetPersonAddressResultForVoidedPerson(notVoidedAddress, personAddresses);
+		checkGetPersonAddressResultForVoidedPerson(expectedPersonAddress, personAddresses);
 	}
 	
 	/**
@@ -555,11 +556,12 @@ public class PersonTest extends BaseContextSensitiveTest {
 		
 		PersonAddress preferredNotVoidedAddress = PersonAddressBuilder.newBuilder().withPreferred(true).withVoided(false)
 		        .build();
-
+		
+		PersonAddress expectedPersonAddress = preferredNotVoidedAddress;
 		HashSet<PersonAddress> personAddresses = new HashSet<>(Arrays.asList(voidedAddress,
 		    preferredNotVoidedAddress));
 		
-		checkGetPersonAddressResultForVoidedPerson(preferredNotVoidedAddress, personAddresses);
+		checkGetPersonAddressResultForVoidedPerson(expectedPersonAddress, personAddresses);
 		
 	}
 	
@@ -592,8 +594,10 @@ public class PersonTest extends BaseContextSensitiveTest {
 		
 		PersonName notVoidedName = PersonNameBuilder.newBuilder().withVoided(false).build();
 		PersonName voidedName = PersonNameBuilder.newBuilder().withVoided(true).build();
-
-		checkGetPersonNameResultForVoidedPerson(notVoidedName, new HashSet<>(Arrays.asList(notVoidedName,
+		
+		PersonName expectedPersonName = notVoidedName;
+		
+		checkGetPersonNameResultForVoidedPerson(expectedPersonName, new HashSet<>(Arrays.asList(notVoidedName,
 				voidedName)));
 	}
 	
@@ -606,8 +610,10 @@ public class PersonTest extends BaseContextSensitiveTest {
 		PersonName preferredNotVoidedName = PersonNameBuilder.newBuilder().withPreferred(true).withVoided(false).build();
 		PersonName notVoidedName = PersonNameBuilder.newBuilder().withVoided(false).build();
 		PersonName voidedName = PersonNameBuilder.newBuilder().withVoided(true).build();
-
-		checkGetPersonNameResultForVoidedPerson(preferredNotVoidedName, new HashSet<>(Arrays.asList(
+		
+		PersonName expectedPersonName = preferredNotVoidedName;
+		
+		checkGetPersonNameResultForVoidedPerson(expectedPersonName, new HashSet<>(Arrays.asList(
 		    preferredNotVoidedName, notVoidedName, voidedName)));
 	}
 	
@@ -618,8 +624,10 @@ public class PersonTest extends BaseContextSensitiveTest {
 	public void getPersonName_shouldGetVoidedPersonAddressIfPersonIsVoidedAndNotvoidedAddressDoesNotExist() {
 		
 		PersonName voidedName = PersonNameBuilder.newBuilder().withVoided(true).build();
-
-		checkGetPersonNameResultForVoidedPerson(voidedName, new HashSet<>(Collections.singletonList(voidedName)));
+		
+		PersonName expectedPersonName = voidedName;
+		
+		checkGetPersonNameResultForVoidedPerson(expectedPersonName, new HashSet<>(Collections.singletonList(voidedName)));
 		
 	}
 	

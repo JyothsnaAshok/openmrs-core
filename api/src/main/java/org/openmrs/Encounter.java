@@ -702,7 +702,8 @@ public class Encounter extends BaseChangeableOpenmrsData {
 				order.getOrderGroup().addOrder(order, null);
 			}
 		}
-		return new ArrayList<>(orderGroups.values());
+		List<OrderGroup> orderGroupList = new ArrayList<>(orderGroups.values());
+		return orderGroupList;
 	}
 	
 	/**
