@@ -982,16 +982,24 @@ public class OpenmrsUtil {
 		if (file == null) {// non-local JAR file URL
 			return url.openStream();
 		}
-		try (JarFile jarFile = new JarFile(file)) {
+		JarFile jarFile = new JarFile(file);
+		try {
 			ZipEntry entry = jarFile.getEntry(path);
 			if (entry == null) {
 				throw new FileNotFoundException(url.toExternalForm());
 			}
-			try (InputStream in = jarFile.getInputStream(entry)) {
+			InputStream in = jarFile.getInputStream(entry);
+			try {
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				copyFile(in, out);
 				return new ByteArrayInputStream(out.toByteArray());
 			}
+			finally {
+				in.close();
+			}
+		}
+		finally {
+			jarFile.close();
 		}
 	}
 	

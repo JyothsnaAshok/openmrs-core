@@ -93,7 +93,8 @@ public class MigrateDataSet {
 				doMigration(innerFile);
 			}
 		} else if (filename.endsWith(".xml")) {
-
+			InputStream fileOrDirectoryStream = new FileInputStream(fileOrDirectory);
+			
 			System.out.println("Migrating " + fileOrDirectory.getAbsolutePath());
 			
 			System.out.println(execMysqlCmd("DROP DATABASE IF EXISTS " + tempDatabaseName, null, false));
@@ -109,24 +110,24 @@ public class MigrateDataSet {
 			
 			// database connection for dbunit
 			IDatabaseConnection dbunitConnection = new DatabaseConnection(con);
-
-			try (InputStream fileOrDirectoryStream = new FileInputStream(fileOrDirectory)) {
+			
+			try {
 				PreparedStatement ps = con.prepareStatement("SET FOREIGN_KEY_CHECKS=0;");
 				ps.execute();
 				ps.close();
-
+				
 				IDataSet dataset = new FlatXmlDataSet(fileOrDirectoryStream);
-
+				
 				DatabaseOperation.REFRESH.execute(dbunitConnection, dataset);
-
+				
 				//turn off foreign key checks here too.
 				System.out.println(execMysqlCmd("SET FOREIGN_KEY_CHECKS=0", NEW_UPDATE_FILE, true));
-
+				
 				System.out.println("Dumping new xml file");
-
+				
 				// get a new connection so dbunit knows the right column headers
 				dbunitConnection = new DatabaseConnection(con);
-
+				
 				// full database export that will ignore empty tables
 				FlatXmlWriter datasetWriter = new FlatXmlWriter(new FileOutputStream(fileOrDirectory));
 				datasetWriter.write(dbunitConnection.createDataSet());
@@ -135,6 +136,7 @@ public class MigrateDataSet {
 				System.err.println("Unable to convert: " + filename + " Error: " + e.getMessage());
 			}
 			finally {
+				fileOrDirectoryStream.close();
 				dbunitConnection = null;
 			}
 			
