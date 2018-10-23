@@ -151,17 +151,18 @@ public class ConceptServiceImpl extends BaseOpenmrsService implements ConceptSer
 		if (CollectionUtils.isNotEmpty(changedConceptNames)) {
 			for (ConceptName changedName : changedConceptNames) {
 				// void old concept name
-				changedName.setVoided(true);
-				changedName.setDateVoided(new Date());
-				changedName.setVoidedBy(Context.getAuthenticatedUser());
-				changedName.setVoidReason(Context.getMessageSourceService().getMessage("Concept.name.voidReason.nameChanged"));
+				ConceptName nameInDB = changedName;
+				nameInDB.setVoided(true);
+				nameInDB.setDateVoided(new Date());
+				nameInDB.setVoidedBy(Context.getAuthenticatedUser());
+				nameInDB.setVoidReason(Context.getMessageSourceService().getMessage("Concept.name.voidReason.nameChanged"));
 
-				makeVoidedNameSynonym(changedName);
-				makeLocaleNotPreferred(changedName);
+				makeVoidedNameSynonym(nameInDB);
+				makeLocaleNotPreferred(nameInDB);
 				
 				// create a new concept name from the matching cloned
 				// conceptName
-				ConceptName clone = uuidClonedConceptNameMap.get(changedName.getUuid());
+				ConceptName clone = uuidClonedConceptNameMap.get(nameInDB.getUuid());
 				clone.setUuid(UUID.randomUUID().toString());
 				clone.setDateCreated(null);
 				clone.setCreator(null);
